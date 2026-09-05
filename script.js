@@ -90,15 +90,55 @@ const popupModal = document.getElementById('popupModal');
 const closeModalBtn = document.getElementById('closeModal');
 
 if (contactForm) {
+    // 1. Create a hidden iframe to receive the Google Form response silently
+    const iframe = document.createElement('iframe');
+    iframe.name = 'hidden_iframe';
+    iframe.id = 'hidden_iframe';
+    iframe.style.display = 'none';
+    document.body.appendChild(iframe);
+    
+    // 2. Create a hidden form pointing to Google Forms
+    const gForm = document.createElement('form');
+    // Important: Removed /u/0/ from URL to ensure it doesn't break if not logged into Google
+    gForm.action = 'https://docs.google.com/forms/d/e/1FAIpQLSf-r0SukmNLLiy5Q2bQQdxhqrpVWYHOm-XG2KnuPYeFVxZLkw/formResponse';
+    gForm.method = 'POST';
+    gForm.target = 'hidden_iframe';
+    gForm.style.display = 'none';
+    
+    // Google Form entry names
+    const entryNames = ['entry.1990858110', 'entry.1001712759', 'entry.510023503', 'entry.1795259233'];
+    const hiddenInputs = entryNames.map(name => {
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = name;
+        gForm.appendChild(input);
+        return input;
+    });
+    document.body.appendChild(gForm);
+
+    let isSubmitting = false;
+
+    // 3. When the iframe loads, it means the form was submitted
+    iframe.addEventListener('load', function() {
+        if (isSubmitting) {
+            popupModal.classList.add('show');
+            contactForm.reset();
+            isSubmitting = false;
+        }
+    });
+
     contactForm.addEventListener('submit', function(e) {
-        e.preventDefault(); // Prevent actual form submission
+        e.preventDefault(); // Prevent default UI form submission
         
-        // Form is valid (handled by HTML5 'required' attributes)
-        // Show success popup
-        popupModal.classList.add('show');
-        
-        // Reset the form fields
-        contactForm.reset();
+        // 4. Map UI form values to hidden Google Form
+        const formData = new FormData(contactForm);
+        hiddenInputs[0].value = formData.get('name');
+        hiddenInputs[1].value = formData.get('email');
+        hiddenInputs[2].value = formData.get('phone');
+        hiddenInputs[3].value = formData.get('message');
+
+        isSubmitting = true;
+        gForm.submit(); // Submit the hidden form
     });
 }
 
