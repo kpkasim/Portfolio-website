@@ -1,17 +1,32 @@
+// --- Custom Cursor ---
+const cursorDot = document.querySelector('.cursor-dot');
+const cursorOutline = document.querySelector('.cursor-outline');
+
+window.addEventListener('mousemove', (e) => {
+    const posX = e.clientX;
+    const posY = e.clientY;
+
+    cursorDot.style.left = `${posX}px`;
+    cursorDot.style.top = `${posY}px`;
+
+    // Add a slight delay to the outline for a smooth effect
+    cursorOutline.animate({
+        left: `${posX}px`,
+        top: `${posY}px`
+    }, { duration: 500, fill: "forwards" });
+});
+
+// --- Navbar Mobile Menu ---
 const navSlide = () => {
     const burger = document.querySelector('.burger');
     const nav = document.querySelector('.nav-links');
     const navLinks = document.querySelectorAll('.nav-links li');
 
-    // Toggle Nav
     burger.addEventListener('click', () => {
         nav.classList.toggle('nav-active');
-
-        // Burger Animation
         burger.classList.toggle('toggle');
     });
 
-    // Close nav when clicking on a link
     navLinks.forEach(link => {
         link.addEventListener('click', () => {
             if (nav.classList.contains('nav-active')) {
@@ -22,7 +37,7 @@ const navSlide = () => {
     });
 }
 
-// Add burger animation css dynamically
+// Burger animation styles
 const style = document.createElement('style');
 style.innerHTML = `
     .burger.toggle .line1 {
@@ -39,49 +54,64 @@ document.head.appendChild(style);
 
 navSlide();
 
-// Smooth scrolling for anchor links
+// --- Smooth Scrolling ---
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
-
-        document.querySelector(this.getAttribute('href')).scrollIntoView({
-            behavior: 'smooth'
-        });
+        const target = document.querySelector(this.getAttribute('href'));
+        if(target) {
+            target.scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
     });
 });
 
-// Update Year dynamically
 document.getElementById('year').textContent = new Date().getFullYear();
 
-
-// --- Theme Toggle Logic ---
-const themeToggleBtn = document.getElementById('theme-toggle');
-const themeIcon = themeToggleBtn.querySelector('i');
+// --- Theme Toggle (Checkbox based) ---
+const themeCheckbox = document.getElementById('theme-toggle-checkbox');
 const htmlElement = document.documentElement;
 
-// Check for saved theme in local storage, else default to dark based on user image preference
 const savedTheme = localStorage.getItem('theme') || 'dark';
 htmlElement.setAttribute('data-theme', savedTheme);
-updateThemeIcon(savedTheme);
+if(savedTheme === 'dark') {
+    themeCheckbox.checked = false; // Slider is on the left (Sun)
+} else {
+    themeCheckbox.checked = true;  // Slider is on the right (Moon)
+}
 
-themeToggleBtn.addEventListener('click', () => {
-    const currentTheme = htmlElement.getAttribute('data-theme');
-    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-    
-    htmlElement.setAttribute('data-theme', newTheme);
-    localStorage.setItem('theme', newTheme);
-    updateThemeIcon(newTheme);
+themeCheckbox.addEventListener('change', (e) => {
+    if (e.target.checked) {
+        // Switched to Light mode
+        htmlElement.setAttribute('data-theme', 'light');
+        localStorage.setItem('theme', 'light');
+    } else {
+        // Switched to Dark mode
+        htmlElement.setAttribute('data-theme', 'dark');
+        localStorage.setItem('theme', 'dark');
+    }
 });
 
-function updateThemeIcon(theme) {
-    if (theme === 'dark') {
-        themeIcon.classList.remove('fa-moon');
-        themeIcon.classList.add('fa-sun');
-    } else {
-        themeIcon.classList.remove('fa-sun');
-        themeIcon.classList.add('fa-moon');
-    }
-}
+
+// --- Intersection Observer for Fade-Up Animations ---
+const observerOptions = {
+    threshold: 0.1,
+    rootMargin: "0px 0px -50px 0px"
+};
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+        }
+    });
+}, observerOptions);
+
+document.querySelectorAll('.fade-up').forEach((el) => {
+    observer.observe(el);
+});
 
 
 // --- Contact Form & Modal Logic ---
@@ -90,66 +120,19 @@ const popupModal = document.getElementById('popupModal');
 const closeModalBtn = document.getElementById('closeModal');
 
 if (contactForm) {
-    // 1. Create a hidden iframe to receive the Google Form response silently
-    const iframe = document.createElement('iframe');
-    iframe.name = 'hidden_iframe';
-    iframe.id = 'hidden_iframe';
-    iframe.style.display = 'none';
-    document.body.appendChild(iframe);
-    
-    // 2. Create a hidden form pointing to Google Forms
-    const gForm = document.createElement('form');
-    // Important: Removed /u/0/ from URL to ensure it doesn't break if not logged into Google
-    gForm.action = 'https://docs.google.com/forms/d/e/1FAIpQLSf-r0SukmNLLiy5Q2bQQdxhqrpVWYHOm-XG2KnuPYeFVxZLkw/formResponse';
-    gForm.method = 'POST';
-    gForm.target = 'hidden_iframe';
-    gForm.style.display = 'none';
-    
-    // Google Form entry names
-    const entryNames = ['entry.1990858110', 'entry.1001712759', 'entry.510023503', 'entry.1795259233'];
-    const hiddenInputs = entryNames.map(name => {
-        const input = document.createElement('input');
-        input.type = 'hidden';
-        input.name = name;
-        gForm.appendChild(input);
-        return input;
-    });
-    document.body.appendChild(gForm);
-
-    let isSubmitting = false;
-
-    // 3. When the iframe loads, it means the form was submitted
-    iframe.addEventListener('load', function() {
-        if (isSubmitting) {
-            popupModal.classList.add('show');
-            contactForm.reset();
-            isSubmitting = false;
-        }
-    });
-
     contactForm.addEventListener('submit', function(e) {
-        e.preventDefault(); // Prevent default UI form submission
-        
-        // 4. Map UI form values to hidden Google Form
-        const formData = new FormData(contactForm);
-        hiddenInputs[0].value = formData.get('name');
-        hiddenInputs[1].value = formData.get('email');
-        hiddenInputs[2].value = formData.get('phone');
-        hiddenInputs[3].value = formData.get('message');
-
-        isSubmitting = true;
-        gForm.submit(); // Submit the hidden form
+        e.preventDefault();
+        popupModal.classList.add('show');
+        contactForm.reset();
     });
 }
 
-// Close Modal when clicking the close button
 if (closeModalBtn) {
     closeModalBtn.addEventListener('click', () => {
         popupModal.classList.remove('show');
     });
 }
 
-// Close Modal when clicking outside the modal content
 window.addEventListener('click', (e) => {
     if (e.target === popupModal) {
         popupModal.classList.remove('show');
