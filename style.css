@@ -203,6 +203,66 @@ ul { list-style: none; }
     padding-left: 10px;
 }
 
+/* Mouse Scroll Indicator */
+.scroll-indicator {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    z-index: 10;
+}
+
+.mouse3d {
+    width: 30px;
+    height: 50px;
+    border: 2px solid var(--text-main);
+    border-radius: 20px;
+    position: relative;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.5), 0 0 15px rgba(255,255,255,0.05);
+    background: rgba(255,255,255,0.02);
+}
+
+.wheel3d {
+    width: 4px;
+    height: 8px;
+    background-color: var(--text-white);
+    border-radius: 2px;
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: scrollWheel 1.5s infinite;
+    box-shadow: 0 0 5px var(--text-white);
+}
+
+.scroll-text {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1rem;
+    letter-spacing: 3px;
+    color: var(--text-main);
+    animation: fadeText 1.5s infinite alternate;
+}
+
+@keyframes scrollWheel {
+    0% {
+        top: 8px;
+        opacity: 1;
+    }
+    100% {
+        top: 25px;
+        opacity: 0;
+    }
+}
+
+@keyframes fadeText {
+    0% { opacity: 0.3; }
+    100% { opacity: 1; }
+}
+
 /* NAV PILLS (Profile | Project | Contact) */
 .nav-pill {
     display: flex;
