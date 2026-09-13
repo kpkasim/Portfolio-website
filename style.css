@@ -405,6 +405,98 @@ footer {
     border-top: 1px solid rgba(255,255,255,0.05);
 }
 
+/* ==================================================
+   3D CURVED BENTO GALLERY (works.html)
+   ================================================== */
+.works-page-body {
+    background-color: #050505;
+    background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    background-size: 80px 80px;
+    overflow-x: hidden;
+}
+
+.gallery-3d-section {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 50px 0;
+    overflow: hidden;
+    perspective: 1200px; /* Crucial for 3D effect */
+}
+
+.gallery-3d-wrapper {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    align-items: center;
+    transform-style: preserve-3d;
+}
+
+.g-col {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    transform-style: preserve-3d;
+    transition: transform 0.5s ease;
+}
+
+/* Apply the 3D cylindrical curve */
+.col-far-left { transform: translateZ(-200px) translateX(50px) rotateY(30deg); }
+.col-left { transform: translateZ(-50px) translateX(20px) rotateY(15deg); }
+.col-center { transform: translateZ(50px) rotateY(0deg); z-index: 10; }
+.col-right { transform: translateZ(-50px) translateX(-20px) rotateY(-15deg); }
+.col-far-right { transform: translateZ(-200px) translateX(-50px) rotateY(-30deg); }
+
+.g-item {
+    width: 250px;
+    height: 250px;
+    background: #111;
+    border-radius: 25px;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.15), inset 0 0 0 2px rgba(255, 255, 255, 0.2);
+    position: relative;
+    transition: var(--transition);
+}
+
+.g-item:hover {
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.4), inset 0 0 0 3px rgba(255, 255, 255, 0.5);
+    transform: scale(1.05) translateZ(20px);
+    z-index: 20;
+}
+
+.large-item {
+    width: 320px;
+    height: 320px;
+}
+
+.g-item iframe {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    pointer-events: auto;
+}
+
+/* Responsive adjustments for the gallery */
+@media screen and (max-width: 1400px) {
+    .gallery-3d-wrapper { transform: scale(0.8); }
+}
+@media screen and (max-width: 1024px) {
+    .gallery-3d-wrapper { transform: scale(0.6); }
+    .col-far-left, .col-far-right { display: none; } /* Hide outer columns on smaller screens */
+}
+@media screen and (max-width: 768px) {
+    .gallery-3d-wrapper { 
+        flex-direction: column; 
+        transform: scale(1); 
+        gap: 2rem;
+    }
+    .g-col { transform: none !important; }
+}
+
 /* Responsive Design */
 @media screen and (max-width: 1024px) {
     .hero-content {
