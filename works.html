@@ -8,65 +8,76 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body class="works-page-body">
+<body class="works-light-body">
     <!-- Custom Cursor -->
-    <div class="cursor-dot"></div>
-    <div class="cursor-outline"></div>
+    <div class="cursor-dot" style="background-color: #6c7cf2;"></div>
+    <div class="cursor-outline" style="border-color: #6c7cf2;"></div>
 
-    <!-- Header for sub-page -->
+    <!-- Header -->
     <nav class="navbar" style="padding: 30px 5%; margin-bottom: 0;">
-        <div class="logo" style="color: #fff;">MQ<span style="color: var(--accent-green);">.</span></div>
+        <div class="logo" style="color: #111;">MQ<span style="color: #6c7cf2;">.</span></div>
         <ul class="nav-links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="index.html#about">About</a></li>
-            <li><a href="works.html" style="color: var(--accent-green);">Projects</a></li>
+            <li><a href="index.html" style="color: #111;">Home</a></li>
+            <li><a href="index.html#about" style="color: #111;">About</a></li>
+            <li><a href="works.html" style="color: #6c7cf2; font-weight: 700;">Projects</a></li>
         </ul>
-        <a href="index.html#contact" class="btn green-btn">Get in touch <i class="fas fa-arrow-right"></i></a>
+        <div class="hire-me-wrapper">
+            <a href="index.html#contact" class="hire-me-btn">HIRE ME</a>
+            <svg class="scribble-circle" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <path d="M 50,5 C 80,10 95,30 90,60 C 85,90 50,95 20,80 C -10,65 5,20 40,10 C 60,5 85,15 95,40" fill="none" stroke="#6c7cf2" stroke-width="2" opacity="0.6"/>
+            </svg>
+        </div>
     </nav>
+    <hr class="nav-divider">
 
-    <!-- 3D Curved Gallery Section -->
-    <section class="gallery-3d-section">
-        <div class="gallery-3d-wrapper">
-            
-            <!-- Column 1 (Far Left) -->
-            <div class="g-col col-far-left">
-                <div class="g-item"><iframe src="https://www.youtube.com/embed/LoBlCMDNKiE?rel=0&modestbranding=1&controls=0&autoplay=1&mute=1&loop=1&playlist=LoBlCMDNKiE" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe></div>
-                <div class="g-item"><iframe src="https://www.instagram.com/p/DbgaO2shH4f/embed" frameborder="0" scrolling="no" allowtransparency="true"></iframe></div>
-                <div class="g-item"><iframe src="https://www.instagram.com/p/Dc55xJQiXmS/embed" frameborder="0" scrolling="no" allowtransparency="true"></iframe></div>
-            </div>
+    <!-- Arched Gallery Section -->
+    <section class="arch-section">
+        <div class="arch-gallery">
+            <!-- Pos 1 -->
+            <div class="arch-item pos-1"><iframe src="https://www.youtube.com/embed/LoBlCMDNKiE?rel=0&modestbranding=1&controls=0&autoplay=1&mute=1&loop=1&playlist=LoBlCMDNKiE" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe></div>
+            <!-- Pos 2 -->
+            <div class="arch-item pos-2"><iframe src="https://www.instagram.com/p/DbgaO2shH4f/embed" frameborder="0" scrolling="no" allowtransparency="true"></iframe></div>
+            <!-- Pos 3 (Center) -->
+            <div class="arch-item pos-3"><iframe src="https://www.instagram.com/p/Cxz4Z0mhsUM/embed" frameborder="0" scrolling="no" allowtransparency="true"></iframe></div>
+            <!-- Pos 4 -->
+            <div class="arch-item pos-4"><iframe src="https://www.youtube.com/embed/_ks_4cDSsfc?rel=0&modestbranding=1&controls=0&autoplay=1&mute=1&loop=1&playlist=_ks_4cDSsfc" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe></div>
+            <!-- Pos 5 -->
+            <div class="arch-item pos-5"><iframe src="https://www.instagram.com/p/DY2vChtkzrM/embed" frameborder="0" scrolling="no" allowtransparency="true"></iframe></div>
+        </div>
+        
+        <!-- Wavy Divider -->
+        <svg class="wavy-divider" viewBox="0 0 1200 50" preserveAspectRatio="none">
+            <path d="M0,25 C150,50 300,0 450,25 C600,50 750,0 900,25 C1050,50 1200,0 1200,25" fill="none" stroke="#ddd" stroke-width="2"/>
+        </svg>
+    </section>
 
-            <!-- Column 2 (Left) -->
-            <div class="g-col col-left">
-                <div class="g-item"><iframe src="https://www.instagram.com/p/Cxz4Z0mhsUM/embed" frameborder="0" scrolling="no" allowtransparency="true"></iframe></div>
-                <div class="g-item"><iframe src="https://www.youtube.com/embed/_ks_4cDSsfc?rel=0&modestbranding=1&controls=0&autoplay=1&mute=1&loop=1&playlist=_ks_4cDSsfc" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe></div>
-                <div class="g-item"><iframe src="https://www.instagram.com/p/DY2vChtkzrM/embed" frameborder="0" scrolling="no" allowtransparency="true"></iframe></div>
-            </div>
-
-            <!-- Column 3 (Center - Larger Items) -->
-            <div class="g-col col-center">
-                <div class="g-item large-item"><iframe src="https://www.instagram.com/p/CnDh_IHBDIl/embed" frameborder="0" scrolling="no" allowtransparency="true"></iframe></div>
-                <div class="g-item large-item"><iframe src="https://www.youtube.com/embed/vk0n3NJtLBU?rel=0&modestbranding=1&controls=0&autoplay=1&mute=1&loop=1&playlist=vk0n3NJtLBU" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe></div>
-            </div>
-
-            <!-- Column 4 (Right) -->
-            <div class="g-col col-right">
-                <div class="g-item"><iframe src="https://www.instagram.com/p/Dc57Yv-CW5O/embed" frameborder="0" scrolling="no" allowtransparency="true"></iframe></div>
-                <div class="g-item"><iframe src="https://www.youtube.com/embed/2Jnd6A86mDk?rel=0&modestbranding=1&controls=0&autoplay=1&mute=1&loop=1&playlist=2Jnd6A86mDk" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe></div>
-                <div class="g-item"><iframe src="https://www.instagram.com/p/Dc54Y9ZCaER/embed" frameborder="0" scrolling="no" allowtransparency="true"></iframe></div>
-            </div>
-
-            <!-- Column 5 (Far Right) -->
-            <div class="g-col col-far-right">
-                <div class="g-item"><iframe src="https://www.instagram.com/p/DXhfKkpOFM3/embed" frameborder="0" scrolling="no" allowtransparency="true"></iframe></div>
-                <div class="g-item"><iframe src="https://www.instagram.com/p/DZ0Qz-LTAk2/embed" frameborder="0" scrolling="no" allowtransparency="true"></iframe></div>
-                <div class="g-item"><iframe src="https://www.instagram.com/p/DZX1BN3E8wM/embed" frameborder="0" scrolling="no" allowtransparency="true"></iframe></div>
-            </div>
-
+    <!-- Title and Columns -->
+    <section class="works-content-section container text-center">
+        <h1 class="my-works-title">MY WORKS</h1>
+        
+        <div class="text-columns">
+            <p>I HAVE DEDICATED COUNTLESS HOURS TO PERFECTING MY CRAFT, LEARNING FROM EVERY PROJECT TO DELIVER HIGH-IMPACT DESIGNS AND VIDEOS.</p>
+            <p>DO YOU ENJOY VISUALLY STUNNING CONTENT? I SPECIALIZE IN BLENDING TRADITIONAL METHODS WITH CUTTING-EDGE AI WORKFLOWS.</p>
+            <p>OR MAYBE IT'S MY ABILITY TO TURN COMPLETELY RAW IDEAS INTO CINEMATIC VISUALS THAT CAPTURE THE AUDIENCE'S ATTENTION INSTANTLY.</p>
+            <p>THEN YEAH, THIS IS YOUR PLACE. BROWSE THROUGH MY COLLECTION OF COMMERCIAL ADS, 3D WORKS, AND CREATIVE GRAPHIC DESIGNS.</p>
         </div>
     </section>
 
-    <footer style="position: absolute; bottom: 0; width: 100%;">
-        <p>&copy; 2026 Muhammed Qasim. All rights reserved.</p>
+    <!-- Remaining Works Grid (Scattered Style) -->
+    <section class="scattered-works container">
+        <div class="scattered-item t-left"><iframe src="https://www.instagram.com/p/CnDh_IHBDIl/embed" frameborder="0" scrolling="no" allowtransparency="true"></iframe></div>
+        <div class="scattered-item t-right"><iframe src="https://www.youtube.com/embed/vk0n3NJtLBU?rel=0&modestbranding=1&controls=0&autoplay=1&mute=1&loop=1&playlist=vk0n3NJtLBU" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe></div>
+        <div class="scattered-item t-left"><iframe src="https://www.instagram.com/p/Dc57Yv-CW5O/embed" frameborder="0" scrolling="no" allowtransparency="true"></iframe></div>
+        <div class="scattered-item t-straight"><iframe src="https://www.youtube.com/embed/2Jnd6A86mDk?rel=0&modestbranding=1&controls=0&autoplay=1&mute=1&loop=1&playlist=2Jnd6A86mDk" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe></div>
+        <div class="scattered-item t-right"><iframe src="https://www.instagram.com/p/Dc54Y9ZCaER/embed" frameborder="0" scrolling="no" allowtransparency="true"></iframe></div>
+        <div class="scattered-item t-left"><iframe src="https://www.instagram.com/p/DXhfKkpOFM3/embed" frameborder="0" scrolling="no" allowtransparency="true"></iframe></div>
+        <div class="scattered-item t-right"><iframe src="https://www.instagram.com/p/DZ0Qz-LTAk2/embed" frameborder="0" scrolling="no" allowtransparency="true"></iframe></div>
+        <div class="scattered-item t-straight"><iframe src="https://www.instagram.com/p/DZX1BN3E8wM/embed" frameborder="0" scrolling="no" allowtransparency="true"></iframe></div>
+        <div class="scattered-item t-left"><iframe src="https://www.instagram.com/p/Dc55xJQiXmS/embed" frameborder="0" scrolling="no" allowtransparency="true"></iframe></div>
+    </section>
+
+    <footer style="margin-top: 100px; padding-bottom: 20px;">
+        <p style="color: #666; text-align: center;">&copy; 2026 Muhammed Qasim. All rights reserved.</p>
     </footer>
 
     <script src="script.js"></script>

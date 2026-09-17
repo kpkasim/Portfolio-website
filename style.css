@@ -406,95 +406,171 @@ footer {
 }
 
 /* ==================================================
-   3D CURVED BENTO GALLERY (works.html)
+   ARCHED GALLERY (works.html)
    ================================================== */
-.works-page-body {
-    background-color: #050505;
-    background-image: 
-        linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
-    background-size: 80px 80px;
+.works-light-body {
+    background-color: #ffffff;
+    color: #333;
     overflow-x: hidden;
 }
 
-.gallery-3d-section {
+.hire-me-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.hire-me-btn {
+    font-weight: 700;
+    color: #111;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    padding: 10px 20px;
+    position: relative;
+    z-index: 2;
+}
+
+.scribble-circle {
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    width: 110%;
+    height: 120%;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.nav-divider {
+    border: none;
+    height: 1px;
+    background: rgba(0,0,0,0.1);
+    margin: 0 5%;
+}
+
+.arch-section {
     width: 100%;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 50px 0;
-    overflow: hidden;
-    perspective: 1200px; /* Crucial for 3D effect */
-}
-
-.gallery-3d-wrapper {
-    display: flex;
-    gap: 2rem;
-    justify-content: center;
-    align-items: center;
-    transform-style: preserve-3d;
-}
-
-.g-col {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
-    transform-style: preserve-3d;
-    transition: transform 0.5s ease;
-}
-
-/* Apply the 3D cylindrical curve */
-.col-far-left { transform: translateZ(-200px) translateX(50px) rotateY(30deg); }
-.col-left { transform: translateZ(-50px) translateX(20px) rotateY(15deg); }
-.col-center { transform: translateZ(50px) rotateY(0deg); z-index: 10; }
-.col-right { transform: translateZ(-50px) translateX(-20px) rotateY(-15deg); }
-.col-far-right { transform: translateZ(-200px) translateX(-50px) rotateY(-30deg); }
-
-.g-item {
-    width: 250px;
-    height: 250px;
-    background: #111;
-    border-radius: 25px;
-    overflow: hidden;
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.15), inset 0 0 0 2px rgba(255, 255, 255, 0.2);
+    align-items: center;
     position: relative;
-    transition: var(--transition);
+    margin-top: 60px;
 }
 
-.g-item:hover {
-    box-shadow: 0 0 30px rgba(255, 255, 255, 0.4), inset 0 0 0 3px rgba(255, 255, 255, 0.5);
-    transform: scale(1.05) translateZ(20px);
-    z-index: 20;
+.arch-gallery {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    height: 380px;
+    gap: 20px;
+    position: relative;
+    z-index: 2;
 }
 
-.large-item {
-    width: 320px;
-    height: 320px;
+.arch-item {
+    width: 220px;
+    height: 280px;
+    border-radius: 20px;
+    overflow: hidden;
+    background: #000;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+    transition: transform 0.3s ease;
 }
 
-.g-item iframe {
+.arch-item iframe {
     width: 100%;
     height: 100%;
     object-fit: cover;
     pointer-events: auto;
 }
 
-/* Responsive adjustments for the gallery */
-@media screen and (max-width: 1400px) {
-    .gallery-3d-wrapper { transform: scale(0.8); }
+/* The Arch Positions */
+.pos-1 { transform: rotate(-30deg) translateY(60px) translateX(-30px); z-index: 1; }
+.pos-2 { transform: rotate(-15deg) translateY(20px); z-index: 2; }
+.pos-3 { transform: rotate(0deg) translateY(0); z-index: 5; height: 300px; width: 240px; }
+.pos-4 { transform: rotate(15deg) translateY(20px); z-index: 2; }
+.pos-5 { transform: rotate(30deg) translateY(60px) translateX(30px); z-index: 1; }
+
+.arch-item:hover {
+    box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+    z-index: 10 !important;
 }
+
+.wavy-divider {
+    width: 100%;
+    height: 50px;
+    margin-top: -20px;
+}
+
+.works-content-section {
+    padding: 60px 5% 40px;
+}
+
+.my-works-title {
+    font-size: 5rem;
+    font-weight: 700;
+    color: #6c7cf2; /* Periwinkle blue */
+    letter-spacing: 4px;
+    margin-bottom: 50px;
+}
+
+.text-columns {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    text-align: left;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #444;
+    line-height: 1.6;
+}
+
+.scattered-works {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    padding: 20px 5% 100px;
+}
+
+.scattered-item {
+    width: 250px;
+    height: 250px;
+    border-radius: 20px;
+    overflow: hidden;
+    background: #000;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.scattered-item iframe {
+    width: 100%;
+    height: 100%;
+}
+
+.t-left { transform: rotate(-8deg); }
+.t-right { transform: rotate(8deg); }
+.t-straight { transform: rotate(0deg); }
+
+.scattered-item:hover {
+    transform: scale(1.05) rotate(0deg);
+    z-index: 10;
+}
+
+/* Responsive adjustments */
 @media screen and (max-width: 1024px) {
-    .gallery-3d-wrapper { transform: scale(0.6); }
-    .col-far-left, .col-far-right { display: none; } /* Hide outer columns on smaller screens */
+    .arch-gallery { transform: scale(0.8); }
+    .text-columns { grid-template-columns: repeat(2, 1fr); gap: 30px; }
+    .my-works-title { font-size: 4rem; }
 }
 @media screen and (max-width: 768px) {
-    .gallery-3d-wrapper { 
+    .arch-gallery { 
         flex-direction: column; 
-        transform: scale(1); 
-        gap: 2rem;
+        height: auto; 
+        align-items: center; 
+        gap: 30px; 
     }
-    .g-col { transform: none !important; }
+    .arch-item { transform: none !important; }
+    .text-columns { grid-template-columns: 1fr; text-align: center; }
+    .wavy-divider { display: none; }
 }
 
 /* Responsive Design */
