@@ -15,17 +15,20 @@
 
     <!-- Header -->
     <nav class="navbar" style="padding: 30px 5%; margin-bottom: 0;">
-        <div class="logo" style="color: #111;">MQ<span style="color: #6c7cf2;">.</span></div>
+        <div class="logo">MQ<span style="color: var(--accent-color);">.</span></div>
         <ul class="nav-links">
-            <li><a href="index.html" style="color: #111;">Home</a></li>
-            <li><a href="index.html#about" style="color: #111;">About</a></li>
-            <li><a href="works.html" style="color: #6c7cf2; font-weight: 700;">Projects</a></li>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="index.html#about">About</a></li>
+            <li><a href="works.html" style="color: var(--accent-color); font-weight: 700;">Projects</a></li>
         </ul>
-        <div class="hire-me-wrapper">
-            <a href="index.html#contact" class="hire-me-btn">HIRE ME</a>
-            <svg class="scribble-circle" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                <path d="M 50,5 C 80,10 95,30 90,60 C 85,90 50,95 20,80 C -10,65 5,20 40,10 C 60,5 85,15 95,40" fill="none" stroke="#6c7cf2" stroke-width="2" opacity="0.6"/>
-            </svg>
+        <div style="display: flex; gap: 20px; align-items: center;">
+            <button class="theme-toggle" style="background: none; border: none; font-size: 1.2rem; color: var(--text-dark); cursor: pointer;"><i class="fas fa-moon"></i></button>
+            <div class="hire-me-wrapper">
+                <a href="index.html#contact" class="hire-me-btn">HIRE ME</a>
+                <svg class="scribble-circle" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M 50,5 C 80,10 95,30 90,60 C 85,90 50,95 20,80 C -10,65 5,20 40,10 C 60,5 85,15 95,40" fill="none" stroke="#6c7cf2" stroke-width="2" opacity="0.6"/>
+                </svg>
+            </div>
         </div>
     </nav>
     <hr class="nav-divider">

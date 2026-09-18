@@ -55,6 +55,32 @@ const observer = new IntersectionObserver((entries) => {
 document.querySelectorAll('.fade-up').forEach((el) => {
     observer.observe(el);
 });
+
+// --- Dark Mode Toggle ---
+const themeToggles = document.querySelectorAll('.theme-toggle');
+const currentTheme = localStorage.getItem('theme') || 'light';
+
+if (currentTheme === 'dark') {
+    document.documentElement.setAttribute('data-theme', 'dark');
+    themeToggles.forEach(toggle => {
+        toggle.innerHTML = '<i class="fas fa-sun"></i>';
+    });
+}
+
+themeToggles.forEach(toggle => {
+    toggle.addEventListener('click', () => {
+        let theme = document.documentElement.getAttribute('data-theme');
+        if (theme === 'dark') {
+            document.documentElement.removeAttribute('data-theme');
+            localStorage.setItem('theme', 'light');
+            themeToggles.forEach(t => t.innerHTML = '<i class="fas fa-moon"></i>');
+        } else {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            localStorage.setItem('theme', 'dark');
+            themeToggles.forEach(t => t.innerHTML = '<i class="fas fa-sun"></i>');
+        }
+    });
+});
 // --- Contact Form & Google Form Logic ---
 const contactForm = document.getElementById('contactForm');
 const popupModal = document.getElementById('popupModal');
