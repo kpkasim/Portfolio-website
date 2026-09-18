@@ -104,7 +104,7 @@ ul { list-style: none; }
 /* --- Glass Theme Toggle Switch --- */
 .theme-toggle.glass-switch {
     position: relative;
-    width: 100px;
+    width: 74px;
     height: 44px;
     border-radius: 44px;
     backdrop-filter: blur(15px);
@@ -154,29 +154,13 @@ ul { list-style: none; }
     font-size: 0.9rem;
 }
 [data-theme="dark"] .toggle-knob {
-    transform: translateX(56px);
+    transform: translateX(32px);
 }
 
 .toggle-icon-dark { display: none; }
 .toggle-icon-light { display: block; }
 [data-theme="dark"] .toggle-icon-dark { display: block; }
 [data-theme="dark"] .toggle-icon-light { display: none; }
-
-.toggle-text {
-    position: absolute;
-    right: 18px;
-    z-index: 2;
-    color: #ffffff;
-    font-weight: 600;
-    font-size: 0.85rem;
-    pointer-events: none;
-    transition: var(--transition);
-    text-shadow: 0 1px 3px rgba(0,0,0,0.3);
-}
-[data-theme="dark"] .toggle-text {
-    right: auto;
-    left: 18px;
-}
 
 /* Buttons */
 .btn {
@@ -648,8 +632,8 @@ footer {
 }
 
 .mq-item {
-    width: 320px;
-    height: 200px;
+    width: 280px;
+    height: 440px;
     border-radius: 12px;
     overflow: hidden;
     background: #111;
