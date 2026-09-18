@@ -627,7 +627,8 @@ footer {
     visibility: visible;
 }
 .modal-content {
-    background: #ffffff;
+    background: var(--card-bg);
+    border: 1px solid var(--input-border);
     padding: 40px;
     border-radius: 20px;
     text-align: center;
