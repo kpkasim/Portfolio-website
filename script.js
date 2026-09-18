@@ -62,9 +62,6 @@ const currentTheme = localStorage.getItem('theme') || 'light';
 
 if (currentTheme === 'dark') {
     document.documentElement.setAttribute('data-theme', 'dark');
-    themeToggles.forEach(toggle => {
-        toggle.innerHTML = '<i class="fas fa-sun"></i>';
-    });
 }
 
 themeToggles.forEach(toggle => {
@@ -73,11 +70,9 @@ themeToggles.forEach(toggle => {
         if (theme === 'dark') {
             document.documentElement.removeAttribute('data-theme');
             localStorage.setItem('theme', 'light');
-            themeToggles.forEach(t => t.innerHTML = '<i class="fas fa-moon"></i>');
         } else {
             document.documentElement.setAttribute('data-theme', 'dark');
             localStorage.setItem('theme', 'dark');
-            themeToggles.forEach(t => t.innerHTML = '<i class="fas fa-sun"></i>');
         }
     });
 });

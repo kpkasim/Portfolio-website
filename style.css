@@ -16,6 +16,9 @@
     --divider-color: rgba(0,0,0,0.05);
     --input-bg: transparent;
     --input-border: rgba(0,0,0,0.15);
+    --glass-bg: rgba(255, 255, 255, 0.4);
+    --glass-border: rgba(255, 255, 255, 0.6);
+    --glass-shadow: rgba(0, 0, 0, 0.05);
     --transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
@@ -28,6 +31,9 @@
     --divider-color: rgba(255,255,255,0.05);
     --input-bg: transparent;
     --input-border: rgba(255,255,255,0.2);
+    --glass-bg: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --glass-shadow: rgba(0, 0, 0, 0.3);
 }
 
 body {
@@ -95,6 +101,83 @@ ul { list-style: none; }
     transform: translateY(0);
 }
 
+/* --- Glass Theme Toggle Switch --- */
+.theme-toggle.glass-switch {
+    position: relative;
+    width: 100px;
+    height: 44px;
+    border-radius: 44px;
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 4px 15px var(--glass-shadow);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding: 0 5px;
+    transition: var(--transition);
+    overflow: hidden;
+}
+
+.toggle-track {
+    position: absolute;
+    top: 50%; left: 6px; right: 6px;
+    transform: translateY(-50%);
+    height: 32px;
+    border-radius: 32px;
+    background: linear-gradient(90deg, #ff9a00, #ff5252); /* Light mode gradient */
+    opacity: 0.9;
+    z-index: 1;
+    transition: var(--transition);
+}
+[data-theme="dark"] .toggle-track {
+    background: linear-gradient(90deg, #00c6ff, #0072ff); /* Dark mode gradient */
+}
+
+.toggle-knob {
+    position: relative;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    background: rgba(255, 255, 255, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2), inset 0 2px 5px rgba(255,255,255,0.8);
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    color: #ffffff;
+    font-size: 0.9rem;
+}
+[data-theme="dark"] .toggle-knob {
+    transform: translateX(56px);
+}
+
+.toggle-icon-dark { display: none; }
+.toggle-icon-light { display: block; }
+[data-theme="dark"] .toggle-icon-dark { display: block; }
+[data-theme="dark"] .toggle-icon-light { display: none; }
+
+.toggle-text {
+    position: absolute;
+    right: 18px;
+    z-index: 2;
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 0.85rem;
+    pointer-events: none;
+    transition: var(--transition);
+    text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+}
+[data-theme="dark"] .toggle-text {
+    right: auto;
+    left: 18px;
+}
+
 /* Buttons */
 .btn {
     display: inline-flex;
@@ -105,22 +188,26 @@ ul { list-style: none; }
     font-weight: 600;
     font-size: 0.9rem;
     transition: var(--transition);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 8px 32px 0 var(--glass-shadow);
+    color: var(--text-dark);
+}
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 40px 0 var(--glass-shadow);
+    background: rgba(108, 124, 242, 0.1);
+    border-color: var(--accent-color);
 }
 
-.white-btn, .green-btn {
+.white-btn i, .green-btn i {
     background: var(--accent-color);
     color: #ffffff;
-}
-.white-btn i, .green-btn i {
-    background: #ffffff;
-    color: var(--accent-color);
     padding: 8px;
     border-radius: 50%;
     transition: var(--transition);
-}
-.white-btn:hover, .green-btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 20px rgba(108, 124, 242, 0.2);
 }
 
 /* HERO SECTION */
@@ -406,15 +493,17 @@ footer {
 }
 
 .morphic-light-btn {
-    background: #ffffff;
+    background: rgba(255, 255, 255, 0.8);
     color: #000000;
     border-radius: 40px;
     padding: 10px 24px;
     font-weight: 600;
     transition: all 0.3s ease;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
 }
 .morphic-light-btn:hover {
-    background: #dddddd;
+    background: #ffffff;
 }
 
 /* Morphic Hero */
@@ -465,14 +554,18 @@ footer {
     line-height: 1.6;
     margin-bottom: 30px;
 }
+
 .mh-buttons {
     display: flex;
     gap: 15px;
 }
 .morphic-blue-btn {
-    background: #0066ff;
+    background: rgba(0, 102, 255, 0.8);
     color: #ffffff;
     padding: 12px 30px;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(0, 102, 255, 0.4);
 }
 .morphic-blue-btn:hover {
     background: #0052cc;
@@ -481,6 +574,9 @@ footer {
     background: rgba(255,255,255,0.1);
     color: #ffffff;
     padding: 12px 30px;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 .morphic-dark-btn:hover {
     background: rgba(255,255,255,0.15);
