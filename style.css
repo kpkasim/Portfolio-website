@@ -157,10 +157,10 @@ ul { list-style: none; }
     transform: translateX(32px);
 }
 
-.toggle-icon-dark { display: none; }
-.toggle-icon-light { display: block; }
-[data-theme="dark"] .toggle-icon-dark { display: block; }
-[data-theme="dark"] .toggle-icon-light { display: none; }
+.toggle-icon-dark { display: none !important; }
+.toggle-icon-light { display: block !important; }
+[data-theme="dark"] .toggle-icon-dark { display: block !important; }
+[data-theme="dark"] .toggle-icon-light { display: none !important; }
 
 /* Buttons */
 .btn {
