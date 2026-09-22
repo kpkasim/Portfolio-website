@@ -294,13 +294,29 @@ ul { list-style: none; }
 
 .stat-item {
     flex: 1;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding: 25px;
+    border-radius: 24px;
+    box-shadow: 0 8px 32px var(--glass-shadow);
+    transition: transform 0.3s ease;
+    margin: 0 10px;
+}
+.stat-item:hover {
+    transform: translateY(-5px);
 }
 .stat-num {
-    display: block;
-    color: var(--accent-color);
-    font-size: 0.9rem;
-    margin-bottom: 5px;
+    display: inline-block;
+    color: #ffffff;
+    background: linear-gradient(135deg, var(--accent-color), #4a56c4);
+    padding: 8px 16px;
+    border-radius: 12px;
+    font-size: 1rem;
+    margin-bottom: 15px;
     font-weight: 600;
+    box-shadow: 0 4px 10px rgba(108, 124, 242, 0.3);
 }
 .stat-item p {
     font-size: 1.1rem;
@@ -400,10 +416,13 @@ ul { list-style: none; }
 }
 
 .contact-card {
-    background: var(--card-bg);
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
     padding: 80px 40px;
     border-radius: 40px;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.03);
+    box-shadow: 0 15px 40px var(--glass-shadow);
 }
 
 .contact-desc {
@@ -419,18 +438,27 @@ ul { list-style: none; }
 }
 
 .contact-item {
-    background: var(--input-bg);
-    border: 1px solid var(--input-border);
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     padding: 40px 20px;
-    border-radius: 20px;
+    border-radius: 24px;
     text-align: center;
-    transition: var(--transition);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.02);
+    transition: transform 0.3s ease;
+    box-shadow: 0 8px 32px var(--glass-shadow);
 }
 .contact-item i {
-    font-size: 2.5rem;
-    color: var(--accent-color);
-    margin-bottom: 1rem;
+    font-size: 1.8rem;
+    color: #ffffff;
+    background: linear-gradient(135deg, var(--accent-color), #4a56c4);
+    width: 65px;
+    height: 65px;
+    line-height: 65px;
+    border-radius: 18px;
+    margin: 0 auto 1.5rem;
+    display: inline-block;
+    box-shadow: 0 8px 20px rgba(108, 124, 242, 0.3);
 }
 .contact-item span {
     display: block;
@@ -447,6 +475,40 @@ ul { list-style: none; }
     box-shadow: 0 15px 30px rgba(0,0,0,0.06);
 }
 
+/* Contact Form Glassmorphism */
+.form-container {
+    max-width: 600px;
+    margin: 0 auto;
+}
+.form-group {
+    margin-bottom: 1.5rem;
+}
+.form-group input, .form-group textarea {
+    width: 100%;
+    padding: 1.2rem;
+    border-radius: 16px;
+    border: 1px solid var(--glass-border);
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    color: var(--text-dark);
+    font-size: 1rem;
+    outline: none;
+    transition: var(--transition);
+    box-shadow: inset 0 2px 4px var(--glass-shadow);
+}
+.form-group input:focus, .form-group textarea:focus {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 4px rgba(108, 124, 242, 0.1), inset 0 2px 4px var(--glass-shadow);
+}
+.form-group input::placeholder, .form-group textarea::placeholder {
+    color: var(--text-gray);
+}
+.form-group textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
 footer {
     text-align: center;
     padding: 40px 0;
@@ -459,26 +521,26 @@ footer {
    MORPHIC WORKS GALLERY (works.html)
    ================================================== */
 .morphic-works-body {
-    background-color: #000000;
-    color: #ffffff;
+    background-color: var(--bg-main);
+    color: var(--text-dark);
     overflow-x: hidden;
 }
 
 .morphic-works-body .logo {
-    color: #ffffff !important;
+    color: var(--text-dark) !important;
 }
 
 .morphic-links a {
-    color: #888888 !important;
+    color: var(--text-gray) !important;
     font-weight: 500;
 }
 .morphic-links a:hover, .morphic-links a.active {
-    color: #ffffff !important;
+    color: var(--text-dark) !important;
 }
 
 .morphic-light-btn {
-    background: rgba(255, 255, 255, 0.8);
-    color: #000000;
+    background: var(--text-dark);
+    color: var(--bg-main);
     border-radius: 40px;
     padding: 10px 24px;
     font-weight: 600;
@@ -506,16 +568,16 @@ footer {
     display: inline-flex;
     align-items: center;
     gap: 15px;
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,255,255,0.1);
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
     padding: 8px 16px;
     border-radius: 30px;
     font-size: 0.9rem;
-    color: #aaaaaa;
+    color: var(--text-gray);
     margin-bottom: 30px;
 }
 .badge-new {
-    color: #00e676;
+    color: var(--accent-color);
     font-weight: 600;
 }
 
@@ -524,9 +586,11 @@ footer {
     line-height: 1.1;
     font-weight: 700;
     letter-spacing: -1px;
+    color: var(--text-dark);
 }
 .mh-muted {
-    color: #555555;
+    color: var(--text-gray);
+    opacity: 0.8;
 }
 
 .mh-right {
@@ -534,7 +598,7 @@ footer {
 }
 .mh-desc {
     font-size: 1.2rem;
-    color: #888888;
+    color: var(--text-gray);
     line-height: 1.6;
     margin-bottom: 30px;
 }
@@ -576,25 +640,25 @@ footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    color: #ffffff;
+    color: var(--text-dark);
     font-size: 1.1rem;
     font-weight: 600;
     margin-bottom: 30px;
 }
 .see-more {
-    color: #888888;
+    color: var(--text-gray);
     font-weight: 400;
     margin-left: 10px;
     font-size: 0.9rem;
 }
 .mq-arrows i {
-    color: #888888;
+    color: var(--text-gray);
     margin-left: 15px;
     cursor: pointer;
     transition: color 0.3s;
 }
 .mq-arrows i:hover {
-    color: #ffffff;
+    color: var(--text-dark);
 }
 
 .marquee-row {
