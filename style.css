@@ -9,6 +9,7 @@
 :root {
     --bg-main: #ffffff;
     --hero-bg: linear-gradient(135deg, #f0f4ff 0%, #ffffff 100%);
+    --hero-overlay: rgba(255, 255, 255, 0.85);
     --accent-color: #6c7cf2; /* Periwinkle blue */
     --text-dark: #111111;
     --text-gray: #555555;
@@ -25,6 +26,7 @@
 [data-theme="dark"] {
     --bg-main: #0a0a0a;
     --hero-bg: linear-gradient(135deg, #161616 0%, #0a0a0a 100%);
+    --hero-overlay: rgba(10, 10, 10, 0.4);
     --text-dark: #ffffff;
     --text-gray: #a0aab2;
     --card-bg: #151515;
@@ -196,12 +198,29 @@ ul { list-style: none; }
 
 /* HERO SECTION */
 .hero-section {
-    background: var(--hero-bg);
+    background-image: url('assets/hero-bg.jpg');
+    background-size: cover;
+    background-position: center 20%;
+    background-repeat: no-repeat;
+    background-color: var(--bg-main);
     border-radius: 0 0 60px 60px;
     padding: 30px 5% 80px;
     position: relative;
     overflow: hidden;
     box-shadow: 0 15px 40px rgba(0,0,0,0.03);
+}
+
+.hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: var(--hero-overlay);
+    z-index: 0;
+}
+
+.hero-section > * {
+    position: relative;
+    z-index: 1;
 }
 
 .navbar {
