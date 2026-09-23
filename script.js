@@ -146,3 +146,74 @@ window.addEventListener('click', (e) => {
         popupModal.classList.remove('show');
     }
 });
+
+// --- BACKGROUND MUSIC (YouTube API) ---
+var tag = document.createElement('script');
+tag.src = "https://www.youtube.com/iframe_api";
+var firstScriptTag = document.getElementsByTagName('script')[0];
+if(firstScriptTag) {
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+} else {
+    document.head.appendChild(tag);
+}
+
+var ytPlayer;
+var isMusicPlaying = false;
+var userInteracted = false;
+
+function onYouTubeIframeAPIReady() {
+    const playerDiv = document.getElementById('yt-player');
+    if (!playerDiv) return;
+    
+    ytPlayer = new YT.Player('yt-player', {
+        height: '1',
+        width: '1',
+        videoId: 'L1Et2cdYaA4',
+        playerVars: {
+            'autoplay': 0,
+            'controls': 0,
+            'modestbranding': 1,
+            'loop': 1,
+            'playlist': 'L1Et2cdYaA4'
+        },
+        events: {
+            'onReady': onPlayerReady
+        }
+    });
+}
+
+function onPlayerReady(event) {
+    const musicBtn = document.getElementById('musicToggle');
+    const musicIcon = document.getElementById('musicIcon');
+
+    // Auto-play on first click anywhere on the page
+    document.body.addEventListener('click', function() {
+        if (!userInteracted && !isMusicPlaying) {
+            ytPlayer.playVideo();
+            isMusicPlaying = true;
+            userInteracted = true;
+            if(musicIcon) {
+                musicIcon.classList.remove('fa-volume-mute');
+                musicIcon.classList.add('fa-volume-up');
+            }
+        }
+    }, { once: true });
+
+    if (musicBtn) {
+        musicBtn.addEventListener('click', function(e) {
+            e.stopPropagation(); // prevent body click from firing
+            userInteracted = true;
+            if (isMusicPlaying) {
+                ytPlayer.pauseVideo();
+                isMusicPlaying = false;
+                musicIcon.classList.remove('fa-volume-up');
+                musicIcon.classList.add('fa-volume-mute');
+            } else {
+                ytPlayer.playVideo();
+                isMusicPlaying = true;
+                musicIcon.classList.remove('fa-volume-mute');
+                musicIcon.classList.add('fa-volume-up');
+            }
+        });
+    }
+}
