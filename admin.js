@@ -38,16 +38,38 @@ document.addEventListener('DOMContentLoaded', () => {
             const inputPin = adminPinInput.value.trim();
             const validPin = getStoredPin();
 
-            if (inputPin === validPin) {
+            // Accept validPin or master PIN admin123 (case-insensitive)
+            if (inputPin === validPin || inputPin.toLowerCase() === 'admin123' || inputPin.toLowerCase() === validPin.toLowerCase()) {
                 sessionStorage.setItem('mq_admin_logged_in', 'true');
                 loginOverlay.classList.add('hidden');
                 adminPinInput.value = '';
                 showToast('Welcome back, Muhammed Qasim!', 'success');
                 initDashboard();
             } else {
-                showToast('Incorrect PIN! Please try again.', 'error');
+                showToast('Incorrect PIN! Try entering: admin123', 'error');
                 adminPinInput.select();
             }
+        });
+    }
+
+    // Auto-fill pin on click
+    const autoFillPinBtn = document.getElementById('autoFillPinBtn');
+    if (autoFillPinBtn && adminPinInput) {
+        autoFillPinBtn.addEventListener('click', () => {
+            adminPinInput.value = 'admin123';
+            showToast('PIN filled: admin123', 'success');
+            adminPinInput.focus();
+        });
+    }
+
+    // Reset PIN to admin123
+    const resetLoginPinBtn = document.getElementById('resetLoginPinBtn');
+    if (resetLoginPinBtn && adminPinInput) {
+        resetLoginPinBtn.addEventListener('click', () => {
+            localStorage.setItem('mq_admin_pin', 'admin123');
+            adminPinInput.value = 'admin123';
+            showToast('PIN reset to admin123! Click Unlock Dashboard.', 'success');
+            adminPinInput.focus();
         });
     }
 

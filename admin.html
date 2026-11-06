@@ -36,7 +36,12 @@
                     Unlock Dashboard <i class="fas fa-arrow-right"></i>
                 </button>
             </form>
-            <p class="login-hint">Default PIN: <code>admin123</code> (Settings-ൽ മാറ്റാം)</p>
+            <p class="login-hint" style="margin-top: 18px;">
+                Default Password: <code id="autoFillPinBtn" style="cursor: pointer; user-select: all;" title="Click to auto-fill">admin123</code> <span style="font-size:0.75rem; color:#8e9bb0;">(ക്ലിക്ക് ചെയ്താൽ തനിയെ ഫിൽ ആകും)</span>
+            </p>
+            <button type="button" id="resetLoginPinBtn" style="background: none; border: none; color: var(--primary); font-size: 0.76rem; cursor: pointer; text-decoration: underline; margin-top: 8px;">
+                Reset PIN to admin123
+            </button>
         </div>
     </div>
 
