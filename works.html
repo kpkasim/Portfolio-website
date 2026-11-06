@@ -5,42 +5,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio Works | Muhammed Qasim</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body class="morphic-works-body">
     <!-- Custom Cursor -->
-    <div class="cursor-dot" style="background-color: #fff;"></div>
-    <div class="cursor-outline" style="border-color: #fff;"></div>
+    <div class="cursor-dot" style="background-color: var(--accent-color);"></div>
+    <div class="cursor-outline" style="border-color: var(--accent-color);"></div>
 
     <!-- Header -->
     <nav class="navbar" style="padding: 30px 5%; margin-bottom: 0;">
-        <div class="logo" style="color: #fff;">MQ<span style="color: #0066ff;">.</span></div>
+        <div class="logo">
+            <span class="logo-box">MQ</span><span class="logo-dot">.</span>
+        </div>
         <ul class="nav-links morphic-links">
             <li><a href="index.html">Home</a></li>
             <li><a href="index.html#about">About</a></li>
             <li><a href="works.html" class="active">Projects</a></li>
         </ul>
         <div style="display: flex; gap: 20px; align-items: center;">
-            <button class="theme-toggle glass-switch">
+            <button class="theme-toggle glass-switch" aria-label="Toggle theme">
                 <div class="toggle-track"></div>
                 <div class="toggle-knob"><i class="fas fa-sun toggle-icon-light"></i><i class="fas fa-moon toggle-icon-dark"></i></div>
             </button>
-            <a href="index.html#contact" class="btn morphic-light-btn">Hire Me</a>
+            <a href="index.html#contact" class="editorial-pill">Hire Me <span>↗</span></a>
         </div>
     </nav>
 
     <!-- Morphic Style Hero Section -->
     <section class="morphic-hero container">
         <div class="mh-left">
-            <div class="mh-badge"><span class="badge-new">New</span> Creative visual works</div>
+            <div class="section-tag-mono"><span class="tag-corner">┌</span> SELECTED ARCHIVE & PRODUCTIONS</div>
             <h1 class="mh-title">Smart storytelling<br><span class="mh-muted">For every creative</span></h1>
         </div>
         <div class="mh-right">
             <p class="mh-desc">I specialize in generating, animating, and editing high-quality visuals effortlessly using a blend of traditional tools and breakthrough AI technologies.</p>
             <div class="mh-buttons">
-                <a href="index.html#contact" class="btn morphic-blue-btn">Contact me</a>
-                <a href="index.html#about" class="btn morphic-dark-btn">About me</a>
+                <a href="index.html#contact" class="editorial-pill"><i class="fas fa-paper-plane"></i> Contact me <span>↗</span></a>
+                <a href="index.html#about" class="editorial-pill">About me <span>↗</span></a>
             </div>
         </div>
     </section>

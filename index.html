@@ -5,8 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Muhammed Qasim | Multidisciplinary Designer</title>
     <link rel="stylesheet" href="style.css">
-    <!-- Fonts: Poppins -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Modern Editorial Fonts: Plus Jakarta Sans & Space Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -15,27 +17,31 @@
     <div class="cursor-dot"></div>
     <div class="cursor-outline"></div>
 
-    <!-- Hero Section (Green Gradient + Rounded Bottom) -->
+    <!-- Hero Section -->
     <section id="home" class="hero-section">
         <nav class="navbar">
-            <div class="logo">MQ<span>.</span></div>
+            <div class="logo">
+                <span class="logo-box">MQ</span><span class="logo-dot">.</span>
+            </div>
             <ul class="nav-links">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#about">About</a></li>
                 <li><a href="works.html">Projects</a></li>
             </ul>
             <div style="display: flex; gap: 15px; align-items: center;">
-                <button class="theme-toggle glass-switch">
+                <button class="theme-toggle glass-switch" aria-label="Toggle theme">
                     <div class="toggle-track"></div>
                     <div class="toggle-knob"><i class="fas fa-sun toggle-icon-light"></i><i class="fas fa-moon toggle-icon-dark"></i></div>
                 </button>
-                <a href="#contact" class="btn white-btn">Get in touch <i class="fas fa-arrow-right"></i></a>
+                <a href="#contact" class="editorial-pill"><i class="fas fa-paper-plane"></i> Get in touch <span>↗</span></a>
             </div>
         </nav>
 
         <div class="hero-content">
             <div class="hero-left fade-up">
-                <p class="subtitle">Hey, I'm a</p>
+                <div class="section-tag-mono">
+                    <span class="tag-corner">┌</span> MUHAMMED QASIM — PORTFOLIO
+                </div>
                 <h1 class="title">Multidisciplinary<br>Designer</h1>
             </div>
 
@@ -45,60 +51,131 @@
             </div>
         </div>
 
-        <div class="hero-bottom-stats fade-up" style="transition-delay: 300ms;">
-            <div class="stat-item">
-                <div class="stat-icon"><i class="fas fa-palette"></i></div>
-                <p>Graphic Design</p>
+        <!-- 4 Discipline Cards (Vector Box Style) -->
+        <div class="vector-cards-grid fade-up" style="transition-delay: 250ms;">
+            <div class="vector-card">
+                <div class="vector-card-top">
+                    <span class="vector-corner">┌</span>
+                    <span class="vector-card-idx">DISCIPLINE 01</span>
+                </div>
+                <div class="vector-card-body">
+                    <div class="vector-card-icon"><i class="fas fa-palette"></i></div>
+                    <h3>Graphic Design</h3>
+                    <p>Brand identities, social media creatives & promotional posters with bold typography.</p>
+                </div>
             </div>
-            <div class="stat-item">
-                <div class="stat-icon"><i class="fas fa-video"></i></div>
-                <p>Video Production</p>
+            <div class="vector-card">
+                <div class="vector-card-top">
+                    <span class="vector-corner">┌</span>
+                    <span class="vector-card-idx">DISCIPLINE 02</span>
+                </div>
+                <div class="vector-card-body">
+                    <div class="vector-card-icon"><i class="fas fa-video"></i></div>
+                    <h3>Video Production</h3>
+                    <p>High-energy commercial reels, product edits, pacing & dynamic motion narratives.</p>
+                </div>
             </div>
-            <div class="stat-item">
-                <div class="stat-icon"><i class="fas fa-cube"></i></div>
-                <p>3D Visualization</p>
+            <div class="vector-card">
+                <div class="vector-card-top">
+                    <span class="vector-corner">┌</span>
+                    <span class="vector-card-idx">DISCIPLINE 03</span>
+                </div>
+                <div class="vector-card-body">
+                    <div class="vector-card-icon"><i class="fas fa-cube"></i></div>
+                    <h3>3D Visualization</h3>
+                    <p>Realistic 3D modeling, studio lighting, materials & atmospheric scene renders.</p>
+                </div>
             </div>
-            <div class="stat-item">
-                <div class="stat-icon"><i class="fas fa-wand-magic-sparkles"></i></div>
-                <p>AI Workflows</p>
+            <div class="vector-card">
+                <div class="vector-card-top">
+                    <span class="vector-corner">┌</span>
+                    <span class="vector-card-idx">DISCIPLINE 04</span>
+                </div>
+                <div class="vector-card-body">
+                    <div class="vector-card-icon"><i class="fas fa-wand-magic-sparkles"></i></div>
+                    <h3>AI Workflows</h3>
+                    <p>Generative visual synthesis, workflow automation & rapid production iteration.</p>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Trusted By / Tools Section -->
-    <div class="trusted-section">
-        <p class="trusted-title">Software & Tools<br>I've Mastered</p>
-        <div class="trusted-logos">
-            <span><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/blender/blender-original.svg" width="24" height="24" alt="Blender"> Blender</span>
-            <span><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/photoshop/photoshop-original.svg" width="24" height="24" alt="Photoshop"> Photoshop</span>
-            <span><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/illustrator/illustrator-plain.svg" width="24" height="24" alt="Illustrator"> Illustrator</span>
-            <span><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/premierepro/premierepro-original.svg" width="24" height="24" alt="Premiere Pro"> Premiere Pro</span>
-            <span><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/aftereffects/aftereffects-original.svg" width="24" height="24" alt="After Effects"> After Effects</span>
+    <!-- Trusted By / Tools Section (Vector Box Grid) -->
+    <section class="tools-vector-section container">
+        <div class="section-tag-mono fade-up"><span class="tag-corner">┌</span> ARSENAL & MASTERED TOOLS</div>
+        <div class="tools-vector-header fade-up">
+            <h2 class="approach-title">Software built for scale.</h2>
+            <p class="approach-desc">Industry-standard software mastered across years of design, animation, and rendering workflows.</p>
         </div>
-    </div>
+        <div class="tools-vector-grid fade-up" style="transition-delay: 150ms;">
+            <div class="tool-vector-box">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/blender/blender-original.svg" alt="Blender">
+                <div class="tool-meta">
+                    <h4>Blender 3D</h4>
+                    <span>Modeling & Cycles Render</span>
+                </div>
+                <span class="tool-arrow">↗</span>
+            </div>
+            <div class="tool-vector-box">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/photoshop/photoshop-original.svg" alt="Photoshop">
+                <div class="tool-meta">
+                    <h4>Photoshop</h4>
+                    <span>Raster & Compositing</span>
+                </div>
+                <span class="tool-arrow">↗</span>
+            </div>
+            <div class="tool-vector-box">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/illustrator/illustrator-plain.svg" alt="Illustrator">
+                <div class="tool-meta">
+                    <h4>Illustrator</h4>
+                    <span>Vector & Typography</span>
+                </div>
+                <span class="tool-arrow">↗</span>
+            </div>
+            <div class="tool-vector-box">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/premierepro/premierepro-original.svg" alt="Premiere Pro">
+                <div class="tool-meta">
+                    <h4>Premiere Pro</h4>
+                    <span>Video Editing & Sound</span>
+                </div>
+                <span class="tool-arrow">↗</span>
+            </div>
+            <div class="tool-vector-box">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/aftereffects/aftereffects-original.svg" alt="After Effects">
+                <div class="tool-meta">
+                    <h4>After Effects</h4>
+                    <span>Motion Graphics & VFX</span>
+                </div>
+                <span class="tool-arrow">↗</span>
+            </div>
+        </div>
+    </section>
 
     <!-- About / Approach Section -->
     <section id="about" class="approach-section container">
         <div class="approach-left fade-up">
-            <p class="section-badge">My Approach</p>
-            <h2 class="approach-title">Smart Strategies<br>Real Results<br>Meaningful Growth</h2>
+            <div class="section-tag-mono"><span class="tag-corner">┌</span> PHILOSOPHY & WORK ETHIC</div>
+            <h2 class="approach-title">Smart Strategies.<br>Real Results.<br>Meaningful Growth.</h2>
         </div>
         <div class="approach-right fade-up" style="transition-delay: 200ms;">
-            <p class="approach-desc">I combine creativity, technical skills, and AI-powered workflows to help your brand grow sustainably. From editing to graphic design, videography, and 3D modeling, I bring a multidisciplinary edge to every project.</p>
-            <div class="approach-cta">
-                <p>Let's Build Your Brand<br>Together</p>
-                <a href="#contact" class="btn green-btn">Get in touch <i class="fas fa-arrow-right"></i></a>
+            <div class="vector-narrative-box">
+                <p class="approach-desc">I combine creative intuition, technical precision, and AI-accelerated workflows to help your brand grow sustainably. From editing to graphic design, videography, and 3D modeling, I bring a multidisciplinary edge to every single deliverable.</p>
+                <div class="approach-cta">
+                    <a href="#contact" class="editorial-pill">Let's Build Your Brand <span>↗</span></a>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Projects Section -->
-    <section id="projects" class="projects-section container text-center" style="padding: 100px 5%; border-bottom: 1px solid rgba(0,0,0,0.05);">
-        <p class="section-badge fade-up">Portfolio</p>
+    <section id="projects" class="projects-section container text-center">
+        <div class="section-tag-mono fade-up"><span class="tag-corner">┌</span> CURATED ARCHIVE</div>
         <h2 class="approach-title fade-up">My Creative Works</h2>
-        <p class="approach-desc fade-up" style="max-width: 600px; margin: 2rem auto;">Explore my extensive collection of Graphic Designs, Video Productions, and 3D Visualizations. From commercial ads to poster designs.</p>
-        <div class="fade-up" style="margin-top: 3rem;">
-            <a href="works.html" class="btn green-btn" style="padding: 1.2rem 2.5rem; font-size: 1.1rem;">View Full Portfolio <i class="fas fa-arrow-right"></i></a>
+        <p class="approach-desc fade-up" style="max-width: 620px; margin: 1.5rem auto 3rem;">Explore my extensive collection of Graphic Designs, Video Productions, and 3D Visualizations. From commercial ads to poster designs.</p>
+        <div class="fade-up">
+            <a href="works.html" class="editorial-pill" style="padding: 15px 36px; font-size: 1.05rem;">
+                <i class="fas fa-layer-group"></i> View Full Portfolio Archive <span>↗</span>
+            </a>
         </div>
     </section>
 
