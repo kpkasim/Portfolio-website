@@ -704,7 +704,327 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // =========================================================
-    // 8. TOAST NOTIFICATION UTILITY
+    // 8. GITHUB LIVE CLOUD SYNC & DATA.JS GENERATOR
+    // =========================================================
+    const pushToGithubBtn = document.getElementById('pushToGithubBtn');
+    const downloadDataJsBtn = document.getElementById('downloadDataJsBtn');
+    const headerSyncGithubBtn = document.getElementById('headerSyncGithubBtn');
+    const ghRepoInput = document.getElementById('ghRepo');
+    const ghTokenInput = document.getElementById('ghToken');
+
+    // Pre-fill GitHub credentials if saved
+    if (ghTokenInput) {
+        ghTokenInput.value = localStorage.getItem('mq_gh_token') || '';
+    }
+    if (ghRepoInput) {
+        ghRepoInput.value = localStorage.getItem('mq_gh_repo') || 'kpkasim/Portfolio-website';
+    }
+
+    function generateDataJsFileContent(data) {
+        return `/**
+ * data.js - Shared Portfolio Data Store & Hydration Engine
+ * Auto-generated via MQ Admin Panel
+ */
+
+const DEFAULT_PORTFOLIO_DATA = ${JSON.stringify(data, null, 4)};
+
+const STORAGE_KEY = 'mq_portfolio_data';
+
+// Helper: Get active data
+function getPortfolioData() {
+    try {
+        const stored = localStorage.getItem(STORAGE_KEY);
+        if (stored) {
+            const parsed = JSON.parse(stored);
+            return {
+                profile: { ...DEFAULT_PORTFOLIO_DATA.profile, ...(parsed.profile || {}) },
+                works: Array.isArray(parsed.works) && parsed.works.length > 0 ? parsed.works : DEFAULT_PORTFOLIO_DATA.works
+            };
+        }
+    } catch (e) {
+        console.warn("Could not load from localStorage, using defaults", e);
+    }
+    return JSON.parse(JSON.stringify(DEFAULT_PORTFOLIO_DATA));
+}
+
+// Helper: Save data
+function savePortfolioData(data) {
+    try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+        window.dispatchEvent(new CustomEvent('portfolioDataUpdated', { detail: data }));
+        return true;
+    } catch (e) {
+        console.error("Error saving portfolio data:", e);
+        return false;
+    }
+}
+
+// Helper: Reset to defaults
+function resetPortfolioData() {
+    localStorage.removeItem(STORAGE_KEY);
+    window.dispatchEvent(new CustomEvent('portfolioDataUpdated', { detail: DEFAULT_PORTFOLIO_DATA }));
+    return DEFAULT_PORTFOLIO_DATA;
+}
+
+// Helper: Smart URL Parser for YouTube & Instagram & Images
+function parseMediaUrl(inputUrl, detectedType) {
+    if (!inputUrl) return { url: '', type: detectedType || 'image' };
+    const raw = inputUrl.trim();
+
+    if (raw.startsWith('data:image/') || raw.match(/\\.(jpeg|jpg|gif|png|webp|svg)(\\?.*)?$/i)) {
+        return { url: raw, type: 'image' };
+    }
+
+    const ytMatch = raw.match(/(?:youtu\\.be\\/|youtube\\.com\\/(?:embed\\/|v\\/|watch\\?v=|shorts\\/|watch\\?.+&v=))([\\w-]{11})/);
+    if (ytMatch && ytMatch[1]) {
+        const id = ytMatch[1];
+        const embedUrl = \`https://www.youtube.com/embed/\${id}?rel=0&modestbranding=1&controls=0&autoplay=1&mute=1&loop=1&playlist=\${id}\`;
+        return { url: embedUrl, type: 'youtube', id };
+    }
+
+    const igMatch = raw.match(/instagram\\.com\\/(?:p|reel)\\/([A-Za-z0-9_-]+)/);
+    if (igMatch && igMatch[1]) {
+        const code = igMatch[1];
+        const embedUrl = \`https://www.instagram.com/p/\${code}/embed\`;
+        return { url: embedUrl, type: 'instagram', code };
+    }
+
+    return { url: raw, type: detectedType || 'image' };
+}
+
+// Hydrate index.html elements
+function hydrateIndexPage() {
+    const data = getPortfolioData();
+    const p = data.profile;
+    if (!p) return;
+
+    document.querySelectorAll('.js-profile-email').forEach(el => {
+        el.textContent = p.email;
+        if (el.tagName.toLowerCase() === 'a') {
+            el.href = \`mailto:\${p.email}\`;
+        }
+    });
+    const emailLink = document.querySelector('.editorial-email-link');
+    if (emailLink) {
+        emailLink.innerHTML = \`\${p.email} <span class="external-arrow">↗</span>\`;
+        emailLink.href = \`mailto:\${p.email}\`;
+    }
+
+    document.querySelectorAll('.js-profile-whatsapp').forEach(el => {
+        el.href = p.whatsapp || \`https://wa.me/\${(p.phoneRaw || p.phone || '').replace(/[^0-9]/g, '')}\`;
+    });
+
+    document.querySelectorAll('.js-profile-instagram').forEach(el => {
+        el.href = p.instagram;
+    });
+
+    document.querySelectorAll('.js-profile-phone').forEach(el => {
+        el.href = \`tel:\${p.phoneRaw || p.phone.replace(/\\s+/g, '')}\`;
+        const span = el.querySelector('.js-phone-text');
+        if (span) {
+            span.textContent = p.phone;
+        } else {
+            const icon = el.querySelector('i');
+            const arrow = el.querySelector('span');
+            el.innerHTML = '';
+            if (icon) el.appendChild(icon);
+            el.append(\` \${p.phone} \`);
+            if (arrow) el.appendChild(arrow);
+        }
+    });
+
+    document.querySelectorAll('.js-profile-pinterest').forEach(el => {
+        el.href = p.pinterest;
+    });
+
+    document.querySelectorAll('.js-profile-linkedin').forEach(el => {
+        el.href = p.linkedin;
+    });
+
+    const heroSub = document.querySelector('.hero-left .subtitle');
+    if (heroSub && p.heroSubtitle) heroSub.innerHTML = p.heroSubtitle;
+
+    const heroTitle = document.querySelector('.hero-left .title');
+    if (heroTitle && p.heroTitle) heroTitle.innerHTML = p.heroTitle;
+
+    const heroRightH2 = document.querySelector('.hero-right h2');
+    if (heroRightH2 && p.heroHeadline) heroRightH2.innerHTML = p.heroHeadline;
+
+    const heroRightP = document.querySelector('.hero-right p');
+    if (heroRightP && p.heroDescription) heroRightP.innerHTML = p.heroDescription;
+
+    const aboutTitle = document.querySelector('.approach-title');
+    if (aboutTitle && p.aboutTitle) aboutTitle.innerHTML = p.aboutTitle;
+
+    const aboutDesc = document.querySelector('.approach-desc');
+    if (aboutDesc && p.aboutDescription) aboutDesc.innerHTML = p.aboutDescription;
+}
+
+// Generate single work item HTML
+function renderWorkItemHTML(item) {
+    if (item.type === 'image') {
+        return \`
+            <div class="mq-item" data-id="\${item.id}">
+                <img src="\${item.url}" alt="\${item.title || 'Work'}" loading="lazy" style="width:100%; height:100%; object-fit:cover; display:block;">
+            </div>
+        \`;
+    } else if (item.type === 'youtube') {
+        return \`
+            <div class="mq-item" data-id="\${item.id}">
+                <iframe src="\${item.url}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen loading="lazy"></iframe>
+            </div>
+        \`;
+    } else {
+        return \`
+            <div class="mq-item" data-id="\${item.id}">
+                <iframe src="\${item.url}" frameborder="0" scrolling="no" allowtransparency="true" loading="lazy"></iframe>
+            </div>
+        \`;
+    }
+}
+
+// Hydrate works.html marquee
+function hydrateWorksPage() {
+    const data = getPortfolioData();
+    const trackLeft = document.querySelector('.track-left');
+    const trackRight = document.querySelector('.track-right');
+
+    if (!trackLeft && !trackRight) return;
+
+    const row1Items = data.works.filter(w => parseInt(w.row) === 1);
+    const row2Items = data.works.filter(w => parseInt(w.row) === 2);
+
+    const actualRow1 = row1Items.length > 0 ? row1Items : data.works.slice(0, Math.ceil(data.works.length / 2));
+    const actualRow2 = row2Items.length > 0 ? row2Items : data.works.slice(Math.ceil(data.works.length / 2));
+
+    if (trackLeft && actualRow1.length > 0) {
+        const group1Html = actualRow1.map(renderWorkItemHTML).join('\\n');
+        trackLeft.innerHTML = \`<!-- Group 1 -->\\n\${group1Html}\\n<!-- Duplicate Group 1 -->\\n\${group1Html}\`;
+    }
+
+    if (trackRight && actualRow2.length > 0) {
+        const group2Html = actualRow2.map(renderWorkItemHTML).join('\\n');
+        trackRight.innerHTML = \`<!-- Group 2 -->\\n\${group2Html}\\n<!-- Duplicate Group 2 -->\\n\${group2Html}\`;
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    hydrateIndexPage();
+    hydrateWorksPage();
+});
+
+window.addEventListener('storage', (e) => {
+    if (e.key === STORAGE_KEY) {
+        hydrateIndexPage();
+        hydrateWorksPage();
+    }
+});
+`;
+    }
+
+    async function pushChangesToGitHub() {
+        const token = (ghTokenInput ? ghTokenInput.value.trim() : '') || localStorage.getItem('mq_gh_token');
+        const repo = (ghRepoInput ? ghRepoInput.value.trim() : '') || localStorage.getItem('mq_gh_repo') || 'kpkasim/Portfolio-website';
+
+        if (!token) {
+            switchTab('settings');
+            showToast('Please enter your GitHub Token to sync live!', 'error');
+            if (ghTokenInput) ghTokenInput.focus();
+            return;
+        }
+
+        localStorage.setItem('mq_gh_token', token);
+        localStorage.setItem('mq_gh_repo', repo);
+
+        showToast('Connecting to GitHub API...', 'success');
+
+        try {
+            const filePath = 'data.js';
+            const apiUrl = `https://api.github.com/repos/${repo}/contents/${filePath}`;
+
+            // 1. Fetch current SHA
+            const getRes = await fetch(apiUrl, {
+                headers: {
+                    'Authorization': `token ${token}`,
+                    'Accept': 'application/vnd.github.v3+json'
+                }
+            });
+
+            let sha = null;
+            if (getRes.ok) {
+                const fileData = await getRes.json();
+                sha = fileData.sha;
+            }
+
+            // 2. Generate updated content
+            const activeData = getPortfolioData();
+            const fileString = generateDataJsFileContent(activeData);
+            const encodedContent = btoa(unescape(encodeURIComponent(fileString)));
+
+            // 3. Commit via PUT
+            const putRes = await fetch(apiUrl, {
+                method: 'PUT',
+                headers: {
+                    'Authorization': `token ${token}`,
+                    'Accept': 'application/vnd.github.v3+json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    message: 'Update portfolio works and details via Admin Panel',
+                    content: encodedContent,
+                    sha: sha
+                })
+            });
+
+            if (putRes.ok) {
+                showToast('🚀 Pushed to GitHub! Changes will be live across all PCs in 1 minute.', 'success');
+            } else {
+                const errJson = await putRes.json();
+                showToast(`GitHub Error: ${errJson.message || 'Check your token permissions'}`, 'error');
+            }
+        } catch (err) {
+            showToast(`Sync Failed: ${err.message}`, 'error');
+        }
+    }
+
+    if (pushToGithubBtn) {
+        pushToGithubBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            pushChangesToGitHub();
+        });
+    }
+
+    if (headerSyncGithubBtn) {
+        headerSyncGithubBtn.addEventListener('click', () => {
+            const savedToken = localStorage.getItem('mq_gh_token') || (ghTokenInput ? ghTokenInput.value.trim() : '');
+            if (!savedToken) {
+                switchTab('settings');
+                showToast('Enter your GitHub token below to enable 1-click cloud sync', 'error');
+            } else {
+                pushChangesToGitHub();
+            }
+        });
+    }
+
+    if (downloadDataJsBtn) {
+        downloadDataJsBtn.addEventListener('click', () => {
+            const activeData = getPortfolioData();
+            const jsContent = generateDataJsFileContent(activeData);
+            const blob = new Blob([jsContent], { type: 'application/javascript;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'data.js';
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+            URL.revokeObjectURL(url);
+            showToast('Downloaded updated data.js!', 'success');
+        });
+    }
+
+    // =========================================================
+    // 9. TOAST NOTIFICATION UTILITY
     // =========================================================
     function showToast(message, type = 'success') {
         const toastContainer = document.getElementById('toastContainer');

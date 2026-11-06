@@ -99,6 +99,9 @@
                 </div>
 
                 <div class="header-actions">
+                    <button type="button" class="btn-live-link" id="headerSyncGithubBtn" style="background: rgba(0, 102, 255, 0.15); border-color: rgba(0, 102, 255, 0.4); color: #fff;">
+                        <i class="fab fa-github"></i> Sync to GitHub
+                    </button>
                     <a href="works.html" target="_blank" class="btn-live-link">
                         <i class="fas fa-arrow-up-right-from-square"></i> Live Works
                     </a>
@@ -349,6 +352,46 @@
                             <button type="submit" class="btn-primary-action">
                                 <i class="fas fa-shield-halved"></i> Update PIN
                             </button>
+                        </form>
+                    </div>
+
+                    <!-- GitHub Live Cloud Sync -->
+                    <div class="editor-card">
+                        <div class="editor-card-header">
+                            <div>
+                                <h2><i class="fab fa-github"></i> GitHub Live Cloud Sync</h2>
+                                <p>മറ്റേതൊരു PC-യിലോ ഫോണിലോ ഇരുന്നും സൈറ്റ് അപ്‌ഡേറ്റ് ചെയ്യാൻ GitHub-ലേക്ക് നേരിട്ട് Sync ചെയ്യാം</p>
+                            </div>
+                            <span style="background: rgba(0, 102, 255, 0.2); color: #0066ff; border: 1px solid rgba(0, 102, 255, 0.4); padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 600;">Worldwide Live</span>
+                        </div>
+
+                        <div style="margin-bottom: 20px; line-height: 1.6; font-size: 0.85rem; color: var(--text-muted);">
+                            നിങ്ങൾ അഡ്മിൻ പാനലിൽ വരുത്തുന്ന മാറ്റങ്ങൾ (പുതിയ വീഡിയോ, ഫോൺ നമ്പർ, ഇൻസ്റ്റാഗ്രാം ലിങ്ക്) ഏത് PC-യിലും അല്ലെങ്കിൽ ലോകത്ത് ആര് സന്ദർശിച്ചാലും തത്സമയം കാണാൻ ഒരു തവണ നിങ്ങളുടെ GitHub Token നൽകി <strong>Push All Changes</strong> ക്ലിക്ക് ചെയ്യുക.
+                        </div>
+
+                        <form id="githubSyncForm">
+                            <div class="form-grid-2">
+                                <div class="form-group-field">
+                                    <label for="ghRepo">GitHub Repository</label>
+                                    <input type="text" id="ghRepo" class="admin-input" value="kpkasim/Portfolio-website" required>
+                                </div>
+                                <div class="form-group-field">
+                                    <label for="ghToken">
+                                        GitHub Personal Access Token (PAT)
+                                        <span class="label-hint"><a href="https://github.com/settings/tokens" target="_blank" style="color:var(--primary); text-decoration:none;">Generate Token ↗</a></span>
+                                    </label>
+                                    <input type="password" id="ghToken" class="admin-input" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx">
+                                </div>
+                            </div>
+
+                            <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 10px;">
+                                <button type="button" class="btn-primary-action" id="pushToGithubBtn">
+                                    <i class="fab fa-github"></i> Push All Changes to Live Website
+                                </button>
+                                <button type="button" class="btn-secondary" id="downloadDataJsBtn">
+                                    <i class="fas fa-file-code"></i> Download Updated data.js
+                                </button>
+                            </div>
                         </form>
                     </div>
 
