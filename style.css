@@ -6,6 +6,25 @@
     cursor: none;
 }
 
+/* Smart TV & Keyboard Focus Visible */
+:focus-visible {
+    outline: 2px solid var(--accent-color) !important;
+    outline-offset: 3px !important;
+}
+
+/* Touch Devices (Phones, Tablets) - Restore native cursor & disable cursor follower */
+@media (hover: none) and (pointer: coarse) {
+    *, a, button, input, textarea, select {
+        cursor: auto !important;
+    }
+    a, button, .editorial-pill, .vector-card, .tool-vector-box, [role="button"], .theme-toggle {
+        cursor: pointer !important;
+    }
+    .cursor-dot, .cursor-outline {
+        display: none !important;
+    }
+}
+
 :root {
     --bg-main: #fbfbfd;
     --hero-bg: #f5f5f7;
@@ -52,6 +71,10 @@ body {
     line-height: 1.6;
     overflow-x: hidden;
     letter-spacing: -0.2px;
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+    min-height: 100vh;
+    min-height: 100dvh;
 }
 
 html {
@@ -315,11 +338,13 @@ ul { list-style: none; }
 }
 
 .title {
-    font-size: clamp(3.2rem, 6.5vw, 5.2rem);
+    font-size: clamp(2.1rem, 7.5vw, 5.2rem);
     line-height: 1.05;
     font-weight: 800;
-    letter-spacing: -2px;
+    letter-spacing: -1.5px;
     color: var(--text-dark);
+    word-break: break-word;
+    overflow-wrap: break-word;
 }
 
 .hero-right {
@@ -327,12 +352,13 @@ ul { list-style: none; }
 }
 
 .hero-right h2 {
-    font-size: clamp(1.8rem, 3vw, 2.4rem);
+    font-size: clamp(1.5rem, 3.2vw, 2.4rem);
     font-weight: 700;
     line-height: 1.15;
-    letter-spacing: -1px;
+    letter-spacing: -0.8px;
     margin-bottom: 1rem;
     color: var(--text-dark);
+    word-break: break-word;
 }
 
 .hero-right p {
@@ -1162,34 +1188,7 @@ footer {
     }
 }
 
-/* Responsive Design */
-@media screen and (max-width: 1024px) {
-    .hero-content {
-        flex-direction: column;
-        text-align: center;
-        gap: 3rem;
-    }
-    .hero-bottom-stats {
-        flex-wrap: wrap;
-        gap: 2rem;
-        justify-content: center;
-        text-align: center;
-    }
-    .approach-section {
-        flex-direction: column;
-        gap: 2rem;
-    }
-    .approach-right { padding-top: 0; }
-    .trusted-section {
-        flex-direction: column;
-        gap: 2rem;
-        text-align: center;
-    }
-    .trusted-logos { justify-content: center; }
-    
-    .title { font-size: 3.5rem; }
-    .approach-title { font-size: 2.5rem; }
-}
+
 /* --- Contact Form Styles --- */
 .contact-form {
     max-width: 600px;
@@ -1309,6 +1308,7 @@ footer {
     left: 0;
     width: 100vw;
     height: 100vh;
+    height: 100dvh;
     background-color: #000000;
     z-index: 99999;
     display: flex;
@@ -1318,6 +1318,7 @@ footer {
     cursor: pointer;
     user-select: none;
     -webkit-user-select: none;
+    padding: max(20px, env(safe-area-inset-top)) max(20px, env(safe-area-inset-right)) max(20px, env(safe-area-inset-bottom)) max(20px, env(safe-area-inset-left));
     transition: opacity 0.9s cubic-bezier(0.2, 0.8, 0.2, 1),
                 transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1),
                 visibility 0.9s;
@@ -1531,14 +1532,15 @@ footer {
 /* 6. Skip Intro Button */
 .intro-skip-btn {
     position: absolute;
-    top: 32px;
-    right: 40px;
+    top: max(24px, calc(env(safe-area-inset-top) + 12px));
+    right: max(24px, calc(env(safe-area-inset-right) + 12px));
     z-index: 10;
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(123, 138, 244, 0.35);
     border-radius: 8px;
     color: #c5d0ff;
     padding: 10px 20px;
+    min-height: 44px; /* Accessible touch target */
     font-family: var(--font-mono);
     font-size: 0.86rem;
     font-weight: 600;
@@ -1575,7 +1577,37 @@ footer {
     to { opacity: 1; }
 }
 
+/* ==========================================================================
+   UNIVERSAL RESPONSIVE BREAKPOINTS (PHONE, TAB, PC, SMART TV / 4K)
+   ========================================================================== */
+
+/* --- TABLETS & MEDIUM DEVICES (768px - 1024px) --- */
+@media (max-width: 1024px) {
+    .container {
+        padding: 0 5%;
+    }
+    .vector-cards-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+    }
+    .tools-vector-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+    .mq-item {
+        width: 260px;
+        height: 400px;
+    }
+}
+
+/* --- MOBILE PHONES & SMALL GADGETS (max-width: 768px) --- */
 @media (max-width: 768px) {
+    .navbar {
+        padding: 18px 5%;
+        margin-bottom: 35px;
+    }
+    .nav-links {
+        gap: 1.5rem;
+    }
     .intro-laser-svg {
         width: 320px;
     }
@@ -1592,10 +1624,131 @@ footer {
         padding: 5px 12px;
     }
     .intro-skip-btn {
-        top: 20px;
-        right: 20px;
+        top: max(16px, env(safe-area-inset-top));
+        right: max(16px, env(safe-area-inset-right));
         padding: 8px 14px;
         font-size: 0.78rem;
     }
+    .hero-content {
+        padding: 10px 5% 45px;
+        gap: 25px;
+    }
+    .tools-vector-section,
+    .approach-section,
+    .projects-section,
+    .wave-playground-section,
+    .editorial-contact-section {
+        padding: 65px 5% 75px;
+    }
+    .vector-cards-grid {
+        grid-template-columns: 1fr;
+    }
+    .mq-item {
+        width: 240px;
+        height: 380px;
+    }
+    .morphic-hero {
+        padding: 40px 5% 30px;
+        gap: 24px;
+    }
+    .mh-title {
+        font-size: clamp(2rem, 7vw, 2.8rem);
+    }
 }
+
+/* --- EXTRA-SMALL SMARTPHONES & IN-APP BROWSERS (max-width: 480px) --- */
+@media (max-width: 480px) {
+    .navbar {
+        padding: 14px 4%;
+        margin-bottom: 24px;
+        gap: 10px;
+    }
+    .nav-links {
+        gap: 1rem;
+    }
+    .nav-links a {
+        font-size: 0.88rem;
+    }
+    .logo-box {
+        padding: 3px 8px;
+        font-size: 0.85rem;
+    }
+    .editorial-pill {
+        padding: 8px 14px;
+        font-size: 0.82rem;
+        gap: 6px;
+    }
+    .intro-laser-svg {
+        width: 280px;
+        max-width: 92vw;
+    }
+    .laser-text-mq {
+        font-size: 64px;
+        letter-spacing: 4px;
+    }
+    .intro-tagline {
+        font-size: 0.8rem;
+        letter-spacing: 1.5px;
+    }
+    .intro-meta-pill {
+        font-size: 0.58rem;
+        letter-spacing: 0.6px;
+        padding: 4px 8px;
+    }
+    .tools-vector-grid {
+        grid-template-columns: 1fr;
+    }
+    .wave-controls-bar {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+    }
+    .wave-slider-group {
+        justify-content: space-between;
+        width: 100%;
+    }
+    .wave-motion-btn {
+        width: 100%;
+        justify-content: center;
+    }
+    .editorial-headline {
+        font-size: clamp(2.2rem, 9.5vw, 3.4rem);
+        letter-spacing: -1px;
+    }
+    .editorial-email-link {
+        font-size: clamp(1.05rem, 5vw, 1.6rem);
+        word-break: break-all;
+    }
+    .editorial-buttons-row {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .editorial-contact-section .editorial-pill {
+        width: 100%;
+        justify-content: center;
+    }
+    .mq-item {
+        width: 220px;
+        height: 350px;
+    }
+}
+
+/* --- ULTRA-WIDE & SMART TV / 4K MONITORS (min-width: 2000px) --- */
+@media (min-width: 2000px) {
+    .container,
+    .hero-content,
+    .vector-cards-grid,
+    .tools-vector-grid,
+    .wave-playground-container,
+    .editorial-contact-container {
+        max-width: 1700px;
+    }
+    .title {
+        font-size: 5.6rem;
+    }
+    .editorial-headline {
+        font-size: 6.2rem;
+    }
+}
+
 

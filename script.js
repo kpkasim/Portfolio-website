@@ -1,20 +1,26 @@
-// --- Custom Cursor ---
+// --- Custom Cursor (Desktop / Fine Pointer Only) ---
 const cursorDot = document.querySelector('.cursor-dot');
 const cursorOutline = document.querySelector('.cursor-outline');
+const isFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
 if (cursorDot && cursorOutline) {
-    window.addEventListener('mousemove', (e) => {
-        const posX = e.clientX;
-        const posY = e.clientY;
+    if (isFinePointer) {
+        window.addEventListener('mousemove', (e) => {
+            const posX = e.clientX;
+            const posY = e.clientY;
 
-        cursorDot.style.left = `${posX}px`;
-        cursorDot.style.top = `${posY}px`;
+            cursorDot.style.left = `${posX}px`;
+            cursorDot.style.top = `${posY}px`;
 
-        cursorOutline.animate({
-            left: `${posX}px`,
-            top: `${posY}px`
-        }, { duration: 500, fill: "forwards" });
-    });
+            cursorOutline.animate({
+                left: `${posX}px`,
+                top: `${posY}px`
+            }, { duration: 500, fill: "forwards" });
+        });
+    } else {
+        cursorDot.style.display = 'none';
+        cursorOutline.style.display = 'none';
+    }
 }
 
 // --- Smooth Scrolling for Navigation ---
@@ -194,24 +200,43 @@ if (waveCanvas) {
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
 
-    // Mouse movement interaction
-    waveCanvas.addEventListener('mousemove', (e) => {
+    // Pointer & Touch Movement Interaction (Desktop, Tablet, Mobile)
+    const handlePointerMove = (clientX, clientY) => {
         const rect = waveCanvas.getBoundingClientRect();
-        const mouseX = e.clientX - rect.left;
-        const mouseY = e.clientY - rect.top;
+        const pointerX = clientX - rect.left;
+        const pointerY = clientY - rect.top;
 
-        const normX = Math.max(0, Math.min(1, mouseX / rect.width));
-        const normY = Math.max(0, Math.min(1, mouseY / rect.height));
+        const normX = Math.max(0, Math.min(1, pointerX / rect.width));
+        const normY = Math.max(0, Math.min(1, pointerY / rect.height));
 
-        // Modulate frequency and amplitude
         targetFreq = 0.004 + normX * 0.016;
         targetAmp = 18 + (1 - normY) * 38;
-    });
+    };
 
-    waveCanvas.addEventListener('mouseleave', () => {
+    const resetWave = () => {
         targetFreq = baseFreq;
         targetAmp = baseAmp;
+    };
+
+    waveCanvas.addEventListener('mousemove', (e) => {
+        handlePointerMove(e.clientX, e.clientY);
     });
+    waveCanvas.addEventListener('mouseleave', resetWave);
+
+    // Touch interaction for Mobile & Tablet users
+    waveCanvas.addEventListener('touchstart', (e) => {
+        if (e.touches && e.touches[0]) {
+            handlePointerMove(e.touches[0].clientX, e.touches[0].clientY);
+        }
+    }, { passive: true });
+
+    waveCanvas.addEventListener('touchmove', (e) => {
+        if (e.touches && e.touches[0]) {
+            handlePointerMove(e.touches[0].clientX, e.touches[0].clientY);
+        }
+    }, { passive: true });
+
+    waveCanvas.addEventListener('touchend', resetWave, { passive: true });
 
     // Speed slider
     if (waveSpeedSlider) {
