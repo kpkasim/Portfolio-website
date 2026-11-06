@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
     <title>MQ Admin Panel | Muhammed Qasim Portfolio</title>
     <!-- Google Fonts: Poppins -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -26,7 +26,7 @@
                     <label for="adminPinInput">Enter Admin PIN / Password</label>
                     <div class="input-icon-wrap">
                         <i class="fas fa-lock prefix-icon"></i>
-                        <input type="password" id="adminPinInput" placeholder="Enter PIN (Default: admin123)" required autofocus autocomplete="current-password">
+                        <input type="password" id="adminPinInput" placeholder="Enter your PIN" required autofocus autocomplete="current-password">
                         <button type="button" class="toggle-pwd-btn" id="togglePwdBtn" aria-label="Toggle password visibility">
                             <i class="fas fa-eye" id="togglePwdIcon"></i>
                         </button>
@@ -42,13 +42,21 @@
     <!-- =========================================================
          2. MAIN ADMIN DASHBOARD LAYOUT
          ========================================================= -->
+    <!-- Sidebar Backdrop for Mobile/Tablet -->
+    <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
     <div class="admin-layout" id="adminLayout">
         
         <!-- SIDEBAR -->
         <aside class="admin-sidebar" id="adminSidebar">
             <div class="sidebar-brand">
                 <div class="sidebar-logo">MQ<span>.</span> <small style="font-size: 0.75rem; font-weight: 500; color: #8e9bb0;">Admin</small></div>
-                <span class="sidebar-badge">V1.0</span>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <span class="sidebar-badge">V1.0</span>
+                    <button type="button" class="sidebar-close-btn" id="sidebarCloseBtn" aria-label="Close sidebar">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
             </div>
 
             <nav class="sidebar-nav">
@@ -87,7 +95,7 @@
         <main class="admin-main">
             <!-- Header -->
             <header class="admin-header">
-                <div style="display: flex; align-items: center; gap: 16px;">
+                <div class="header-left">
                     <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu">
                         <i class="fas fa-bars"></i>
                     </button>
@@ -98,11 +106,11 @@
                 </div>
 
                 <div class="header-actions">
-                    <button type="button" class="btn-live-link" id="headerSyncGithubBtn" style="background: rgba(0, 102, 255, 0.15); border-color: rgba(0, 102, 255, 0.4); color: #fff;">
-                        <i class="fab fa-github"></i> Sync to GitHub
+                    <button type="button" class="btn-live-link btn-sync-header" id="headerSyncGithubBtn">
+                        <i class="fab fa-github"></i> <span class="action-btn-text">Sync to GitHub</span>
                     </button>
-                    <a href="works.html" target="_blank" class="btn-live-link">
-                        <i class="fas fa-arrow-up-right-from-square"></i> Live Works
+                    <a href="works.html" target="_blank" class="btn-live-link btn-works-header">
+                        <i class="fas fa-arrow-up-right-from-square"></i> <span class="action-btn-text">Live Works</span>
                     </a>
                 </div>
             </header>
@@ -526,6 +534,26 @@
             </form>
         </div>
     </div>
+
+    <!-- MOBILE BOTTOM NAVIGATION (Phones, Tablets & Small Gadgets) -->
+    <nav class="mobile-bottom-bar" id="mobileBottomBar">
+        <button type="button" class="bottom-nav-item active" data-tab="overview">
+            <i class="fas fa-chart-pie"></i>
+            <span>Overview</span>
+        </button>
+        <button type="button" class="bottom-nav-item" data-tab="works">
+            <i class="fas fa-photo-film"></i>
+            <span>Works</span>
+        </button>
+        <button type="button" class="bottom-nav-item" data-tab="profile">
+            <i class="fas fa-user-gear"></i>
+            <span>Profile</span>
+        </button>
+        <button type="button" class="bottom-nav-item" data-tab="settings">
+            <i class="fas fa-sliders"></i>
+            <span>Settings</span>
+        </button>
+    </nav>
 
     <!-- TOAST NOTIFICATION CONTAINER -->
     <div class="toast-container" id="toastContainer"></div>

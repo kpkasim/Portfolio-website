@@ -96,8 +96,25 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
+    const bottomNavItems = document.querySelectorAll('.mobile-bottom-bar .bottom-nav-item');
+    const sidebarBackdrop = document.getElementById('sidebarBackdrop');
+    const sidebarCloseBtn = document.getElementById('sidebarCloseBtn');
+
+    function closeSidebar() {
+        if (adminSidebar) adminSidebar.classList.remove('open');
+        if (sidebarBackdrop) sidebarBackdrop.classList.remove('show');
+    }
+
+    function openSidebar() {
+        if (adminSidebar) adminSidebar.classList.add('open');
+        if (sidebarBackdrop) sidebarBackdrop.classList.add('show');
+    }
+
     function switchTab(tabKey) {
         navItems.forEach(item => {
+            item.classList.toggle('active', item.dataset.tab === tabKey);
+        });
+        bottomNavItems.forEach(item => {
             item.classList.toggle('active', item.dataset.tab === tabKey);
         });
         tabContents.forEach(content => {
@@ -109,9 +126,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (pageSubtitle) pageSubtitle.textContent = tabMeta[tabKey].subtitle;
         }
 
-        if (adminSidebar.classList.contains('open')) {
-            adminSidebar.classList.remove('open');
-        }
+        closeSidebar();
 
         // Re-render relevant parts
         if (tabKey === 'works') {
@@ -129,10 +144,21 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    if (mobileMenuToggle) {
-        mobileMenuToggle.addEventListener('click', () => {
-            adminSidebar.classList.toggle('open');
+    bottomNavItems.forEach(item => {
+        item.addEventListener('click', () => {
+            switchTab(item.dataset.tab);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         });
+    });
+
+    if (mobileMenuToggle) {
+        mobileMenuToggle.addEventListener('click', openSidebar);
+    }
+    if (sidebarCloseBtn) {
+        sidebarCloseBtn.addEventListener('click', closeSidebar);
+    }
+    if (sidebarBackdrop) {
+        sidebarBackdrop.addEventListener('click', closeSidebar);
     }
 
     // Shortcuts from overview
