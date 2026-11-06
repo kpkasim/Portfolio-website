@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MQ Admin Panel | Muhammed Qasim Portfolio</title>
+    <!-- Google Fonts: Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Admin CSS -->
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+    <!-- =========================================================
+         1. LOGIN OVERLAY
+         ========================================================= -->
+    <div id="loginOverlay" class="login-wrapper">
+        <div class="login-card">
+            <div class="login-logo">MQ<span>.</span></div>
+            <p class="login-subtitle">Portfolio Control Center</p>
+
+            <form id="adminLoginForm" class="login-form">
+                <div class="form-group">
+                    <label for="adminPinInput">Enter Admin PIN / Password</label>
+                    <div class="input-icon-wrap">
+                        <i class="fas fa-lock prefix-icon"></i>
+                        <input type="password" id="adminPinInput" placeholder="Enter PIN (Default: admin123)" required autofocus autocomplete="current-password">
+                        <button type="button" class="toggle-pwd-btn" id="togglePwdBtn" aria-label="Toggle password visibility">
+                            <i class="fas fa-eye" id="togglePwdIcon"></i>
+                        </button>
+                    </div>
+                </div>
+                <button type="submit" class="login-btn">
+                    Unlock Dashboard <i class="fas fa-arrow-right"></i>
+                </button>
+            </form>
+            <p class="login-hint">Default PIN: <code>admin123</code> (Settings-ൽ മാറ്റാം)</p>
+        </div>
+    </div>
+
+    <!-- =========================================================
+         2. MAIN ADMIN DASHBOARD LAYOUT
+         ========================================================= -->
+    <div class="admin-layout" id="adminLayout">
+        
+        <!-- SIDEBAR -->
+        <aside class="admin-sidebar" id="adminSidebar">
+            <div class="sidebar-brand">
+                <div class="sidebar-logo">MQ<span>.</span> <small style="font-size: 0.75rem; font-weight: 500; color: #8e9bb0;">Admin</small></div>
+                <span class="sidebar-badge">V1.0</span>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a class="nav-item active" data-tab="overview">
+                    <i class="fas fa-chart-pie"></i>
+                    <span>Overview</span>
+                </a>
+                <a class="nav-item" data-tab="works">
+                    <i class="fas fa-photo-film"></i>
+                    <span>Works & Media</span>
+                </a>
+                <a class="nav-item" data-tab="profile">
+                    <i class="fas fa-user-gear"></i>
+                    <span>Profile & Links</span>
+                </a>
+                <a class="nav-item" data-tab="settings">
+                    <i class="fas fa-sliders"></i>
+                    <span>Settings & Backup</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <a href="index.html" target="_blank" class="btn-sidebar-view">
+                    <i class="fas fa-external-link-alt"></i> View Home Page
+                </a>
+                <a href="works.html" target="_blank" class="btn-sidebar-view">
+                    <i class="fas fa-layer-group"></i> View Works Page
+                </a>
+                <button type="button" class="btn-sidebar-logout" id="logoutBtn">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT AREA -->
+        <main class="admin-main">
+            <!-- Header -->
+            <header class="admin-header">
+                <div style="display: flex; align-items: center; gap: 16px;">
+                    <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <div class="header-title-box">
+                        <h1 id="pageTitle">Dashboard Overview</h1>
+                        <p id="pageSubtitle">Manage works, phone numbers, and social links</p>
+                    </div>
+                </div>
+
+                <div class="header-actions">
+                    <a href="works.html" target="_blank" class="btn-live-link">
+                        <i class="fas fa-arrow-up-right-from-square"></i> Live Works
+                    </a>
+                </div>
+            </header>
+
+            <div class="admin-container">
+                
+                <!-- =========================================================
+                     TAB 1: OVERVIEW
+                     ========================================================= -->
+                <section class="tab-content active" id="tab-overview">
+                    <!-- Stats Grid -->
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon blue"><i class="fas fa-layer-group"></i></div>
+                            <div class="stat-info">
+                                <div class="stat-number" id="statTotalWorks">0</div>
+                                <div class="stat-label">Total Works & Media</div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon red"><i class="fab fa-youtube"></i></div>
+                            <div class="stat-info">
+                                <div class="stat-number" id="statYoutube">0</div>
+                                <div class="stat-label">YouTube Videos</div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon pink"><i class="fab fa-instagram"></i></div>
+                            <div class="stat-info">
+                                <div class="stat-number" id="statInstagram">0</div>
+                                <div class="stat-label">Instagram Posts</div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon green"><i class="fas fa-image"></i></div>
+                            <div class="stat-info">
+                                <div class="stat-number" id="statImages">0</div>
+                                <div class="stat-label">Images & Artwork</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Actions Card -->
+                    <div class="editor-card">
+                        <div class="editor-card-header">
+                            <div>
+                                <h2><i class="fas fa-bolt"></i> Quick Actions</h2>
+                                <p>എളുപ്പത്തിൽ മാറ്റങ്ങൾ വരുത്താനുള്ള കുറുക്കുവഴികൾ</p>
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 14px; flex-wrap: wrap;">
+                            <button type="button" class="btn-primary-action" id="quickAddVideoBtn">
+                                <i class="fas fa-plus"></i> Add New Video / Work
+                            </button>
+                            <button type="button" class="btn-secondary" id="quickEditLinksBtn">
+                                <i class="fas fa-address-book"></i> Change Phone / Insta Link
+                            </button>
+                            <a href="works.html" target="_blank" class="btn-secondary" style="text-decoration:none;">
+                                <i class="fas fa-eye"></i> Preview Portfolio Marquee
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Recent Works Preview -->
+                    <div class="editor-card">
+                        <div class="editor-card-header">
+                            <div>
+                                <h2><i class="fas fa-clock-rotate-left"></i> Current Works in Portfolio</h2>
+                                <p>നിലവിൽ വെബ്‌സൈറ്റിൽ കാണിക്കുന്ന വർക്കുകൾ</p>
+                            </div>
+                            <button type="button" class="btn-secondary" id="seeAllWorksBtn">
+                                View All Media <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+                        <div class="works-grid" id="overviewRecentWorks">
+                            <!-- Populated dynamically -->
+                        </div>
+                    </div>
+                </section>
+
+                <!-- =========================================================
+                     TAB 2: WORKS & MEDIA (VIDEOS & IMAGES)
+                     ========================================================= -->
+                <section class="tab-content" id="tab-works">
+                    <div class="section-toolbar">
+                        <div class="toolbar-filters">
+                            <button class="filter-chip active" data-filter="all">All Works (<span id="countAll">0</span>)</button>
+                            <button class="filter-chip" data-filter="row1">Row 1: Top Track</button>
+                            <button class="filter-chip" data-filter="row2">Row 2: Bottom Track</button>
+                            <button class="filter-chip" data-filter="youtube"><i class="fab fa-youtube" style="color:var(--youtube)"></i> YouTube</button>
+                            <button class="filter-chip" data-filter="instagram"><i class="fab fa-instagram" style="color:var(--insta)"></i> Instagram</button>
+                            <button class="filter-chip" data-filter="image"><i class="fas fa-image" style="color:var(--success)"></i> Images</button>
+                        </div>
+                        <button type="button" class="btn-primary-action" id="openAddWorkModalBtn">
+                            <i class="fas fa-plus"></i> Add New Video / Work
+                        </button>
+                    </div>
+
+                    <!-- Works Grid Container -->
+                    <div class="works-grid" id="fullWorksGrid">
+                        <!-- Populated dynamically -->
+                    </div>
+                </section>
+
+                <!-- =========================================================
+                     TAB 3: PROFILE & DETAILS (PHONE, INSTA, BIO)
+                     ========================================================= -->
+                <section class="tab-content" id="tab-profile">
+                    
+                    <!-- Contact & Social Details Form -->
+                    <div class="editor-card">
+                        <div class="editor-card-header">
+                            <div>
+                                <h2><i class="fas fa-address-card"></i> Contact Numbers & Social Profiles</h2>
+                                <p>ഫോൺ നമ്പർ, ഇൻസ്റ്റാഗ്രാം, വാട്ട്സ്ആപ്പ് ലിങ്കുകൾ മാറ്റുക</p>
+                            </div>
+                        </div>
+
+                        <form id="contactDetailsForm">
+                            <div class="form-grid-2">
+                                <div class="form-group-field">
+                                    <label for="profPhone">
+                                        Phone Number
+                                        <span class="label-hint">Display format</span>
+                                    </label>
+                                    <input type="text" id="profPhone" class="admin-input" placeholder="+91 8606 1505 77" required>
+                                </div>
+                                <div class="form-group-field">
+                                    <label for="profWhatsapp">
+                                        WhatsApp Link
+                                        <span class="label-hint">https://wa.me/...</span>
+                                    </label>
+                                    <input type="url" id="profWhatsapp" class="admin-input" placeholder="https://wa.me/918606150577">
+                                </div>
+                                <div class="form-group-field">
+                                    <label for="profInstagram">
+                                        Instagram Profile URL
+                                        <span class="label-hint">https://instagram.com/...</span>
+                                    </label>
+                                    <input type="url" id="profInstagram" class="admin-input" placeholder="https://instagram.com/mq_ads_" required>
+                                </div>
+                                <div class="form-group-field">
+                                    <label for="profEmail">
+                                        Contact Email
+                                        <span class="label-hint">Primary email address</span>
+                                    </label>
+                                    <input type="email" id="profEmail" class="admin-input" placeholder="kpkasim205@gmail.com" required>
+                                </div>
+                                <div class="form-group-field">
+                                    <label for="profPinterest">
+                                        Pinterest Link
+                                        <span class="label-hint">https://pin.it/...</span>
+                                    </label>
+                                    <input type="url" id="profPinterest" class="admin-input" placeholder="https://pin.it/5X84F8n4U">
+                                </div>
+                                <div class="form-group-field">
+                                    <label for="profLinkedin">
+                                        LinkedIn Profile Link
+                                        <span class="label-hint">https://linkedin.com/in/...</span>
+                                    </label>
+                                    <input type="url" id="profLinkedin" class="admin-input" placeholder="https://linkedin.com/in/MQ-Ads">
+                                </div>
+                            </div>
+
+                            <div class="form-save-bar">
+                                <button type="submit" class="btn-primary-action">
+                                    <i class="fas fa-floppy-disk"></i> Save Contact & Social Links
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Hero & About Texts Form -->
+                    <div class="editor-card">
+                        <div class="editor-card-header">
+                            <div>
+                                <h2><i class="fas fa-file-pen"></i> Hero & Bio Content</h2>
+                                <p>ഹോം പേജിലെ പ്രധാന തലക്കെട്ടുകളും വിവരണങ്ങളും മാറ്റുക</p>
+                            </div>
+                        </div>
+
+                        <form id="heroBioForm">
+                            <div class="form-grid-2">
+                                <div class="form-group-field">
+                                    <label for="profHeroSubtitle">Hero Subtitle</label>
+                                    <input type="text" id="profHeroSubtitle" class="admin-input" placeholder="Hey, I'm a">
+                                </div>
+                                <div class="form-group-field">
+                                    <label for="profHeroTitle">Hero Title</label>
+                                    <input type="text" id="profHeroTitle" class="admin-input" placeholder="Multidisciplinary<br>Designer">
+                                </div>
+                            </div>
+
+                            <div class="form-grid-2">
+                                <div class="form-group-field">
+                                    <label for="profHeroHeadline">Hero Right Headline</label>
+                                    <input type="text" id="profHeroHeadline" class="admin-input" placeholder="Shaping ideas<br>into reality.">
+                                </div>
+                                <div class="form-group-field">
+                                    <label for="profHeroDesc">Hero Right Description</label>
+                                    <textarea id="profHeroDesc" class="admin-textarea" rows="3"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-group-field">
+                                <label for="profAboutTitle">About Section Title</label>
+                                <input type="text" id="profAboutTitle" class="admin-input" placeholder="Smart Strategies<br>Real Results<br>Meaningful Growth">
+                            </div>
+
+                            <div class="form-group-field">
+                                <label for="profAboutDesc">About Section Description</label>
+                                <textarea id="profAboutDesc" class="admin-textarea" rows="4"></textarea>
+                            </div>
+
+                            <div class="form-save-bar">
+                                <button type="submit" class="btn-primary-action">
+                                    <i class="fas fa-floppy-disk"></i> Save Bio & Content
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+
+                <!-- =========================================================
+                     TAB 4: SETTINGS & BACKUP
+                     ========================================================= -->
+                <section class="tab-content" id="tab-settings">
+                    
+                    <!-- Admin Password / PIN -->
+                    <div class="editor-card">
+                        <div class="editor-card-header">
+                            <div>
+                                <h2><i class="fas fa-key"></i> Security PIN</h2>
+                                <p>അഡ്മിൻ പാനലിലേക്ക് ലോഗിൻ ചെയ്യാനുള്ള പാസ്‌വേഡ് മാറ്റുക</p>
+                            </div>
+                        </div>
+                        <form id="changePinForm" style="max-width: 450px;">
+                            <div class="form-group-field">
+                                <label for="newPin">New Password / PIN</label>
+                                <input type="password" id="newPin" class="admin-input" placeholder="Enter new PIN" required>
+                            </div>
+                            <div class="form-group-field">
+                                <label for="confirmPin">Confirm New PIN</label>
+                                <input type="password" id="confirmPin" class="admin-input" placeholder="Repeat new PIN" required>
+                            </div>
+                            <button type="submit" class="btn-primary-action">
+                                <i class="fas fa-shield-halved"></i> Update PIN
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Backup & Restore -->
+                    <div class="editor-card">
+                        <div class="editor-card-header">
+                            <div>
+                                <h2><i class="fas fa-database"></i> Backup & Data Restore</h2>
+                                <p>വർക്കുകളും വിവരങ്ങളും ബാക്കപ്പ് എടുക്കാനും റീസ്റ്റോർ ചെയ്യാനും</p>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 24px;">
+                            <button type="button" class="btn-primary-action" id="exportDataBtn">
+                                <i class="fas fa-download"></i> Download Backup (JSON)
+                            </button>
+                            <label class="btn-secondary" style="cursor: pointer; display: inline-flex; align-items: center; gap: 8px;">
+                                <i class="fas fa-upload"></i> Restore from JSON
+                                <input type="file" id="importDataInput" accept=".json" style="display: none;">
+                            </label>
+                            <button type="button" class="btn-card-action delete" id="resetDefaultsBtn" style="padding: 10px 18px;">
+                                <i class="fas fa-rotate-left"></i> Reset to Original Defaults
+                            </button>
+                        </div>
+                        <p style="font-size: 0.82rem; color: var(--text-dim); line-height: 1.6;">
+                            * "Download Backup" ക്ലിക്ക് ചെയ്താൽ നിലവിലെ എല്ലാ വീഡിയോകളും ലിങ്കുകളും അടങ്ങിയ ഒരു ഫയൽ നിങ്ങളുടെ കമ്പ്യൂട്ടറിൽ സേവാകും.
+                        </p>
+                    </div>
+                </section>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- =========================================================
+         ADD / EDIT WORK MODAL
+         ========================================================= -->
+    <div class="modal-overlay" id="workModal">
+        <div class="modal-window">
+            <div class="modal-header">
+                <h3 id="workModalTitle"><i class="fas fa-plus-circle" style="color:var(--primary); margin-right:8px;"></i> Add New Video / Work</h3>
+                <button type="button" class="modal-close-btn" id="closeWorkModalBtn">&times;</button>
+            </div>
+            
+            <form id="workForm">
+                <input type="hidden" id="editWorkId" value="">
+                
+                <div class="modal-body">
+                    <!-- Media Type Selector -->
+                    <div class="form-group-field">
+                        <label>Select Media Type</label>
+                        <div class="type-radio-grid">
+                            <label class="type-radio-card selected yt" data-type="youtube">
+                                <input type="radio" name="mediaType" value="youtube" checked>
+                                <i class="fab fa-youtube"></i>
+                                <span>YouTube Video</span>
+                            </label>
+                            <label class="type-radio-card ig" data-type="instagram">
+                                <input type="radio" name="mediaType" value="instagram">
+                                <i class="fab fa-instagram"></i>
+                                <span>Instagram Post</span>
+                            </label>
+                            <label class="type-radio-card img" data-type="image">
+                                <input type="radio" name="mediaType" value="image">
+                                <i class="fas fa-image"></i>
+                                <span>Direct Image</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Work Title -->
+                    <div class="form-group-field">
+                        <label for="workTitle">Title / Caption</label>
+                        <input type="text" id="workTitle" class="admin-input" placeholder="e.g. Commercial Reel / Brand Artwork" required>
+                    </div>
+
+                    <!-- Media URL Input (for YouTube / Instagram / Image URL) -->
+                    <div class="form-group-field" id="urlInputGroup">
+                        <label for="workMediaUrl">
+                            <span id="urlLabelText">YouTube Link / URL</span>
+                            <span class="label-hint">Paste regular or embed link</span>
+                        </label>
+                        <input type="text" id="workMediaUrl" class="admin-input" placeholder="e.g. https://youtu.be/... or https://youtube.com/watch?v=..." required>
+                    </div>
+
+                    <!-- Image Upload (Alternative for Image Type) -->
+                    <div class="form-group-field" id="imageUploadGroup" style="display: none;">
+                        <label>Or Upload Image from Computer</label>
+                        <div class="file-drop-zone" id="fileDropZone">
+                            <i class="fas fa-cloud-arrow-up"></i>
+                            <p>Click here or drag an image</p>
+                            <span>Supports JPG, PNG, WEBP</span>
+                            <input type="file" id="workImageFileInput" accept="image/*" style="display: none;">
+                        </div>
+                    </div>
+
+                    <!-- Live Preview Box -->
+                    <div class="live-preview-box" id="modalLivePreviewBox" style="display: none;">
+                        <div style="font-size: 0.76rem; color: var(--text-muted); margin-bottom: 8px; text-align: left;">Live Preview:</div>
+                        <div class="preview-container" id="modalPreviewContainer">
+                            <!-- Preview element injected here -->
+                        </div>
+                    </div>
+
+                    <!-- Row & Category -->
+                    <div class="form-grid-2" style="margin-top: 18px;">
+                        <div class="form-group-field">
+                            <label for="workRow">Display In Track</label>
+                            <select id="workRow" class="admin-select">
+                                <option value="1">Row 1 (Top Marquee - Scrolls Left)</option>
+                                <option value="2">Row 2 (Bottom Marquee - Scrolls Right)</option>
+                            </select>
+                        </div>
+                        <div class="form-group-field">
+                            <label for="workCategory">Category Tag</label>
+                            <select id="workCategory" class="admin-select">
+                                <option value="Video Production">Video Production</option>
+                                <option value="Graphic Design">Graphic Design</option>
+                                <option value="3D Visualization">3D Visualization</option>
+                                <option value="AI Workflows">AI Workflows</option>
+                                <option value="Commercial Ads">Commercial Ads</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn-secondary" id="cancelWorkModalBtn">Cancel</button>
+                    <button type="submit" class="btn-primary-action" id="saveWorkSubmitBtn">
+                        <i class="fas fa-check"></i> Add to Portfolio
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION CONTAINER -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Shared Data Store & Admin Script -->
+    <script src="data.js"></script>
+    <script src="admin.js"></script>
+</body>
+</html>
