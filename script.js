@@ -323,3 +323,52 @@ if (waveCanvas) {
     draw();
 }
 
+// --- Cinematic Laser Intro Controller ---
+const cinematicIntro = document.getElementById('cinematicIntro');
+const skipIntroBtn = document.getElementById('skipIntroBtn');
+
+if (cinematicIntro) {
+    let introFinished = false;
+
+    // Temporarily lock body scroll during the intro
+    document.body.style.overflow = 'hidden';
+
+    const finishIntro = () => {
+        if (introFinished) return;
+        introFinished = true;
+
+        cinematicIntro.classList.add('fade-out');
+        document.body.style.overflow = '';
+
+        setTimeout(() => {
+            cinematicIntro.style.display = 'none';
+        }, 950);
+    };
+
+    // Auto-transition to hero section after ~4.8s
+    const autoTimer = setTimeout(finishIntro, 4800);
+
+    // Skip button click
+    if (skipIntroBtn) {
+        skipIntroBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            clearTimeout(autoTimer);
+            finishIntro();
+        });
+    }
+
+    // Click anywhere on overlay to skip
+    cinematicIntro.addEventListener('click', () => {
+        clearTimeout(autoTimer);
+        finishIntro();
+    });
+
+    // Keyboard shortcut (Escape or Space) to skip
+    window.addEventListener('keydown', (e) => {
+        if (!introFinished && (e.key === 'Escape' || e.code === 'Space')) {
+            clearTimeout(autoTimer);
+            finishIntro();
+        }
+    });
+}
+

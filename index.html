@@ -17,6 +17,56 @@
     <div class="cursor-dot"></div>
     <div class="cursor-outline"></div>
 
+    <!-- Cinematic Laser Intro Overlay -->
+    <div id="cinematicIntro" class="cinematic-intro-overlay" aria-label="Cinematic Intro">
+        <button id="skipIntroBtn" class="intro-skip-btn" aria-label="Skip Intro">Skip <span>↗</span></button>
+        <div class="intro-content-wrap">
+            <div class="intro-vector-box">
+                <svg class="intro-laser-svg" viewBox="0 0 420 180" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="laserGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#C5D0FF" />
+                            <stop offset="50%" stop-color="#7B8AF4" />
+                            <stop offset="100%" stop-color="#5B6CFF" />
+                        </linearGradient>
+                        <filter id="laserGlowFilter" x="-40%" y="-40%" width="180%" height="180%">
+                            <feGaussianBlur stdDeviation="3" result="blur1" />
+                            <feGaussianBlur stdDeviation="8" result="blur2" />
+                            <feMerge>
+                                <feMergeNode in="blur2" />
+                                <feMergeNode in="blur1" />
+                                <feMergeNode in="SourceGraphic" />
+                            </feMerge>
+                        </filter>
+                    </defs>
+
+                    <!-- Technical Vector Corner Marks -->
+                    <path class="laser-corner" d="M 15 35 L 15 15 L 35 15" />
+                    <path class="laser-corner" d="M 405 35 L 405 15 L 385 15" />
+                    <path class="laser-corner" d="M 15 145 L 15 165 L 35 165" />
+                    <path class="laser-corner" d="M 405 145 L 405 165 L 385 165" />
+
+                    <!-- Vector Box Outer Boundary -->
+                    <rect class="laser-box-rect" x="28" y="22" width="364" height="136" rx="14" />
+
+                    <!-- "MQ" Text with Laser Stroke & Soft Fade Fill -->
+                    <text x="185" y="115" class="laser-text-mq" text-anchor="middle">MQ</text>
+                    
+                    <!-- Periwinkle Accent Dot "." -->
+                    <circle cx="270" cy="108" r="8.5" class="laser-dot-circle" />
+                </svg>
+            </div>
+
+            <div class="intro-caption-group">
+                <p class="intro-tagline">You thought it was just design.</p>
+                <div class="intro-meta-pill">
+                    <span class="intro-meta-corner">┌</span>
+                    <span class="intro-meta-label">MUHAMMED QASIM — MULTIDISCIPLINARY DESIGNER</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Hero Section -->
     <section id="home" class="hero-section">
         <nav class="navbar">
