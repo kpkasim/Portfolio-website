@@ -923,7 +923,8 @@ window.addEventListener('storage', (e) => {
     }
 
     async function pushChangesToGitHub() {
-        const token = (ghTokenInput ? ghTokenInput.value.trim() : '') || localStorage.getItem('mq_gh_token');
+        const rawToken = (ghTokenInput ? ghTokenInput.value.trim() : '') || localStorage.getItem('mq_gh_token') || '';
+        const token = rawToken.replace(/^(Bearer|token)\s+/i, '').replace(/["']/g, '').trim();
         const repo = (ghRepoInput ? ghRepoInput.value.trim() : '') || localStorage.getItem('mq_gh_repo') || 'kpkasim/Portfolio-website';
 
         if (!token) {
@@ -941,14 +942,20 @@ window.addEventListener('storage', (e) => {
         try {
             const filePath = 'data.js';
             const apiUrl = `https://api.github.com/repos/${repo}/contents/${filePath}`;
+            const authHeader = `Bearer ${token}`;
 
             // 1. Fetch current SHA
             const getRes = await fetch(apiUrl, {
                 headers: {
-                    'Authorization': `token ${token}`,
+                    'Authorization': authHeader,
                     'Accept': 'application/vnd.github.v3+json'
                 }
             });
+
+            if (getRes.status === 401) {
+                showToast('GitHub Error: Bad credentials (Token is invalid or expired)', 'error');
+                return;
+            }
 
             let sha = null;
             if (getRes.ok) {
@@ -965,7 +972,7 @@ window.addEventListener('storage', (e) => {
             const putRes = await fetch(apiUrl, {
                 method: 'PUT',
                 headers: {
-                    'Authorization': `token ${token}`,
+                    'Authorization': authHeader,
                     'Accept': 'application/vnd.github.v3+json',
                     'Content-Type': 'application/json'
                 },
