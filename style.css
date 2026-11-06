@@ -306,16 +306,18 @@ ul { list-style: none; }
 .stat-item:hover {
     transform: translateY(-5px);
 }
-.stat-num {
-    display: inline-block;
+.stat-icon, .stat-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
     color: #ffffff;
     background: linear-gradient(135deg, var(--accent-color), #4a56c4);
-    padding: 8px 16px;
     border-radius: 12px;
-    font-size: 1rem;
+    font-size: 1.15rem;
     margin-bottom: 15px;
-    font-weight: 600;
-    box-shadow: 0 4px 10px rgba(108, 124, 242, 0.3);
+    box-shadow: 0 4px 12px rgba(108, 124, 242, 0.35);
 }
 .stat-item p {
     font-size: 1.1rem;
