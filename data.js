@@ -7,8 +7,8 @@ const DEFAULT_PORTFOLIO_DATA = {
     "profile": {
         "name": "Muhammed Qasim",
         "role": "Multidisciplinary Designer",
-        "heroSubtitle": "Hey, I'm a MQ",
-        "heroTitle": "Multidisciplinary<br>Designer",
+        "heroSubtitle": "Hey, I'm a",
+        "heroTitle": "Multidisciplinary<br>Designer X",
         "heroHeadline": "Shaping ideas<br>into reality.",
         "heroDescription": "Data-driven strategies and visually stunning designs that grow brands, boost visibility, and maximize ROI.",
         "aboutTitle": "Smart Strategies<br>Real Results<br>Meaningful Growth",
