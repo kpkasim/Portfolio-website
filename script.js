@@ -147,73 +147,179 @@ window.addEventListener('click', (e) => {
     }
 });
 
-// --- BACKGROUND MUSIC (YouTube API) ---
-var tag = document.createElement('script');
-tag.src = "https://www.youtube.com/iframe_api";
-var firstScriptTag = document.getElementsByTagName('script')[0];
-if(firstScriptTag) {
-    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-} else {
-    document.head.appendChild(tag);
-}
+// --- EDITORIAL DIRECT MESSAGE TOGGLE ---
+const toggleDirectMsg = document.getElementById('toggleDirectMsg');
+const collapsibleForm = document.getElementById('collapsibleFormContainer');
+const formToggleArrow = document.getElementById('formToggleArrow');
 
-var ytPlayer;
-var isMusicPlaying = false;
-var userInteracted = false;
-
-function onYouTubeIframeAPIReady() {
-    const playerDiv = document.getElementById('yt-player');
-    if (!playerDiv) return;
-    
-    ytPlayer = new YT.Player('yt-player', {
-        height: '1',
-        width: '1',
-        videoId: 'L1Et2cdYaA4',
-        playerVars: {
-            'autoplay': 0,
-            'controls': 0,
-            'modestbranding': 1,
-            'loop': 1,
-            'playlist': 'L1Et2cdYaA4'
-        },
-        events: {
-            'onReady': onPlayerReady
+if (toggleDirectMsg && collapsibleForm) {
+    toggleDirectMsg.addEventListener('click', () => {
+        const isHidden = collapsibleForm.style.display === 'none' || collapsibleForm.style.display === '';
+        collapsibleForm.style.display = isHidden ? 'block' : 'none';
+        if (formToggleArrow) {
+            formToggleArrow.style.transform = isHidden ? 'rotate(180deg)' : 'rotate(0deg)';
         }
     });
 }
 
-function onPlayerReady(event) {
-    const musicBtn = document.getElementById('musicToggle');
-    const musicIcon = document.getElementById('musicIcon');
+// --- INTERACTIVE WAVE PLAYGROUND ---
+const waveCanvas = document.getElementById('waveCanvas');
+const waveSpeedSlider = document.getElementById('waveSpeed');
+const waveMotionToggle = document.getElementById('waveMotionToggle');
+const waveMotionText = document.getElementById('waveMotionText');
 
-    // Auto-play on first click anywhere on the page
-    document.body.addEventListener('click', function() {
-        if (!userInteracted && !isMusicPlaying) {
-            ytPlayer.playVideo();
-            isMusicPlaying = true;
-            userInteracted = true;
-            if(musicIcon) {
-                musicIcon.classList.remove('fa-volume-mute');
-                musicIcon.classList.add('fa-volume-up');
-            }
-        }
-    }, { once: true });
+if (waveCanvas) {
+    const ctx = waveCanvas.getContext('2d');
+    let animationFrameId;
+    let time = 0;
+    let isPaused = false;
+    let speed = 1.0;
 
-    if (musicBtn) {
-        musicBtn.addEventListener('click', function(e) {
-            e.stopPropagation(); // prevent body click from firing
-            userInteracted = true;
-            if (isMusicPlaying) {
-                ytPlayer.pauseVideo();
-                isMusicPlaying = false;
-                musicIcon.classList.remove('fa-volume-up');
-                musicIcon.classList.add('fa-volume-mute');
+    let baseFreq = 0.008;
+    let targetFreq = 0.008;
+    let currentFreq = 0.008;
+
+    let baseAmp = 32;
+    let targetAmp = 32;
+    let currentAmp = 32;
+
+    function resizeCanvas() {
+        const rect = waveCanvas.getBoundingClientRect();
+        const dpr = window.devicePixelRatio || 1;
+        waveCanvas.width = rect.width * dpr;
+        waveCanvas.height = rect.height * dpr;
+        ctx.scale(dpr, dpr);
+    }
+
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    // Mouse movement interaction
+    waveCanvas.addEventListener('mousemove', (e) => {
+        const rect = waveCanvas.getBoundingClientRect();
+        const mouseX = e.clientX - rect.left;
+        const mouseY = e.clientY - rect.top;
+
+        const normX = Math.max(0, Math.min(1, mouseX / rect.width));
+        const normY = Math.max(0, Math.min(1, mouseY / rect.height));
+
+        // Modulate frequency and amplitude
+        targetFreq = 0.004 + normX * 0.016;
+        targetAmp = 18 + (1 - normY) * 38;
+    });
+
+    waveCanvas.addEventListener('mouseleave', () => {
+        targetFreq = baseFreq;
+        targetAmp = baseAmp;
+    });
+
+    // Speed slider
+    if (waveSpeedSlider) {
+        waveSpeedSlider.addEventListener('input', (e) => {
+            speed = parseFloat(e.target.value) || 1.0;
+        });
+    }
+
+    // Pause/Resume Motion Toggle
+    if (waveMotionToggle) {
+        waveMotionToggle.addEventListener('click', () => {
+            isPaused = !isPaused;
+            if (isPaused) {
+                if (waveMotionText) waveMotionText.textContent = 'Play motion';
+                waveMotionToggle.innerHTML = '<span id="waveMotionText">Play motion</span> <span class="wave-motion-symbol">▶</span>';
             } else {
-                ytPlayer.playVideo();
-                isMusicPlaying = true;
-                musicIcon.classList.remove('fa-volume-mute');
-                musicIcon.classList.add('fa-volume-up');
+                waveMotionToggle.innerHTML = '<span id="waveMotionText">Pause motion</span> <span class="wave-motion-symbol">II</span>';
             }
         });
     }
+
+    // Render Loop
+    function draw() {
+        const rect = waveCanvas.getBoundingClientRect();
+        const width = rect.width;
+        const height = rect.height;
+        const centerY = height / 2;
+
+        ctx.clearRect(0, 0, width, height);
+
+        // Smooth interpolation
+        currentFreq += (targetFreq - currentFreq) * 0.05;
+        currentAmp += (targetAmp - currentAmp) * 0.05;
+
+        // Faint background harmonics
+        const harmonicWaves = [
+            { freqMul: 0.8, ampMul: 0.6, phase: 0.5, color: 'rgba(50, 95, 180, 0.18)', width: 1.2 },
+            { freqMul: 1.2, ampMul: 0.8, phase: 1.2, color: 'rgba(55, 110, 205, 0.22)', width: 1.2 },
+            { freqMul: 0.9, ampMul: 0.7, phase: 2.1, color: 'rgba(60, 120, 225, 0.28)', width: 1.4 },
+            { freqMul: 1.1, ampMul: 0.9, phase: 3.4, color: 'rgba(65, 130, 240, 0.35)', width: 1.5 }
+        ];
+
+        harmonicWaves.forEach(w => {
+            ctx.beginPath();
+            ctx.strokeStyle = w.color;
+            ctx.lineWidth = w.width;
+            ctx.shadowBlur = 0;
+
+            for (let x = 0; x <= width; x += 3) {
+                const y = centerY + Math.sin(x * currentFreq * w.freqMul + time * 0.8 + w.phase) * (currentAmp * w.ampMul);
+                if (x === 0) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
+            }
+            ctx.stroke();
+        });
+
+        // Main highlighted vibrant wave
+        ctx.beginPath();
+        ctx.strokeStyle = 'rgba(78, 145, 255, 1)';
+        ctx.lineWidth = 2.8;
+        ctx.shadowColor = 'rgba(78, 145, 255, 0.7)';
+        ctx.shadowBlur = 10;
+
+        let dotX = width * 0.58;
+        let dotY = centerY;
+
+        for (let x = 0; x <= width; x += 2) {
+            const y = centerY + Math.sin(x * currentFreq + time) * currentAmp;
+            if (x === 0) ctx.moveTo(x, y);
+            else ctx.lineTo(x, y);
+
+            if (Math.abs(x - dotX) < 2) {
+                dotY = y;
+            }
+        }
+        ctx.stroke();
+
+        // Glowing orange/coral dot (as in screenshot)
+        ctx.shadowColor = 'rgba(255, 120, 75, 0.8)';
+        ctx.shadowBlur = 12;
+
+        // Outer subtle halo
+        ctx.beginPath();
+        ctx.fillStyle = 'rgba(255, 120, 75, 0.25)';
+        ctx.arc(dotX, dotY, 9, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Inner solid dot
+        ctx.beginPath();
+        ctx.fillStyle = '#ff7849';
+        ctx.arc(dotX, dotY, 5, 0, Math.PI * 2);
+        ctx.fill();
+
+        // White core reflection
+        ctx.beginPath();
+        ctx.fillStyle = '#ffffff';
+        ctx.arc(dotX - 1, dotY - 1, 1.5, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.shadowBlur = 0;
+
+        if (!isPaused) {
+            time += 0.025 * speed;
+        }
+
+        animationFrameId = requestAnimationFrame(draw);
+    }
+
+    draw();
 }
+

@@ -107,51 +107,98 @@
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="contact-section container">
-        <div class="contact-card fade-up">
-            <h2 class="approach-title text-center">Ready to collaborate?</h2>
-            <p class="contact-desc text-center">Let's create something meaningful together.</p>
+    <!-- Interactive Wave Section (A Little Room to Play) -->
+    <section id="playground" class="wave-playground-section">
+        <div class="wave-playground-container">
+            <div class="wave-info-col fade-up">
+                <div class="section-tag-mono">
+                    <span class="tag-corner">┌</span> A LITTLE ROOM TO PLAY
+                </div>
+                <h2 class="wave-heading">Make a little wave.</h2>
+                <p class="wave-subheading">Move your pointer. Change the rhythm.</p>
+            </div>
+            <div class="wave-interactive-col fade-up" style="transition-delay: 150ms;">
+                <div class="wave-display-card">
+                    <canvas id="waveCanvas"></canvas>
+                </div>
+                <div class="wave-controls-bar">
+                    <div class="wave-slider-group">
+                        <span class="wave-speed-label">Slow drift</span>
+                        <input type="range" id="waveSpeed" min="0.3" max="2.5" step="0.05" value="1" class="wave-range-input" aria-label="Wave speed">
+                        <span class="wave-speed-label">Quick pulse</span>
+                    </div>
+                    <button type="button" id="waveMotionToggle" class="wave-motion-btn">
+                        <span id="waveMotionText">Pause motion</span> <span class="wave-motion-symbol">II</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Editorial Contact Section (Have a story? Let's find its frame.) -->
+    <section id="contact" class="editorial-contact-section">
+        <div class="editorial-watermark" aria-hidden="true">
+            <svg viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M350 50L130 200L350 350" stroke="rgba(255,255,255,0.22)" stroke-width="38" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M130 200H370" stroke="rgba(255,255,255,0.22)" stroke-width="38" stroke-linecap="round"/>
+            </svg>
+        </div>
+
+        <div class="editorial-contact-container">
+            <div class="section-tag-mono dark-tag fade-up">
+                <span class="tag-corner">┌</span> A FRESH PERSPECTIVE STARTS WITH A CONVERSATION.
+            </div>
             
-            <div class="contact-grid">
-                <a href="https://wa.me/918606150577" target="_blank" class="contact-item">
-                    <i class="fab fa-whatsapp"></i>
-                    <span>WhatsApp</span>
-                    <p>+91 8606 1505 77</p>
-                </a>
-                <a href="mailto:kpkasim205@gmail.com" class="contact-item">
-                    <i class="fas fa-envelope"></i>
-                    <span>Email</span>
-                    <p>kpkasim205@gmail.com</p>
-                </a>
-                <a href="https://instagram.com/mq_ads_" target="_blank" class="contact-item">
-                    <i class="fab fa-instagram"></i>
-                    <span>Instagram</span>
-                    <p>@mq_ads_</p>
-                </a>
-                <a href="https://pin.it/5X84F8n4U" target="_blank" class="contact-item">
-                    <i class="fab fa-pinterest"></i>
-                    <span>Pinterest</span>
-                    <p>View Profile</p>
+            <h2 class="editorial-headline fade-up" style="transition-delay: 100ms;">
+                Have a story?<br>Let's find its frame.
+            </h2>
+            
+            <div class="fade-up" style="transition-delay: 150ms;">
+                <a href="mailto:kpkasim205@gmail.com" class="editorial-email-link">
+                    kpkasim205@gmail.com <span class="external-arrow">↗</span>
                 </a>
             </div>
 
-            <!-- The Re-added Contact Form -->
-            <div class="form-container fade-up" style="margin-top: 4rem;">
-                <form id="contactForm" class="contact-form">
-                    <div class="form-group">
-                        <input type="text" id="name" name="name" placeholder="Your Name" required>
+            <div class="editorial-buttons-row fade-up" style="transition-delay: 200ms;">
+                <a href="https://wa.me/918606150577" target="_blank" class="editorial-pill">
+                    <i class="fab fa-whatsapp"></i> WhatsApp <span>↗</span>
+                </a>
+                <a href="https://pin.it/5X84F8n4U" target="_blank" class="editorial-pill">
+                    <i class="fab fa-pinterest"></i> Pinterest <span>↗</span>
+                </a>
+                <a href="https://instagram.com/mq_ads_" target="_blank" class="editorial-pill">
+                    <i class="fab fa-instagram"></i> Instagram <span>↗</span>
+                </a>
+                <a href="https://linkedin.com/in/MQ-Ads" target="_blank" class="editorial-pill">
+                    <i class="fab fa-linkedin"></i> LinkedIn <span>↗</span>
+                </a>
+                <a href="tel:+918606150577" class="editorial-pill">
+                    <i class="fas fa-phone"></i> +91 8606 1505 77 <span>↗</span>
+                </a>
+                <button type="button" id="toggleDirectMsg" class="editorial-pill editorial-form-toggle-btn">
+                    <i class="fas fa-envelope-open-text"></i> Drop a Message <i class="fas fa-chevron-down" id="formToggleArrow"></i>
+                </button>
+            </div>
+
+            <!-- Expandable Contact Form -->
+            <div id="collapsibleFormContainer" class="editorial-form-dropdown" style="display: none;">
+                <form id="contactForm" class="editorial-contact-form">
+                    <div class="editorial-form-grid">
+                        <div class="form-group">
+                            <input type="text" id="name" name="name" placeholder="Your Name" required class="editorial-input">
+                        </div>
+                        <div class="form-group">
+                            <input type="email" id="email" name="email" placeholder="Your Email" required class="editorial-input">
+                        </div>
+                        <div class="form-group">
+                            <input type="tel" id="phone" name="phone" placeholder="Your Phone Number" required class="editorial-input">
+                        </div>
                     </div>
                     <div class="form-group">
-                        <input type="email" id="email" name="email" placeholder="Your Email" required>
+                        <textarea id="message" name="message" rows="4" placeholder="Your Message" required class="editorial-input"></textarea>
                     </div>
-                    <div class="form-group">
-                        <input type="tel" id="phone" name="phone" placeholder="Your Phone Number" required>
-                    </div>
-                    <div class="form-group">
-                        <textarea id="message" name="message" rows="4" placeholder="Your Message" required></textarea>
-                    </div>
-                    <div class="text-center">
-                        <button type="submit" class="btn green-btn">Send Message <i class="fas fa-paper-plane"></i></button>
+                    <div>
+                        <button type="submit" class="editorial-pill editorial-submit-btn">Send Message <i class="fas fa-paper-plane"></i></button>
                     </div>
                 </form>
             </div>
@@ -171,14 +218,6 @@
     <footer>
         <p>&copy; 2026 Muhammed Qasim. All rights reserved.</p>
     </footer>
-
-    <!-- Background Music Player -->
-    <div style="position: fixed; bottom: 30px; left: 30px; z-index: 9999;">
-        <button id="musicToggle" class="btn glass-switch" style="width: 50px; height: 50px; border-radius: 50%; padding: 0; display: flex; justify-content: center; align-items: center;">
-            <i class="fas fa-volume-mute" id="musicIcon" style="font-size: 1.2rem; color: var(--text-dark);"></i>
-        </button>
-        <div id="yt-player" style="position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none;"></div>
-    </div>
 
     <script src="script.js"></script>
 </body>
