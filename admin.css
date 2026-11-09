@@ -548,6 +548,42 @@ body {
     box-shadow: 0 4px 14px var(--primary-glow);
 }
 
+/* Category Pills Manager */
+.cat-pill-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 14px;
+    background: rgba(123, 138, 244, 0.12);
+    border: 1px solid rgba(123, 138, 244, 0.3);
+    border-radius: 30px;
+    color: #fff;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: var(--transition);
+}
+.cat-pill-item:hover {
+    border-color: #7B8AF4;
+    background: rgba(123, 138, 244, 0.2);
+}
+.cat-pill-remove {
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    font-size: 0.85rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2px 4px;
+    border-radius: 50%;
+    transition: color 0.2s, background 0.2s;
+}
+.cat-pill-remove:hover {
+    color: #ff4757;
+    background: rgba(255, 71, 87, 0.2);
+}
+
 .btn-primary-action {
     display: inline-flex;
     align-items: center;

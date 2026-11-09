@@ -134,6 +134,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Re-render relevant parts
         if (tabKey === 'featured') {
+            populateFeaturedHeaderForm();
+            renderCategoryPillsManager();
+            renderDynamicFpFiltersBar();
+            populateFpCategoryDropdown();
             renderFeaturedProjectsGrid();
         } else if (tabKey === 'works') {
             renderWorksGrid();
@@ -232,7 +236,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // =========================================================
     let currentFpFilter = 'All';
     const featuredProjectsGrid = document.getElementById('featuredProjectsGrid');
-    const fpFilterChips = document.querySelectorAll('.fp-filters .filter-chip');
     const fpCountAll = document.getElementById('fpCountAll');
     const openAddFpModalBtn = document.getElementById('openAddFpModalBtn');
     const quickAddFpBtn = document.getElementById('quickAddFpBtn');
@@ -254,6 +257,180 @@ document.addEventListener('DOMContentLoaded', () => {
     const fpYear = document.getElementById('fpYear');
     const fpTools = document.getElementById('fpTools');
     const fpDescription = document.getElementById('fpDescription');
+
+    // --- Dynamic Category Pills & Header Management ---
+    function getActiveCategories() {
+        portfolioData = getPortfolioData();
+        const sec = portfolioData.featuredSection || {};
+        if (Array.isArray(sec.categories) && sec.categories.length > 0) {
+            return sec.categories;
+        }
+        return ["Graphic Design", "3D Motion", "Brand Identity", "Video Editing", "AI Workflows"];
+    }
+
+    function populateFeaturedHeaderForm() {
+        portfolioData = getPortfolioData();
+        const sec = portfolioData.featuredSection || {};
+        const fpHeaderTitle = document.getElementById('fpHeaderTitle');
+        const fpHeaderBadge = document.getElementById('fpHeaderBadge');
+        const fpHeaderSubtitle = document.getElementById('fpHeaderSubtitle');
+
+        if (fpHeaderTitle) fpHeaderTitle.value = sec.title || 'Featured Projects';
+        if (fpHeaderBadge) fpHeaderBadge.value = sec.badge || 'CURATED ARCHIVE & CASE STUDIES';
+        if (fpHeaderSubtitle) fpHeaderSubtitle.value = sec.subtitle || 'High-impact 3D animation, brand identity, and commercial video production built for scaling modern creative ventures.';
+    }
+
+    const featuredHeaderForm = document.getElementById('featuredHeaderForm');
+    if (featuredHeaderForm) {
+        featuredHeaderForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const fpHeaderTitle = document.getElementById('fpHeaderTitle');
+            const fpHeaderBadge = document.getElementById('fpHeaderBadge');
+            const fpHeaderSubtitle = document.getElementById('fpHeaderSubtitle');
+
+            portfolioData = getPortfolioData();
+            if (!portfolioData.featuredSection) {
+                portfolioData.featuredSection = {};
+            }
+            portfolioData.featuredSection.title = fpHeaderTitle ? fpHeaderTitle.value.trim() : 'Featured Projects';
+            portfolioData.featuredSection.badge = fpHeaderBadge ? fpHeaderBadge.value.trim() : 'CURATED ARCHIVE & CASE STUDIES';
+            portfolioData.featuredSection.subtitle = fpHeaderSubtitle ? fpHeaderSubtitle.value.trim() : '';
+
+            savePortfolioData(portfolioData);
+            showToast('Featured Projects header saved successfully!', 'success');
+        });
+    }
+
+    function renderCategoryPillsManager() {
+        const container = document.getElementById('categoryPillsManagerList');
+        if (!container) return;
+        const categories = getActiveCategories();
+        const projects = (getPortfolioData().featuredProjects || []);
+
+        container.innerHTML = '';
+        categories.forEach(cat => {
+            const count = projects.filter(p => p.category === cat).length;
+            const chip = document.createElement('div');
+            chip.className = 'cat-pill-item';
+            chip.innerHTML = `
+                <span>${cat}</span>
+                <span class="cat-pill-count">${count}</span>
+                <button type="button" class="cat-pill-remove" title="Remove '${cat}' filter pill">&times;</button>
+            `;
+            const removeBtn = chip.querySelector('.cat-pill-remove');
+            if (removeBtn) {
+                removeBtn.addEventListener('click', () => {
+                    if (categories.length <= 1) {
+                        showToast('At least one category pill must remain.', 'error');
+                        return;
+                    }
+                    if (confirm(`Remove category filter pill "${cat}"? (Existing projects with this category will be preserved).`)) {
+                        portfolioData = getPortfolioData();
+                        portfolioData.featuredSection = portfolioData.featuredSection || {};
+                        portfolioData.featuredSection.categories = getActiveCategories().filter(c => c !== cat);
+                        savePortfolioData(portfolioData);
+                        showToast(`Removed filter pill "${cat}"`, 'success');
+                        if (currentFpFilter === cat) currentFpFilter = 'All';
+                        renderCategoryPillsManager();
+                        renderDynamicFpFiltersBar();
+                        populateFpCategoryDropdown();
+                        renderFeaturedProjectsGrid();
+                    }
+                });
+            }
+            container.appendChild(chip);
+        });
+    }
+
+    const addCategoryForm = document.getElementById('addCategoryForm');
+    const newCategoryInput = document.getElementById('newCategoryInput');
+    if (addCategoryForm && newCategoryInput) {
+        addCategoryForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const newCat = newCategoryInput.value.trim();
+            if (!newCat) return;
+
+            portfolioData = getPortfolioData();
+            portfolioData.featuredSection = portfolioData.featuredSection || {};
+            const categories = [...getActiveCategories()];
+
+            if (categories.some(c => c.toLowerCase() === newCat.toLowerCase())) {
+                showToast(`Category "${newCat}" already exists!`, 'error');
+                return;
+            }
+
+            categories.push(newCat);
+            portfolioData.featuredSection.categories = categories;
+            savePortfolioData(portfolioData);
+            newCategoryInput.value = '';
+            showToast(`Added new category filter "${newCat}"!`, 'success');
+
+            renderCategoryPillsManager();
+            renderDynamicFpFiltersBar();
+            populateFpCategoryDropdown();
+        });
+    }
+
+    function renderDynamicFpFiltersBar() {
+        const bar = document.getElementById('dynamicFpFiltersBar');
+        if (!bar) return;
+        const categories = getActiveCategories();
+        const projects = (getPortfolioData().featuredProjects || []);
+
+        bar.innerHTML = '';
+
+        // "All" filter chip
+        const allBtn = document.createElement('button');
+        allBtn.type = 'button';
+        allBtn.className = `filter-chip ${currentFpFilter === 'All' ? 'active' : ''}`;
+        allBtn.innerHTML = `All (<span id="fpCountAll">${projects.length}</span>)`;
+        allBtn.addEventListener('click', () => {
+            currentFpFilter = 'All';
+            bar.querySelectorAll('.filter-chip').forEach(b => b.classList.remove('active'));
+            allBtn.classList.add('active');
+            renderFeaturedProjectsGrid();
+        });
+        bar.appendChild(allBtn);
+
+        // Category pills
+        categories.forEach(cat => {
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = `filter-chip ${currentFpFilter === cat ? 'active' : ''}`;
+            btn.textContent = cat;
+            btn.addEventListener('click', () => {
+                currentFpFilter = cat;
+                bar.querySelectorAll('.filter-chip').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                renderFeaturedProjectsGrid();
+            });
+            bar.appendChild(btn);
+        });
+    }
+
+    function populateFpCategoryDropdown(selectedVal = null) {
+        if (!fpCategory) return;
+        const categories = getActiveCategories();
+        const currentVal = selectedVal || fpCategory.value || categories[0];
+
+        fpCategory.innerHTML = '';
+        categories.forEach(cat => {
+            const opt = document.createElement('option');
+            opt.value = cat;
+            opt.textContent = cat;
+            if (cat === currentVal) opt.selected = true;
+            fpCategory.appendChild(opt);
+        });
+
+        // If currentVal isn't in active categories, preserve it as archived
+        if (currentVal && !categories.includes(currentVal)) {
+            const opt = document.createElement('option');
+            opt.value = currentVal;
+            opt.textContent = `${currentVal} (Archived)`;
+            opt.selected = true;
+            fpCategory.appendChild(opt);
+        }
+    }
 
     function renderFeaturedProjectsGrid() {
         portfolioData = getPortfolioData();
@@ -348,12 +525,13 @@ document.addEventListener('DOMContentLoaded', () => {
     function openFeaturedProjectModal(project = null) {
         if (!featuredProjectModal) return;
         featuredProjectForm.reset();
+        populateFpCategoryDropdown(project ? project.category : (currentFpFilter !== 'All' ? currentFpFilter : null));
 
         if (project) {
             fpModalTitle.innerHTML = `<i class="fas fa-pen-to-square" style="color:#7B8AF4; margin-right:8px;"></i> Edit Featured Project`;
             editFpId.value = project.id;
             fpTitle.value = project.title || '';
-            fpCategory.value = project.category || 'Graphic Design';
+            fpCategory.value = project.category || (getActiveCategories()[0] || 'Graphic Design');
             fpAspectType.value = project.aspectType || 'portrait';
             fpImage.value = project.image || '';
             fpClient.value = project.client || '';
@@ -368,7 +546,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             fpModalTitle.innerHTML = `<i class="fas fa-plus-circle" style="color:#7B8AF4; margin-right:8px;"></i> Add New Featured Project`;
             editFpId.value = '';
-            fpCategory.value = currentFpFilter !== 'All' ? currentFpFilter : 'Graphic Design';
+            fpCategory.value = currentFpFilter !== 'All' ? currentFpFilter : (getActiveCategories()[0] || 'Graphic Design');
             fpAspectType.value = 'portrait';
             fpYear.value = new Date().getFullYear().toString();
             if (fpLivePreviewBox) fpLivePreviewBox.style.display = 'none';
@@ -421,15 +599,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Category filter chips in featured tab
-    fpFilterChips.forEach(chip => {
-        chip.addEventListener('click', () => {
-            fpFilterChips.forEach(c => c.classList.remove('active'));
-            chip.classList.add('active');
-            currentFpFilter = chip.dataset.fpFilter;
-            renderFeaturedProjectsGrid();
-        });
-    });
+    // Category filter chips in featured tab are managed dynamically by renderDynamicFpFiltersBar()
 
     // Form submit for featured project
     if (featuredProjectForm) {
@@ -1051,7 +1221,8 @@ function getPortfolioData() {
             return {
                 profile: { ...DEFAULT_PORTFOLIO_DATA.profile, ...(parsed.profile || {}) },
                 works: Array.isArray(parsed.works) && parsed.works.length > 0 ? parsed.works : DEFAULT_PORTFOLIO_DATA.works,
-                featuredProjects: Array.isArray(parsed.featuredProjects) && parsed.featuredProjects.length > 0 ? parsed.featuredProjects : DEFAULT_PORTFOLIO_DATA.featuredProjects
+                featuredProjects: Array.isArray(parsed.featuredProjects) && parsed.featuredProjects.length > 0 ? parsed.featuredProjects : DEFAULT_PORTFOLIO_DATA.featuredProjects,
+                featuredSection: { ...DEFAULT_PORTFOLIO_DATA.featuredSection, ...(parsed.featuredSection || {}) }
             };
         }
     } catch (e) {
@@ -1171,6 +1342,19 @@ function hydrateIndexPage() {
 
     const aboutDesc = document.querySelector('.approach-desc');
     if (aboutDesc && p.aboutDescription) aboutDesc.innerHTML = p.aboutDescription;
+
+    // Featured Projects Section Hydration
+    if (data.featuredSection) {
+        document.querySelectorAll('.js-featured-title').forEach(el => {
+            el.innerHTML = data.featuredSection.title || 'Featured Projects';
+        });
+        document.querySelectorAll('.js-featured-subtitle').forEach(el => {
+            el.innerHTML = data.featuredSection.subtitle || '';
+        });
+        document.querySelectorAll('.js-featured-badge').forEach(el => {
+            el.innerHTML = \`<span class="tag-corner">┌</span> \${data.featuredSection.badge || 'CURATED ARCHIVE & CASE STUDIES'}\`;
+        });
+    }
 }
 
 // Generate single work item HTML
@@ -1367,6 +1551,10 @@ window.addEventListener('storage', (e) => {
     // Initialize
     function initDashboard() {
         renderOverview();
+        populateFeaturedHeaderForm();
+        renderCategoryPillsManager();
+        renderDynamicFpFiltersBar();
+        populateFpCategoryDropdown();
         renderFeaturedProjectsGrid();
         renderWorksGrid();
         populateProfileForms();

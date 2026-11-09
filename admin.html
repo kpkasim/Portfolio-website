@@ -202,14 +202,83 @@
                      TAB 2: FEATURED PROJECTS (GRID & CATEGORIES)
                      ========================================================= -->
                 <section class="tab-content" id="tab-featured">
+
+                    <!-- 1. Featured Section Header Settings (Title, Subtitle, Badge) -->
+                    <div class="editor-card" style="border-color: rgba(123, 138, 244, 0.35); background: rgba(22, 26, 38, 0.75);">
+                        <div class="editor-card-header">
+                            <div>
+                                <h2><i class="fas fa-heading" style="color: #7B8AF4;"></i> Featured Projects Header Text</h2>
+                                <p>വെബ്‌സൈറ്റിലെ "Featured Projects" തലക്കെട്ടും സബ്‌ടൈറ്റിലും മാറ്റുക</p>
+                            </div>
+                            <span style="background: rgba(123, 138, 244, 0.15); color: #7B8AF4; border: 1px solid rgba(123, 138, 244, 0.3); padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 600;">Header Settings</span>
+                        </div>
+
+                        <form id="featuredHeaderForm">
+                            <div class="form-grid-2">
+                                <div class="form-group-field">
+                                    <label for="fpHeaderTitle">
+                                        Section Heading Title
+                                        <span class="label-hint">Default: Featured Projects</span>
+                                    </label>
+                                    <input type="text" id="fpHeaderTitle" class="admin-input" placeholder="Featured Projects" value="Featured Projects" required>
+                                </div>
+                                <div class="form-group-field">
+                                    <label for="fpHeaderBadge">
+                                        Top Badge / Tagline
+                                        <span class="label-hint">Default: CURATED ARCHIVE & CASE STUDIES</span>
+                                    </label>
+                                    <input type="text" id="fpHeaderBadge" class="admin-input" placeholder="CURATED ARCHIVE & CASE STUDIES" value="CURATED ARCHIVE & CASE STUDIES">
+                                </div>
+                            </div>
+
+                            <div class="form-group-field">
+                                <label for="fpHeaderSubtitle">
+                                    Section Description / Subtitle
+                                    <span class="label-hint">Heading-ന് താഴെ കാണിക്കുന്ന വിവരണം</span>
+                                </label>
+                                <textarea id="fpHeaderSubtitle" class="admin-textarea" rows="2" placeholder="High-impact 3D animation, brand identity, and commercial video production built for scaling modern creative ventures."></textarea>
+                            </div>
+
+                            <div class="form-save-bar" style="margin-top: 0; padding-top: 14px;">
+                                <button type="submit" class="btn-primary-action" style="background: linear-gradient(135deg, #7B8AF4, #5364e0); border-color: #7B8AF4;">
+                                    <i class="fas fa-floppy-disk"></i> Save Header Text
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- 2. Category Filter Pills Manager (All, 3D Motion, Brand Identity...) -->
+                    <div class="editor-card" style="border-color: rgba(123, 138, 244, 0.35); background: rgba(22, 26, 38, 0.75);">
+                        <div class="editor-card-header">
+                            <div>
+                                <h2><i class="fas fa-tags" style="color: #7B8AF4;"></i> Category Filter Pills Manager</h2>
+                                <p>സ്ക്രീൻഷോട്ടിൽ മാർക്ക് ചെയ്ത ഫിൽറ്റർ ടാബുകൾ ആഡ് ചെയ്യാനും എഡിറ്റ്/ഡിലീറ്റ് ചെയ്യാനും</p>
+                            </div>
+                            <span style="background: rgba(123, 138, 244, 0.15); color: #7B8AF4; border: 1px solid rgba(123, 138, 244, 0.3); padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 600;">Filter Pills</span>
+                        </div>
+
+                        <div style="margin-bottom: 16px;">
+                            <label style="display: block; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 10px;">Active Categories (വെബ്‌സൈറ്റിൽ കാണിക്കുന്ന ഫിൽറ്ററുകൾ):</label>
+                            <div id="categoryPillsManagerList" style="display: flex; flex-wrap: wrap; gap: 10px;">
+                                <!-- Populated dynamically with category chips having delete buttons -->
+                            </div>
+                        </div>
+
+                        <!-- Add New Category Form -->
+                        <form id="addCategoryForm" style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--border-glass);">
+                            <div style="flex: 1; min-width: 240px;">
+                                <input type="text" id="newCategoryInput" class="admin-input" placeholder="Type new category name (e.g. UI/UX Design, Motion Graphics)..." required>
+                            </div>
+                            <button type="submit" class="btn-primary-action" style="background: rgba(123, 138, 244, 0.2); border: 1px solid #7B8AF4; color: #fff;">
+                                <i class="fas fa-plus"></i> Add New Category
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- 3. Projects Toolbar & Dynamic Filters -->
                     <div class="section-toolbar">
-                        <div class="toolbar-filters fp-filters">
-                            <button class="filter-chip active" data-fp-filter="All">All (<span id="fpCountAll">0</span>)</button>
-                            <button class="filter-chip" data-fp-filter="Graphic Design"><i class="fas fa-palette" style="color:#7B8AF4"></i> Graphic Design</button>
-                            <button class="filter-chip" data-fp-filter="3D Motion"><i class="fas fa-cube" style="color:#00e575"></i> 3D Motion</button>
-                            <button class="filter-chip" data-fp-filter="Brand Identity"><i class="fas fa-award" style="color:#ffb800"></i> Brand Identity</button>
-                            <button class="filter-chip" data-fp-filter="Video Editing"><i class="fas fa-film" style="color:#ff4757"></i> Video Editing</button>
-                            <button class="filter-chip" data-fp-filter="AI Workflows"><i class="fas fa-wand-magic-sparkles" style="color:#9DACFF"></i> AI Workflows</button>
+                        <div class="toolbar-filters fp-filters" id="dynamicFpFiltersBar">
+                            <!-- Populated dynamically from active categories -->
                         </div>
                         <button type="button" class="btn-primary-action" id="openAddFpModalBtn" style="background: linear-gradient(135deg, #7B8AF4, #5364e0); border-color: #7B8AF4;">
                             <i class="fas fa-plus"></i> Add New Featured Project

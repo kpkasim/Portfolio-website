@@ -262,7 +262,19 @@ const DEFAULT_PORTFOLIO_DATA = {
             "tools": "Blender, Cycles, After Effects",
             "description": "Photorealistic brutalist architecture situated in atmospheric foggy terrain with volumetric neon perimeter illumination."
         }
-    ]
+    ],
+    "featuredSection": {
+        "badge": "CURATED ARCHIVE & CASE STUDIES",
+        "title": "Featured Projects",
+        "subtitle": "High-impact 3D animation, brand identity, and commercial video production built for scaling modern creative ventures.",
+        "categories": [
+            "Graphic Design",
+            "3D Motion",
+            "Brand Identity",
+            "Video Editing",
+            "AI Workflows"
+        ]
+    }
 };
 
 const STORAGE_KEY = 'mq_portfolio_data';
@@ -276,7 +288,8 @@ function getPortfolioData() {
             return {
                 profile: { ...DEFAULT_PORTFOLIO_DATA.profile, ...(parsed.profile || {}) },
                 works: Array.isArray(parsed.works) && parsed.works.length > 0 ? parsed.works : DEFAULT_PORTFOLIO_DATA.works,
-                featuredProjects: Array.isArray(parsed.featuredProjects) && parsed.featuredProjects.length > 0 ? parsed.featuredProjects : DEFAULT_PORTFOLIO_DATA.featuredProjects
+                featuredProjects: Array.isArray(parsed.featuredProjects) && parsed.featuredProjects.length > 0 ? parsed.featuredProjects : DEFAULT_PORTFOLIO_DATA.featuredProjects,
+                featuredSection: { ...DEFAULT_PORTFOLIO_DATA.featuredSection, ...(parsed.featuredSection || {}) }
             };
         }
     } catch (e) {
@@ -396,6 +409,19 @@ function hydrateIndexPage() {
 
     const aboutDesc = document.querySelector('.approach-desc');
     if (aboutDesc && p.aboutDescription) aboutDesc.innerHTML = p.aboutDescription;
+
+    // Featured Projects Section Hydration
+    if (data.featuredSection) {
+        document.querySelectorAll('.js-featured-title').forEach(el => {
+            el.innerHTML = data.featuredSection.title || 'Featured Projects';
+        });
+        document.querySelectorAll('.js-featured-subtitle').forEach(el => {
+            el.innerHTML = data.featuredSection.subtitle || '';
+        });
+        document.querySelectorAll('.js-featured-badge').forEach(el => {
+            el.innerHTML = `<span class="tag-corner">┌</span> ${data.featuredSection.badge || 'SELECTED ARCHIVE & PRODUCTIONS'}`;
+        });
+    }
 }
 
 // Generate single work item HTML
