@@ -244,13 +244,94 @@
     </section>
 
     <!-- Projects Section -->
-    <section id="projects" class="projects-section container text-center">
-        <div class="section-tag-mono fade-up"><span class="tag-corner">┌</span> CURATED ARCHIVE</div>
-        <h2 class="approach-title fade-up">My Creative Works</h2>
-        <p class="approach-desc fade-up" style="max-width: 620px; margin: 1.5rem auto 3rem;">Explore my extensive collection of Graphic Designs, Video Productions, and 3D Visualizations. From commercial ads to poster designs.</p>
+    <section id="projects" class="projects-section container text-center" style="padding-top: 100px; padding-bottom: 100px;">
+        <div class="section-tag-mono fade-up" style="color: #7B8AF4; border-color: rgba(123, 138, 244, 0.3); background: rgba(123, 138, 244, 0.08); display: inline-flex; align-items: center; gap: 8px;">
+            <span class="tag-corner">┌</span> SELECTED ARCHIVE & PRODUCTIONS
+        </div>
+
+        <div class="fade-up" style="display: flex; align-items: center; justify-content: center; gap: 14px; margin-top: 14px; margin-bottom: 16px; flex-wrap: wrap;">
+            <h2 class="approach-title" style="margin: 0; font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 800;">
+                Featured Projects
+            </h2>
+            <!-- Glowing Neon Blue (#7B8AF4) Dot Accent -->
+            <span style="width: 14px; height: 14px; background-color: #7B8AF4; border-radius: 50%; display: inline-block; box-shadow: 0 0 12px #7B8AF4, 0 0 24px rgba(123, 138, 244, 0.85); animation: neonDotPulse 2.2s infinite ease-in-out;" aria-label="Glowing accent dot"></span>
+            <!-- Glowing Neon Blue (#7B8AF4) Line Accent -->
+            <span style="width: 44px; height: 3px; background: linear-gradient(90deg, #7B8AF4, transparent); border-radius: 3px; display: inline-block; box-shadow: 0 0 10px #7B8AF4;" aria-label="Glowing accent line"></span>
+        </div>
+
+        <p class="approach-desc fade-up" style="max-width: 660px; margin: 0 auto 3rem; color: var(--text-gray);">
+            High-impact 3D animation, brand identity, and commercial video production built for scaling modern creative ventures.
+        </p>
+
+        <!-- Masonry Mini Showcase Grid -->
+        <div class="fade-up" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; text-align: left; margin-bottom: 40px;">
+            <!-- Mini Card 1 (Landscape) -->
+            <a href="works.html" class="mq-project-card" style="height: 320px; text-decoration: none; display: block;">
+                <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80" alt="Aura Kinetic Identity" loading="lazy">
+                <div class="mq-glass-overlay">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span style="font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.7); background: rgba(255,255,255,0.1); padding: 4px 10px; border-radius: 20px;">16:9 Landscape</span>
+                        <div style="width: 32px; height: 32px; border-radius: 50%; background: rgba(123,138,244,0.2); border: 1px solid rgba(123,138,244,0.4); display: flex; align-items: center; justify-content: center; color: #7B8AF4;">↗</div>
+                    </div>
+                    <div class="mq-center-logo">
+                        <div class="mq-center-logo-inner">
+                            <span class="mq-logo-text" style="font-size: 2.5rem;">MQ</span>
+                            <span class="mq-logo-sub">AGENCY</span>
+                        </div>
+                    </div>
+                    <div class="mq-bottom-details">
+                        <span class="mq-category-badge"><span class="mq-category-dot"></span> Brand Identity</span>
+                        <h3 class="mq-title-text" style="font-size: 1.2rem;">Aura Kinetic Identity</h3>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Mini Card 2 (Portrait) -->
+            <a href="works.html" class="mq-project-card" style="height: 320px; text-decoration: none; display: block;">
+                <img src="https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?auto=format&fit=crop&w=800&q=80" alt="Cybernetic HUD & Hologram" loading="lazy">
+                <div class="mq-glass-overlay">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span style="font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.7); background: rgba(255,255,255,0.1); padding: 4px 10px; border-radius: 20px;">3:4 Portrait</span>
+                        <div style="width: 32px; height: 32px; border-radius: 50%; background: rgba(123,138,244,0.2); border: 1px solid rgba(123,138,244,0.4); display: flex; align-items: center; justify-content: center; color: #7B8AF4;">↗</div>
+                    </div>
+                    <div class="mq-center-logo">
+                        <div class="mq-center-logo-inner">
+                            <span class="mq-logo-text" style="font-size: 2.5rem;">MQ</span>
+                            <span class="mq-logo-sub">AGENCY</span>
+                        </div>
+                    </div>
+                    <div class="mq-bottom-details">
+                        <span class="mq-category-badge"><span class="mq-category-dot"></span> 3D Motion</span>
+                        <h3 class="mq-title-text" style="font-size: 1.2rem;">Cybernetic HUD & Hologram</h3>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Mini Card 3 (Square/Landscape) -->
+            <a href="works.html" class="mq-project-card" style="height: 320px; text-decoration: none; display: block;">
+                <img src="https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=800&q=80" alt="Apex Velocity Commercial" loading="lazy">
+                <div class="mq-glass-overlay">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span style="font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.7); background: rgba(255,255,255,0.1); padding: 4px 10px; border-radius: 20px;">16:9 Landscape</span>
+                        <div style="width: 32px; height: 32px; border-radius: 50%; background: rgba(123,138,244,0.2); border: 1px solid rgba(123,138,244,0.4); display: flex; align-items: center; justify-content: center; color: #7B8AF4;">↗</div>
+                    </div>
+                    <div class="mq-center-logo">
+                        <div class="mq-center-logo-inner">
+                            <span class="mq-logo-text" style="font-size: 2.5rem;">MQ</span>
+                            <span class="mq-logo-sub">AGENCY</span>
+                        </div>
+                    </div>
+                    <div class="mq-bottom-details">
+                        <span class="mq-category-badge"><span class="mq-category-dot"></span> Video Editing</span>
+                        <h3 class="mq-title-text" style="font-size: 1.2rem;">Apex Velocity Commercial</h3>
+                    </div>
+                </div>
+            </a>
+        </div>
+
         <div class="fade-up">
-            <a href="works.html" class="editorial-pill" style="padding: 15px 36px; font-size: 1.05rem;">
-                <i class="fas fa-layer-group"></i> View Full Portfolio Archive <span>↗</span>
+            <a href="works.html" class="editorial-pill" style="padding: 16px 38px; font-size: 1.05rem; background: #7B8AF4; color: #0F111A; border-color: #7B8AF4; box-shadow: 0 0 20px rgba(123, 138, 244, 0.45); font-weight: 700;">
+                <i class="fas fa-layer-group"></i> Explore Full Interactive Masonry Grid (8+ Projects) <span>↗</span>
             </a>
         </div>
     </section>

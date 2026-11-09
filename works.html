@@ -3,46 +3,132 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Portfolio Works | Muhammed Qasim</title>
+    <title>Featured Projects & Portfolio Works | Muhammed Qasim (MQ)</title>
 
     <!-- Mobile Web App & Theme Color -->
-    <meta name="theme-color" content="#0b0c10" media="(prefers-color-scheme: dark)">
-    <meta name="theme-color" content="#fbfbfd" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#0F111A" media="(prefers-color-scheme: dark)">
+    <meta name="theme-color" content="#0F111A" media="(prefers-color-scheme: light)">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="format-detection" content="telephone=no">
 
     <!-- Primary Meta Tags -->
-    <meta name="title" content="Portfolio Works | Muhammed Qasim">
-    <meta name="description" content="Selected archive of creative works, video productions, and visual designs by Muhammed Qasim.">
+    <meta name="title" content="Featured Projects & Portfolio Works | Muhammed Qasim (MQ)">
+    <meta name="description" content="Explore featured design, 3D animation, and video editing portfolio projects by creative agency designer Muhammed Qasim (MQ).">
 
-    <!-- Open Graph / WhatsApp / Instagram / Facebook / LinkedIn -->
+    <!-- Open Graph / Social Sharing -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://kpkasim.github.io/Portfolio-website/works.html">
-    <meta property="og:title" content="Portfolio Works | Muhammed Qasim">
-    <meta property="og:description" content="Selected archive of creative works, video productions, and visual designs by Muhammed Qasim.">
+    <meta property="og:title" content="Featured Projects & Portfolio Works | Muhammed Qasim (MQ)">
+    <meta property="og:description" content="Explore featured design, 3D animation, and video editing portfolio projects by creative agency designer Muhammed Qasim (MQ).">
     <meta property="og:image" content="image_f35504.png">
-
-    <!-- Twitter / X -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:url" content="https://kpkasim.github.io/Portfolio-website/works.html">
-    <meta name="twitter:title" content="Portfolio Works | Muhammed Qasim">
-    <meta name="twitter:description" content="Selected archive of creative works, video productions, and visual designs by Muhammed Qasim.">
-    <meta name="twitter:image" content="image_f35504.png">
 
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Tailwind CSS CDN with safe preflight=false to protect existing navbar and site base styles -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        darkBg: '#0F111A',
+                        neonBlue: '#7B8AF4',
+                        cardDark: '#141724',
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        mono: ['"Space Mono"', 'monospace'],
+                    }
+                }
+            },
+            corePlugins: {
+                preflight: false
+            }
+        };
+    </script>
+
+    <!-- React 18, Framer Motion & Babel Standalone CDN -->
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/framer-motion@10.16.4/dist/framer-motion.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js" crossorigin></script>
+
+    <style>
+        /* Dark Theme Force for Works Page matching #0F111A */
+        body.morphic-works-body {
+            background-color: #0F111A !important;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+        .morphic-works-body .navbar {
+            background: rgba(15, 17, 26, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+        .morphic-works-body .logo {
+            color: #ffffff !important;
+        }
+        .morphic-works-body .logo-box {
+            background: #ffffff;
+            color: #0F111A;
+        }
+        .morphic-works-body .logo-dot {
+            color: #7B8AF4;
+            text-shadow: 0 0 10px #7B8AF4;
+        }
+        .morphic-works-body .morphic-links a {
+            color: #9295a6 !important;
+        }
+        .morphic-works-body .morphic-links a.active,
+        .morphic-works-body .morphic-links a:hover {
+            color: #ffffff !important;
+        }
+        .morphic-works-body .morphic-links a.active::after {
+            background: #7B8AF4;
+            box-shadow: 0 0 8px #7B8AF4;
+        }
+        .morphic-works-body .editorial-pill {
+            background: rgba(255, 255, 255, 0.06);
+            color: #ffffff;
+            border-color: rgba(255, 255, 255, 0.15);
+        }
+        .morphic-works-body .editorial-pill:hover {
+            background: #7B8AF4;
+            color: #0F111A;
+            border-color: #7B8AF4;
+            box-shadow: 0 0 16px rgba(123, 138, 244, 0.5);
+        }
+        .morphic-works-body .mh-title {
+            color: #ffffff;
+        }
+        .morphic-works-body .mh-muted {
+            color: #7B8AF4;
+            text-shadow: 0 0 18px rgba(123, 138, 244, 0.35);
+        }
+        .morphic-works-body .mh-desc {
+            color: #9ca3af;
+        }
+        .morphic-works-body .section-tag-mono {
+            color: #7B8AF4;
+            border-color: rgba(123, 138, 244, 0.3);
+            background: rgba(123, 138, 244, 0.08);
+        }
+    </style>
 </head>
 <body class="morphic-works-body">
-    <!-- Custom Cursor -->
-    <div class="cursor-dot" style="background-color: var(--accent-color);"></div>
-    <div class="cursor-outline" style="border-color: var(--accent-color);"></div>
+    <!-- Custom Cursor Follower -->
+    <div class="cursor-dot" style="background-color: #7B8AF4; box-shadow: 0 0 10px #7B8AF4;"></div>
+    <div class="cursor-outline" style="border-color: #7B8AF4;"></div>
 
-    <!-- Header -->
-    <nav class="navbar" style="padding: 30px 5%; margin-bottom: 0;">
+    <!-- Navigation Header -->
+    <nav class="navbar" style="padding: 24px 5%; margin-bottom: 0;">
         <a href="index.html" class="logo" aria-label="Muhammed Qasim Home">
             <span class="logo-box">MQ</span><span class="logo-dot">.</span>
         </a>
@@ -60,7 +146,7 @@
     </nav>
 
     <!-- Morphic Style Hero Section -->
-    <section class="morphic-hero container">
+    <section class="morphic-hero container" style="padding-top: 50px; padding-bottom: 40px;">
         <div class="mh-left">
             <div class="section-tag-mono"><span class="tag-corner">┌</span> SELECTED ARCHIVE & PRODUCTIONS</div>
             <h1 class="mh-title">Smart storytelling<br><span class="mh-muted">For every creative</span></h1>
@@ -74,66 +160,704 @@
         </div>
     </section>
 
-    <!-- Infinite Marquee Section -->
-    <section class="morphic-marquee-container">
-        <div class="marquee-header container">
-            <span><i class="fas fa-layer-group"></i> Made by Muhammed Qasim <span class="see-more">See more</span></span>
-            <div class="mq-arrows">
-                <i class="fas fa-chevron-left"></i>
-                <i class="fas fa-chevron-right"></i>
-            </div>
-        </div>
-        
-        <!-- ROW 1 (Scrolls Left) -->
-        <div class="marquee-row" style="--duration: 40s;">
-            <div class="marquee-track track-left">
-                <!-- Group 1 -->
-                <div class="mq-item"><iframe src="https://www.youtube.com/embed/LoBlCMDNKiE?rel=0&modestbranding=1&controls=0&autoplay=1&mute=1&loop=1&playlist=LoBlCMDNKiE" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe></div>
-                <div class="mq-item"><iframe src="https://www.instagram.com/p/DbgaO2shH4f/embed" frameborder="0" scrolling="no" allowtransparency="true"></iframe></div>
-                <div class="mq-item"><iframe src="https://www.instagram.com/p/Cxz4Z0mhsUM/embed" frameborder="0" scrolling="no" allowtransparency="true"></iframe></div>
-                <div class="mq-item"><iframe src="https://www.youtube.com/embed/_ks_4cDSsfc?rel=0&modestbranding=1&controls=0&autoplay=1&mute=1&loop=1&playlist=_ks_4cDSsfc" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe></div>
-                <div class="mq-item"><iframe src="https://www.instagram.com/p/DY2vChtkzrM/embed" frameborder="0" scrolling="no" allowtransparency="true"></iframe></div>
-                <div class="mq-item"><iframe src="https://www.instagram.com/p/CnDh_IHBDIl/embed" frameborder="0" scrolling="no" allowtransparency="true"></iframe></div>
-                <div class="mq-item"><iframe src="https://www.youtube.com/embed/vk0n3NJtLBU?rel=0&modestbranding=1&controls=0&autoplay=1&mute=1&loop=1&playlist=vk0n3NJtLBU" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe></div>
-                <!-- Duplicate Group 1 -->
-                <div class="mq-item"><iframe src="https://www.youtube.com/embed/LoBlCMDNKiE?rel=0&modestbranding=1&controls=0&autoplay=1&mute=1&loop=1&playlist=LoBlCMDNKiE" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe></div>
-                <div class="mq-item"><iframe src="https://www.instagram.com/p/DbgaO2shH4f/embed" frameborder="0" scrolling="no" allowtransparency="true"></iframe></div>
-                <div class="mq-item"><iframe src="https://www.instagram.com/p/Cxz4Z0mhsUM/embed" frameborder="0" scrolling="no" allowtransparency="true"></iframe></div>
-                <div class="mq-item"><iframe src="https://www.youtube.com/embed/_ks_4cDSsfc?rel=0&modestbranding=1&controls=0&autoplay=1&mute=1&loop=1&playlist=_ks_4cDSsfc" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe></div>
-                <div class="mq-item"><iframe src="https://www.instagram.com/p/DY2vChtkzrM/embed" frameborder="0" scrolling="no" allowtransparency="true"></iframe></div>
-                <div class="mq-item"><iframe src="https://www.instagram.com/p/CnDh_IHBDIl/embed" frameborder="0" scrolling="no" allowtransparency="true"></iframe></div>
-                <div class="mq-item"><iframe src="https://www.youtube.com/embed/vk0n3NJtLBU?rel=0&modestbranding=1&controls=0&autoplay=1&mute=1&loop=1&playlist=vk0n3NJtLBU" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe></div>
-            </div>
-        </div>
+    <!-- =========================================================================
+         FEATURED PROJECTS SECTION (React + Tailwind CSS + Framer Motion Root)
+         Matches Dark Theme (#0F111A)
+         ========================================================================= -->
+    <div id="featured-projects-root">
+        <!-- Static HTML/CSS Fallback for Instant Render Before React Mounts -->
+        <section id="featured-projects" class="featured-projects-section">
+            <div class="max-w-7xl mx-auto">
+                <!-- 1. Section Header -->
+                <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 sm:mb-16 gap-6">
+                    <div>
+                        <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#7B8AF4]/10 border border-[#7B8AF4]/25 text-[#7B8AF4] text-xs font-mono tracking-widest uppercase mb-4 shadow-[0_0_15px_rgba(123,138,244,0.15)]">
+                            <span class="text-white/40">┌</span> CURATED ARCHIVE & CASE STUDIES
+                        </div>
+                        <div class="flex items-center flex-wrap gap-3 sm:gap-4">
+                            <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white tracking-tight">
+                                Featured Projects
+                            </h2>
+                            <!-- Glowing Neon Blue (#7B8AF4) Dot Accent -->
+                            <span class="neon-dot" aria-label="Glowing accent dot"></span>
+                            <!-- Glowing Neon Blue (#7B8AF4) Line Accent -->
+                            <span class="neon-line hidden sm:inline-block" aria-label="Glowing accent line"></span>
+                        </div>
+                        <p class="mt-3 text-sm sm:text-base text-gray-400 max-w-xl font-light">
+                            High-impact 3D animation, brand identity, and commercial video production built for scaling modern creative ventures.
+                        </p>
+                    </div>
 
-        <!-- ROW 2 (Scrolls Right) -->
-        <div class="marquee-row" style="--duration: 45s; margin-top: 20px;">
-            <div class="marquee-track track-right">
-                <!-- Group 2 -->
-                <div class="mq-item"><iframe src="https://www.instagram.com/p/Dc57Yv-CW5O/embed" frameborder="0" scrolling="no" allowtransparency="true"></iframe></div>
-                <div class="mq-item"><iframe src="https://www.youtube.com/embed/2Jnd6A86mDk?rel=0&modestbranding=1&controls=0&autoplay=1&mute=1&loop=1&playlist=2Jnd6A86mDk" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe></div>
-                <div class="mq-item"><iframe src="https://www.instagram.com/p/Dc54Y9ZCaER/embed" frameborder="0" scrolling="no" allowtransparency="true"></iframe></div>
-                <div class="mq-item"><iframe src="https://www.instagram.com/p/DXhfKkpOFM3/embed" frameborder="0" scrolling="no" allowtransparency="true"></iframe></div>
-                <div class="mq-item"><iframe src="https://www.instagram.com/p/DZ0Qz-LTAk2/embed" frameborder="0" scrolling="no" allowtransparency="true"></iframe></div>
-                <div class="mq-item"><iframe src="https://www.instagram.com/p/DZX1BN3E8wM/embed" frameborder="0" scrolling="no" allowtransparency="true"></iframe></div>
-                <div class="mq-item"><iframe src="https://www.instagram.com/p/Dc55xJQiXmS/embed" frameborder="0" scrolling="no" allowtransparency="true"></iframe></div>
-                <!-- Duplicate Group 2 -->
-                <div class="mq-item"><iframe src="https://www.instagram.com/p/Dc57Yv-CW5O/embed" frameborder="0" scrolling="no" allowtransparency="true"></iframe></div>
-                <div class="mq-item"><iframe src="https://www.youtube.com/embed/2Jnd6A86mDk?rel=0&modestbranding=1&controls=0&autoplay=1&mute=1&loop=1&playlist=2Jnd6A86mDk" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe></div>
-                <div class="mq-item"><iframe src="https://www.instagram.com/p/Dc54Y9ZCaER/embed" frameborder="0" scrolling="no" allowtransparency="true"></iframe></div>
-                <div class="mq-item"><iframe src="https://www.instagram.com/p/DXhfKkpOFM3/embed" frameborder="0" scrolling="no" allowtransparency="true"></iframe></div>
-                <div class="mq-item"><iframe src="https://www.instagram.com/p/DZ0Qz-LTAk2/embed" frameborder="0" scrolling="no" allowtransparency="true"></iframe></div>
-                <div class="mq-item"><iframe src="https://www.instagram.com/p/DZX1BN3E8wM/embed" frameborder="0" scrolling="no" allowtransparency="true"></iframe></div>
-                <div class="mq-item"><iframe src="https://www.instagram.com/p/Dc55xJQiXmS/embed" frameborder="0" scrolling="no" allowtransparency="true"></iframe></div>
+                    <!-- Category Pills -->
+                    <div class="flex flex-wrap gap-2 items-center">
+                        <span class="px-4 py-2 rounded-full text-xs font-semibold bg-[#7B8AF4] text-[#0F111A] shadow-[0_0_15px_rgba(123,138,244,0.5)]">All</span>
+                        <span class="px-4 py-2 rounded-full text-xs font-medium bg-white/5 text-gray-400 border border-white/10">3D Motion</span>
+                        <span class="px-4 py-2 rounded-full text-xs font-medium bg-white/5 text-gray-400 border border-white/10">Brand Identity</span>
+                        <span class="px-4 py-2 rounded-full text-xs font-medium bg-white/5 text-gray-400 border border-white/10">Video Editing</span>
+                        <span class="px-4 py-2 rounded-full text-xs font-medium bg-white/5 text-gray-400 border border-white/10">AI Workflows</span>
+                    </div>
+                </div>
+
+                <!-- 2. Masonry Portfolio Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-6 auto-rows-auto">
+                    
+                    <!-- Card 1: Landscape (16:9) -->
+                    <div class="mq-project-card col-span-1 md:col-span-12 lg:col-span-8 h-[340px] sm:h-[400px]">
+                        <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80" alt="Aura Kinetic Identity" loading="lazy">
+                        <div class="mq-glass-overlay">
+                            <div class="flex items-center justify-between">
+                                <span class="text-[11px] font-mono tracking-widest uppercase text-white/70 bg-white/10 px-3 py-1 rounded-full border border-white/10">16:9 Landscape</span>
+                                <div class="w-8 h-8 rounded-full bg-[#7B8AF4]/20 border border-[#7B8AF4]/40 flex items-center justify-center text-[#7B8AF4]">↗</div>
+                            </div>
+                            <div class="mq-center-logo">
+                                <div class="mq-center-logo-inner">
+                                    <span class="mq-logo-text">MQ</span>
+                                    <span class="mq-logo-sub">AGENCY</span>
+                                </div>
+                            </div>
+                            <div class="mq-bottom-details">
+                                <span class="mq-category-badge"><span class="mq-category-dot"></span> Brand Identity</span>
+                                <h3 class="mq-title-text">Aura Kinetic Identity</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 2: Portrait (3:4) -->
+                    <div class="mq-project-card col-span-1 md:col-span-6 lg:col-span-4 h-[420px] sm:h-[480px] lg:h-[400px]">
+                        <img src="https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?auto=format&fit=crop&w=800&q=80" alt="Cybernetic HUD & Hologram" loading="lazy">
+                        <div class="mq-glass-overlay">
+                            <div class="flex items-center justify-between">
+                                <span class="text-[11px] font-mono tracking-widest uppercase text-white/70 bg-white/10 px-3 py-1 rounded-full border border-white/10">3:4 Portrait</span>
+                                <div class="w-8 h-8 rounded-full bg-[#7B8AF4]/20 border border-[#7B8AF4]/40 flex items-center justify-center text-[#7B8AF4]">↗</div>
+                            </div>
+                            <div class="mq-center-logo">
+                                <div class="mq-center-logo-inner">
+                                    <span class="mq-logo-text">MQ</span>
+                                    <span class="mq-logo-sub">AGENCY</span>
+                                </div>
+                            </div>
+                            <div class="mq-bottom-details">
+                                <span class="mq-category-badge"><span class="mq-category-dot"></span> 3D Motion</span>
+                                <h3 class="mq-title-text">Cybernetic HUD & Hologram</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 3: Landscape (16:9) -->
+                    <div class="mq-project-card col-span-1 md:col-span-6 lg:col-span-5 h-[340px] sm:h-[390px]">
+                        <img src="https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=1000&q=80" alt="Apex Velocity Commercial" loading="lazy">
+                        <div class="mq-glass-overlay">
+                            <div class="flex items-center justify-between">
+                                <span class="text-[11px] font-mono tracking-widest uppercase text-white/70 bg-white/10 px-3 py-1 rounded-full border border-white/10">16:9 Landscape</span>
+                                <div class="w-8 h-8 rounded-full bg-[#7B8AF4]/20 border border-[#7B8AF4]/40 flex items-center justify-center text-[#7B8AF4]">↗</div>
+                            </div>
+                            <div class="mq-center-logo">
+                                <div class="mq-center-logo-inner">
+                                    <span class="mq-logo-text">MQ</span>
+                                    <span class="mq-logo-sub">AGENCY</span>
+                                </div>
+                            </div>
+                            <div class="mq-bottom-details">
+                                <span class="mq-category-badge"><span class="mq-category-dot"></span> Video Editing</span>
+                                <h3 class="mq-title-text">Apex Velocity Commercial</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 4: Square (1:1) -->
+                    <div class="mq-project-card col-span-1 md:col-span-6 lg:col-span-3 h-[340px] sm:h-[390px]">
+                        <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&w=800&q=80" alt="Fluid Chromatic Vortex" loading="lazy">
+                        <div class="mq-glass-overlay">
+                            <div class="flex items-center justify-between">
+                                <span class="text-[11px] font-mono tracking-widest uppercase text-white/70 bg-white/10 px-3 py-1 rounded-full border border-white/10">1:1 Square</span>
+                                <div class="w-8 h-8 rounded-full bg-[#7B8AF4]/20 border border-[#7B8AF4]/40 flex items-center justify-center text-[#7B8AF4]">↗</div>
+                            </div>
+                            <div class="mq-center-logo">
+                                <div class="mq-center-logo-inner">
+                                    <span class="mq-logo-text">MQ</span>
+                                    <span class="mq-logo-sub">AGENCY</span>
+                                </div>
+                            </div>
+                            <div class="mq-bottom-details">
+                                <span class="mq-category-badge"><span class="mq-category-dot"></span> 3D Motion</span>
+                                <h3 class="mq-title-text">Fluid Chromatic Vortex</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 5: Portrait (3:4) -->
+                    <div class="mq-project-card col-span-1 md:col-span-6 lg:col-span-4 h-[420px] sm:h-[480px] lg:h-[390px]">
+                        <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=800&q=80" alt="Neo-Tokyo Editorial Poster" loading="lazy">
+                        <div class="mq-glass-overlay">
+                            <div class="flex items-center justify-between">
+                                <span class="text-[11px] font-mono tracking-widest uppercase text-white/70 bg-white/10 px-3 py-1 rounded-full border border-white/10">3:4 Portrait</span>
+                                <div class="w-8 h-8 rounded-full bg-[#7B8AF4]/20 border border-[#7B8AF4]/40 flex items-center justify-center text-[#7B8AF4]">↗</div>
+                            </div>
+                            <div class="mq-center-logo">
+                                <div class="mq-center-logo-inner">
+                                    <span class="mq-logo-text">MQ</span>
+                                    <span class="mq-logo-sub">AGENCY</span>
+                                </div>
+                            </div>
+                            <div class="mq-bottom-details">
+                                <span class="mq-category-badge"><span class="mq-category-dot"></span> Brand Identity</span>
+                                <h3 class="mq-title-text">Neo-Tokyo Editorial Poster</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 6: Square (1:1) -->
+                    <div class="mq-project-card col-span-1 md:col-span-6 lg:col-span-4 h-[340px] sm:h-[400px]">
+                        <img src="https://images.unsplash.com/photo-1536240478700-b869070f9279?auto=format&fit=crop&w=800&q=80" alt="Solstice Cinematic Grade" loading="lazy">
+                        <div class="mq-glass-overlay">
+                            <div class="flex items-center justify-between">
+                                <span class="text-[11px] font-mono tracking-widest uppercase text-white/70 bg-white/10 px-3 py-1 rounded-full border border-white/10">1:1 Square</span>
+                                <div class="w-8 h-8 rounded-full bg-[#7B8AF4]/20 border border-[#7B8AF4]/40 flex items-center justify-center text-[#7B8AF4]">↗</div>
+                            </div>
+                            <div class="mq-center-logo">
+                                <div class="mq-center-logo-inner">
+                                    <span class="mq-logo-text">MQ</span>
+                                    <span class="mq-logo-sub">AGENCY</span>
+                                </div>
+                            </div>
+                            <div class="mq-bottom-details">
+                                <span class="mq-category-badge"><span class="mq-category-dot"></span> Video Editing</span>
+                                <h3 class="mq-title-text">Solstice Cinematic Grade</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 7: Portrait (3:4) -->
+                    <div class="mq-project-card col-span-1 md:col-span-6 lg:col-span-4 h-[420px] sm:h-[480px] lg:h-[400px]">
+                        <img src="https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?auto=format&fit=crop&w=800&q=80" alt="Bioluminescent Synthetics" loading="lazy">
+                        <div class="mq-glass-overlay">
+                            <div class="flex items-center justify-between">
+                                <span class="text-[11px] font-mono tracking-widest uppercase text-white/70 bg-white/10 px-3 py-1 rounded-full border border-white/10">3:4 Portrait</span>
+                                <div class="w-8 h-8 rounded-full bg-[#7B8AF4]/20 border border-[#7B8AF4]/40 flex items-center justify-center text-[#7B8AF4]">↗</div>
+                            </div>
+                            <div class="mq-center-logo">
+                                <div class="mq-center-logo-inner">
+                                    <span class="mq-logo-text">MQ</span>
+                                    <span class="mq-logo-sub">AGENCY</span>
+                                </div>
+                            </div>
+                            <div class="mq-bottom-details">
+                                <span class="mq-category-badge"><span class="mq-category-dot"></span> AI Workflows</span>
+                                <h3 class="mq-title-text">Bioluminescent Synthetics</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 8: Landscape (16:9) -->
+                    <div class="mq-project-card col-span-1 md:col-span-12 lg:col-span-4 h-[340px] sm:h-[400px]">
+                        <img src="https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?auto=format&fit=crop&w=1200&q=80" alt="Quantum Monolith Renders" loading="lazy">
+                        <div class="mq-glass-overlay">
+                            <div class="flex items-center justify-between">
+                                <span class="text-[11px] font-mono tracking-widest uppercase text-white/70 bg-white/10 px-3 py-1 rounded-full border border-white/10">16:9 Landscape</span>
+                                <div class="w-8 h-8 rounded-full bg-[#7B8AF4]/20 border border-[#7B8AF4]/40 flex items-center justify-center text-[#7B8AF4]">↗</div>
+                            </div>
+                            <div class="mq-center-logo">
+                                <div class="mq-center-logo-inner">
+                                    <span class="mq-logo-text">MQ</span>
+                                    <span class="mq-logo-sub">AGENCY</span>
+                                </div>
+                            </div>
+                            <div class="mq-bottom-details">
+                                <span class="mq-category-badge"><span class="mq-category-dot"></span> 3D Motion</span>
+                                <h3 class="mq-title-text">Quantum Monolith Renders</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- =========================================================================
+         REACT + FRAMER MOTION HYDRATION SCRIPT
+         Mounts interactive component with spring physics, staggerChildren scroll
+         animations, category filtering & interactive lightbox modal.
+         ========================================================================= -->
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+        
+        // Safely extract Framer Motion from window.Motion
+        const MotionLib = window.Motion || {
+            motion: new Proxy({}, {
+                get: (target, prop) => (props) => {
+                    const { variants, initial, whileInView, viewport, animate, exit, layout, transition, ...rest } = props;
+                    return React.createElement(prop, rest);
+                }
+            }),
+            AnimatePresence: ({ children }) => children
+        };
+        const { motion, AnimatePresence } = MotionLib;
+
+        const PROJECTS_LIST = [
+            {
+                id: 'p1',
+                title: 'Aura Kinetic Identity',
+                category: 'Brand Identity',
+                aspectType: 'landscape',
+                aspectLabel: '16:9 Landscape',
+                gridSpan: 'col-span-1 md:col-span-12 lg:col-span-8',
+                heightClass: 'h-[320px] sm:h-[380px] lg:h-[420px]',
+                image: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80',
+                client: 'Aura Collective',
+                year: '2026',
+                tools: ['Cinema 4D', 'Illustrator', 'After Effects'],
+                description: 'Complete visual identity, kinetic motion guidelines, and high-contrast editorial system engineered for an avant-garde digital arts collective.'
+            },
+            {
+                id: 'p2',
+                title: 'Cybernetic HUD & Hologram',
+                category: '3D Motion',
+                aspectType: 'portrait',
+                aspectLabel: '3:4 Portrait',
+                gridSpan: 'col-span-1 md:col-span-6 lg:col-span-4',
+                heightClass: 'h-[420px] sm:h-[480px] lg:h-[420px]',
+                image: 'https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?auto=format&fit=crop&w=800&q=80',
+                client: 'NeuroTech Labs',
+                year: '2026',
+                tools: ['Blender Cycles', 'Octane', 'Figma'],
+                description: 'Futuristic holographic HUD simulation with dispersion shaders and tactile glass refraction designed for next-gen wearable spatial interfaces.'
+            },
+            {
+                id: 'p3',
+                title: 'Apex Velocity Commercial',
+                category: 'Video Editing',
+                aspectType: 'landscape',
+                aspectLabel: '16:9 Landscape',
+                gridSpan: 'col-span-1 md:col-span-6 lg:col-span-5',
+                heightClass: 'h-[320px] sm:h-[380px] lg:h-[400px]',
+                image: 'https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=1000&q=80',
+                client: 'Apex Athletics',
+                year: '2026',
+                tools: ['Premiere Pro', 'DaVinci Resolve', 'Soundly'],
+                description: 'High-octane commercial pacing with dynamic match cuts, analog film texture, and bespoke cinematic sound design for social campaign launches.'
+            },
+            {
+                id: 'p4',
+                title: 'Fluid Chromatic Vortex',
+                category: '3D Motion',
+                aspectType: 'square',
+                aspectLabel: '1:1 Square',
+                gridSpan: 'col-span-1 md:col-span-6 lg:col-span-3',
+                heightClass: 'h-[320px] sm:h-[380px] lg:h-[400px]',
+                image: 'https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&w=800&q=80',
+                client: 'Solaria Media',
+                year: '2026',
+                tools: ['Houdini', 'Redshift', 'Photoshop'],
+                description: 'Complex particle and fluid simulation exploring chromatic aberration, surface tension dynamics, and caustic light interactions.'
+            },
+            {
+                id: 'p5',
+                title: 'Neo-Tokyo Editorial Poster',
+                category: 'Brand Identity',
+                aspectType: 'portrait',
+                aspectLabel: '3:4 Portrait',
+                gridSpan: 'col-span-1 md:col-span-6 lg:col-span-4',
+                heightClass: 'h-[420px] sm:h-[480px] lg:h-[400px]',
+                image: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=800&q=80',
+                client: 'Kuro Cultural Festival',
+                year: '2026',
+                tools: ['Photoshop', 'Illustrator', 'Glyphs'],
+                description: 'Brutalist typographic hierarchy blending bilingual kanji-latin lettering with distressed risograph textures and vector grids.'
+            },
+            {
+                id: 'p6',
+                title: 'Solstice Cinematic Grade',
+                category: 'Video Editing',
+                aspectType: 'square',
+                aspectLabel: '1:1 Square',
+                gridSpan: 'col-span-1 md:col-span-6 lg:col-span-4',
+                heightClass: 'h-[340px] sm:h-[400px] lg:h-[420px]',
+                image: 'https://images.unsplash.com/photo-1536240478700-b869070f9279?auto=format&fit=crop&w=800&q=80',
+                client: 'Indie Motion Pictures',
+                year: '2026',
+                tools: ['DaVinci Resolve', 'FilmConvert', 'After Effects'],
+                description: 'Moody atmospheric color grading and analog film grain mastering for a psychological drama short, tuned with custom HDR color curves.'
+            },
+            {
+                id: 'p7',
+                title: 'Bioluminescent Synthetics',
+                category: 'AI Workflows',
+                aspectType: 'portrait',
+                aspectLabel: '3:4 Portrait',
+                gridSpan: 'col-span-1 md:col-span-6 lg:col-span-4',
+                heightClass: 'h-[420px] sm:h-[480px] lg:h-[420px]',
+                image: 'https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?auto=format&fit=crop&w=800&q=80',
+                client: 'Exo Organics',
+                year: '2026',
+                tools: ['ComfyUI', 'Photoshop', 'Topaz AI'],
+                description: 'Custom diffusion-driven visual synthesis guided by 3D depth control nets, refined with manual hand-painted composite textures.'
+            },
+            {
+                id: 'p8',
+                title: 'Quantum Monolith Renders',
+                category: '3D Motion',
+                aspectType: 'landscape',
+                aspectLabel: '16:9 Landscape',
+                gridSpan: 'col-span-1 md:col-span-12 lg:col-span-4',
+                heightClass: 'h-[320px] sm:h-[380px] lg:h-[420px]',
+                image: 'https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?auto=format&fit=crop&w=1200&q=80',
+                client: 'Vektor Architecture',
+                year: '2026',
+                tools: ['Blender', 'Cycles', 'After Effects'],
+                description: 'Photorealistic brutalist architecture situated in atmospheric foggy terrain with volumetric neon perimeter illumination.'
+            }
+        ];
+
+        const CATEGORIES = ['All', '3D Motion', 'Brand Identity', 'Video Editing', 'AI Workflows'];
+
+        function InteractiveFeaturedProjects() {
+            const [selectedCategory, setSelectedCategory] = useState('All');
+            const [activeModalProject, setActiveModalProject] = useState(null);
+
+            const filtered = selectedCategory === 'All'
+                ? PROJECTS_LIST
+                : PROJECTS_LIST.filter(p => p.category === selectedCategory);
+
+            useEffect(() => {
+                const handleKeyDown = (e) => {
+                    if (e.key === 'Escape') setActiveModalProject(null);
+                };
+                window.addEventListener('keydown', handleKeyDown);
+                return () => window.removeEventListener('keydown', handleKeyDown);
+            }, []);
+
+            // Framer Motion staggerChildren container
+            const containerVariants = {
+                hidden: { opacity: 0 },
+                visible: {
+                    opacity: 1,
+                    transition: {
+                        staggerChildren: 0.1,
+                        delayChildren: 0.15
+                    }
+                }
+            };
+
+            // Framer Motion sequential pop into view (fade-in-up)
+            const cardVariants = {
+                hidden: { opacity: 0, y: 35, scale: 0.96 },
+                visible: {
+                    opacity: 1,
+                    y: 0,
+                    scale: 1,
+                    transition: {
+                        duration: 0.65,
+                        ease: [0.22, 1, 0.36, 1]
+                    }
+                }
+            };
+
+            return (
+                <section id="featured-projects" className="relative w-full bg-[#0F111A] text-white py-20 px-4 sm:px-6 lg:px-12 overflow-hidden">
+                    {/* Ambient glow spots */}
+                    <div className="absolute top-1/4 -left-48 w-96 h-96 bg-[#7B8AF4]/10 rounded-full blur-[140px] pointer-events-none" />
+                    <div className="absolute bottom-1/4 -right-48 w-96 h-96 bg-[#7B8AF4]/10 rounded-full blur-[140px] pointer-events-none" />
+
+                    <div className="max-w-7xl mx-auto relative z-10">
+                        {/* 1. SECTION HEADER */}
+                        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 sm:mb-16 gap-6">
+                            <div>
+                                <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#7B8AF4]/10 border border-[#7B8AF4]/25 text-[#7B8AF4] text-xs font-mono tracking-widest uppercase mb-4 shadow-[0_0_15px_rgba(123,138,244,0.15)]">
+                                    <span className="text-white/40">┌</span> CURATED ARCHIVE & CASE STUDIES
+                                </div>
+                                <div className="flex items-center flex-wrap gap-3 sm:gap-4">
+                                    <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white tracking-tight">
+                                        Featured Projects
+                                    </h2>
+                                    {/* Glowing Neon Blue (#7B8AF4) Dot Accent */}
+                                    <span className="w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-full bg-[#7B8AF4] inline-block shadow-[0_0_12px_#7B8AF4,0_0_24px_rgba(123,138,244,0.85)] animate-pulse" />
+                                    {/* Glowing Neon Blue (#7B8AF4) Line Accent */}
+                                    <span className="hidden sm:inline-block w-12 sm:w-16 h-[3px] rounded-full bg-gradient-to-r from-[#7B8AF4] via-[#7B8AF4] to-transparent shadow-[0_0_10px_#7B8AF4]" />
+                                </div>
+                                <p className="mt-3 text-sm sm:text-base text-gray-400 max-w-xl font-light">
+                                    High-impact 3D animation, brand identity, and commercial video production built for scaling modern creative ventures.
+                                </p>
+                            </div>
+
+                            {/* Category Filter Pills */}
+                            <div className="flex flex-wrap gap-2 items-center">
+                                {CATEGORIES.map(category => (
+                                    <button
+                                        key={category}
+                                        type="button"
+                                        onClick={() => setSelectedCategory(category)}
+                                        className={`px-4 py-2 rounded-full text-xs sm:text-sm font-medium tracking-wide transition-all duration-300 border ${
+                                            selectedCategory === category
+                                                ? 'bg-[#7B8AF4] text-[#0F111A] border-[#7B8AF4] font-semibold shadow-[0_0_18px_rgba(123,138,244,0.55)] scale-105'
+                                                : 'bg-white/[0.04] text-gray-400 hover:text-white hover:bg-white/[0.08] border-white/10'
+                                        }`}
+                                    >
+                                        {category}
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* 2. MASONRY PORTFOLIO GRID with 4. Framer Motion Scroll Animations */}
+                        <motion.div
+                            key={selectedCategory}
+                            variants={containerVariants}
+                            initial="hidden"
+                            whileInView="visible"
+                            viewport={{ once: true, margin: '-60px' }}
+                            className="grid grid-cols-1 md:grid-cols-12 gap-6 auto-rows-auto"
+                        >
+                            {filtered.map(project => (
+                                <motion.div
+                                    key={project.id}
+                                    variants={cardVariants}
+                                    layout
+                                    onClick={() => setActiveModalProject(project)}
+                                    className={`group relative rounded-2xl overflow-hidden bg-[#141724] border border-white/10 shadow-2xl transition-all duration-500 hover:border-[#7B8AF4]/45 hover:shadow-[0_12px_36px_rgba(123,138,244,0.22)] cursor-pointer ${project.gridSpan} ${project.heightClass}`}
+                                >
+                                    {/* 3. Image scales up slightly on hover (scale-105) */}
+                                    <img
+                                        src={project.image}
+                                        alt={project.title}
+                                        loading="lazy"
+                                        className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                                    />
+
+                                    {/* 3. Dark, semi-transparent glassmorphism overlay */}
+                                    <div className="absolute inset-0 bg-[#0F111A]/75 backdrop-blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-400 ease-out flex flex-col justify-between p-6 sm:p-7 z-10 pointer-events-none group-hover:pointer-events-auto">
+                                        
+                                        {/* Top Aspect Ratio Tag & Arrow */}
+                                        <div className="flex items-center justify-between opacity-0 group-hover:opacity-100 transform -translate-y-2 group-hover:translate-y-0 transition-all duration-300 ease-out">
+                                            <span className="text-[11px] font-mono tracking-widest uppercase text-white/70 bg-white/10 backdrop-blur-sm border border-white/10 px-3 py-1 rounded-full">
+                                                {project.aspectLabel}
+                                            </span>
+                                            <div className="w-9 h-9 rounded-full bg-[#7B8AF4]/15 border border-[#7B8AF4]/40 flex items-center justify-center text-[#7B8AF4] shadow-[0_0_12px_rgba(123,138,244,0.35)]">
+                                                <svg className="w-4 h-4 transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M7 17L17 7M17 7H7M17 7V17" />
+                                                </svg>
+                                            </div>
+                                        </div>
+
+                                        {/* 3. LOGO REVEAL: In exact center of hover overlay */}
+                                        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                                            <div className="transform scale-75 group-hover:scale-100 opacity-0 group-hover:opacity-100 transition-all duration-400 ease-out flex flex-col items-center">
+                                                <div className="relative flex items-center justify-center">
+                                                    <div className="absolute -inset-6 bg-[#7B8AF4]/25 rounded-full blur-xl pointer-events-none" />
+                                                    {/* Glowing soft neon blue (#7B8AF4) "MQ" text/logo */}
+                                                    <span 
+                                                        className="relative text-[#7B8AF4] font-black text-4xl sm:text-5xl md:text-6xl tracking-widest select-none"
+                                                        style={{
+                                                            textShadow: '0 0 15px #7B8AF4, 0 0 30px rgba(123, 138, 244, 0.8), 0 0 50px rgba(123, 138, 244, 0.45)'
+                                                        }}
+                                                    >
+                                                        MQ
+                                                    </span>
+                                                </div>
+                                                <span 
+                                                    className="text-[10px] sm:text-[11px] font-mono tracking-[0.35em] uppercase text-[#7B8AF4]/90 mt-1.5 select-none"
+                                                    style={{ textShadow: '0 0 10px rgba(123, 138, 244, 0.7)' }}
+                                                >
+                                                    AGENCY
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                        {/* 3. PROJECT DETAILS: Slides up into view from bottom */}
+                                        <div className="transform translate-y-6 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-400 ease-out delay-75 z-20">
+                                            <span className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold tracking-wider uppercase text-[#7B8AF4] mb-1">
+                                                <span className="w-1.5 h-1.5 rounded-full bg-[#7B8AF4] shadow-[0_0_8px_#7B8AF4]" />
+                                                {project.category}
+                                            </span>
+                                            <h3 className="text-white font-bold text-lg sm:text-xl md:text-2xl tracking-tight leading-snug">
+                                                {project.title}
+                                            </h3>
+                                        </div>
+
+                                    </div>
+                                </motion.div>
+                            ))}
+                        </motion.div>
+
+                        {/* Bottom Summary Bar */}
+                        <div className="mt-14 pt-8 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between text-xs font-mono text-gray-500 gap-4">
+                            <div className="flex items-center gap-2">
+                                <span className="w-2 h-2 rounded-full bg-[#7B8AF4]/60" />
+                                <span>SHOWING {filtered.length} CURATED PROJECTS</span>
+                            </div>
+                            <div className="flex items-center gap-3 text-[#7B8AF4]">
+                                <span>3D ANIMATION</span>
+                                <span>•</span>
+                                <span>BRAND IDENTITY</span>
+                                <span>•</span>
+                                <span>VIDEO EDITING</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* INTERACTIVE LIGHTBOX MODAL */}
+                    <AnimatePresence>
+                        {activeModalProject && (
+                            <motion.div
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                                onClick={() => setActiveModalProject(null)}
+                                className="fixed inset-0 z-50 bg-black/85 backdrop-blur-xl flex items-center justify-center p-4 sm:p-6"
+                            >
+                                <motion.div
+                                    initial={{ scale: 0.9, opacity: 0, y: 30 }}
+                                    animate={{ scale: 1, opacity: 1, y: 0 }}
+                                    exit={{ scale: 0.9, opacity: 0, y: 30 }}
+                                    transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+                                    onClick={e => e.stopPropagation()}
+                                    className="relative w-full max-w-4xl bg-[#141724] border border-[#7B8AF4]/30 rounded-2xl overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.8)]"
+                                >
+                                    <button
+                                        type="button"
+                                        onClick={() => setActiveModalProject(null)}
+                                        className="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-[#0F111A]/80 border border-white/10 text-white hover:text-[#7B8AF4] hover:border-[#7B8AF4] flex items-center justify-center transition-all duration-200"
+                                        aria-label="Close modal"
+                                    >
+                                        ✕
+                                    </button>
+
+                                    <div className="grid grid-cols-1 md:grid-cols-2">
+                                        <div className="relative h-64 md:h-[480px]">
+                                            <img
+                                                src={activeModalProject.image}
+                                                alt={activeModalProject.title}
+                                                className="w-full h-full object-cover"
+                                            />
+                                            <div className="absolute inset-0 bg-gradient-to-t from-[#141724] via-transparent to-transparent md:hidden" />
+                                        </div>
+
+                                        <div className="p-6 sm:p-8 flex flex-col justify-between">
+                                            <div>
+                                                <div className="flex items-center gap-2 text-xs font-mono text-[#7B8AF4] uppercase tracking-widest mb-2">
+                                                    <span className="w-2 h-2 rounded-full bg-[#7B8AF4] shadow-[0_0_8px_#7B8AF4]" />
+                                                    {activeModalProject.category} • {activeModalProject.year}
+                                                </div>
+
+                                                <h3 className="text-2xl sm:text-3xl font-bold text-white mb-4">
+                                                    {activeModalProject.title}
+                                                </h3>
+
+                                                <p className="text-gray-300 text-sm leading-relaxed mb-6">
+                                                    {activeModalProject.description}
+                                                </p>
+
+                                                <div className="space-y-3 mb-6">
+                                                    <div className="text-xs font-mono text-gray-400">
+                                                        <span className="text-white font-medium">Client:</span> {activeModalProject.client}
+                                                    </div>
+                                                    <div className="text-xs font-mono text-gray-400">
+                                                        <span className="text-white font-medium">Format:</span> {activeModalProject.aspectLabel}
+                                                    </div>
+                                                    <div className="flex flex-wrap gap-1.5 pt-2">
+                                                        {activeModalProject.tools.map(tool => (
+                                                            <span
+                                                                key={tool}
+                                                                className="text-[11px] font-mono px-2.5 py-1 rounded bg-white/5 border border-white/10 text-gray-300"
+                                                            >
+                                                                {tool}
+                                                            </span>
+                                                        ))}
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div className="pt-4 border-t border-white/10 flex items-center justify-between">
+                                                <span className="text-xs font-mono text-[#7B8AF4]">MUHAMMED QASIM — MQ</span>
+                                                <button
+                                                    type="button"
+                                                    onClick={() => setActiveModalProject(null)}
+                                                    className="px-5 py-2 rounded-full bg-[#7B8AF4] text-[#0F111A] font-semibold text-xs tracking-wider uppercase hover:shadow-[0_0_15px_rgba(123,138,244,0.6)] transition-all"
+                                                >
+                                                    Close Preview
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </motion.div>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+                </section>
+            );
+        }
+
+        // Mount React application into root
+        const rootElement = document.getElementById('featured-projects-root');
+        if (rootElement && window.ReactDOM && window.ReactDOM.createRoot) {
+            const root = ReactDOM.createRoot(rootElement);
+            root.render(<InteractiveFeaturedProjects />);
+        }
+    </script>
+
+    <!-- Social Media & Video Production Media Archive (Collapsible) -->
+    <section class="container" style="margin-top: 60px; margin-bottom: 60px; text-align: center;">
+        <button id="toggleArchiveBtn" type="button" class="editorial-pill" style="padding: 14px 28px; font-size: 0.95rem; display: inline-flex; align-items: center; gap: 10px;">
+            <i class="fas fa-film"></i>
+            <span>View Social Video & Reels Archive (14 Items)</span>
+            <i class="fas fa-chevron-down" id="archiveChevron" style="transition: transform 0.3s ease;"></i>
+        </button>
+
+        <div id="collapsibleArchive" style="display: none; margin-top: 40px; text-align: left;">
+            <div class="morphic-marquee-container" style="background: rgba(20, 23, 36, 0.4); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 20px; padding: 30px 10px;">
+                <div class="marquee-header container" style="margin-bottom: 20px;">
+                    <span style="color: #9ca3af;"><i class="fas fa-layer-group" style="color: #7B8AF4;"></i> Additional Client Productions & Social Media Cuts</span>
+                </div>
+                
+                <!-- ROW 1 -->
+                <div class="marquee-row" style="--duration: 40s;">
+                    <div class="marquee-track track-left">
+                        <div class="mq-item"><iframe src="https://www.youtube.com/embed/LoBlCMDNKiE?rel=0&modestbranding=1&controls=0&autoplay=1&mute=1&loop=1&playlist=LoBlCMDNKiE" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe></div>
+                        <div class="mq-item"><iframe src="https://www.instagram.com/p/DbgaO2shH4f/embed" frameborder="0" scrolling="no" allowtransparency="true"></iframe></div>
+                        <div class="mq-item"><iframe src="https://www.instagram.com/p/Cxz4Z0mhsUM/embed" frameborder="0" scrolling="no" allowtransparency="true"></iframe></div>
+                        <div class="mq-item"><iframe src="https://www.youtube.com/embed/_ks_4cDSsfc?rel=0&modestbranding=1&controls=0&autoplay=1&mute=1&loop=1&playlist=_ks_4cDSsfc" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe></div>
+                        <div class="mq-item"><iframe src="https://www.instagram.com/p/DY2vChtkzrM/embed" frameborder="0" scrolling="no" allowtransparency="true"></iframe></div>
+                        <div class="mq-item"><iframe src="https://www.youtube.com/embed/vk0n3NJtLBU?rel=0&modestbranding=1&controls=0&autoplay=1&mute=1&loop=1&playlist=vk0n3NJtLBU" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe></div>
+                    </div>
+                </div>
+
+                <!-- ROW 2 -->
+                <div class="marquee-row" style="--duration: 45s; margin-top: 20px;">
+                    <div class="marquee-track track-right">
+                        <div class="mq-item"><iframe src="https://www.instagram.com/p/Dc57Yv-CW5O/embed" frameborder="0" scrolling="no" allowtransparency="true"></iframe></div>
+                        <div class="mq-item"><iframe src="https://www.youtube.com/embed/2Jnd6A86mDk?rel=0&modestbranding=1&controls=0&autoplay=1&mute=1&loop=1&playlist=2Jnd6A86mDk" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe></div>
+                        <div class="mq-item"><iframe src="https://www.instagram.com/p/DXhfKkpOFM3/embed" frameborder="0" scrolling="no" allowtransparency="true"></iframe></div>
+                        <div class="mq-item"><iframe src="https://www.instagram.com/p/DZ0Qz-LTAk2/embed" frameborder="0" scrolling="no" allowtransparency="true"></iframe></div>
+                        <div class="mq-item"><iframe src="https://www.instagram.com/p/DZX1BN3E8wM/embed" frameborder="0" scrolling="no" allowtransparency="true"></iframe></div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <footer style="margin-top: 100px; padding-bottom: 20px;">
-        <p style="color: #666; text-align: center;">&copy; 2026 Muhammed Qasim. All rights reserved. <a href="admin.html" class="admin-quick-link" style="opacity: 0.15; font-size: 0.75rem; margin-left: 8px; color: inherit; text-decoration: none;" title="Admin Dashboard"><i class="fas fa-lock"></i></a></p>
+    <!-- Footer -->
+    <footer style="margin-top: 80px; padding-bottom: 30px;">
+        <p style="color: #666; text-align: center;">&copy; 2026 Muhammed Qasim (MQ). All rights reserved. <a href="admin.html" class="admin-quick-link" style="opacity: 0.15; font-size: 0.75rem; margin-left: 8px; color: inherit; text-decoration: none;" title="Admin Dashboard"><i class="fas fa-lock"></i></a></p>
     </footer>
 
+    <!-- Site Scripts -->
     <script src="data.js"></script>
     <script src="script.js"></script>
+    <script>
+        // Collapsible Social Archive toggle
+        const toggleArchiveBtn = document.getElementById('toggleArchiveBtn');
+        const collapsibleArchive = document.getElementById('collapsibleArchive');
+        const archiveChevron = document.getElementById('archiveChevron');
+
+        if (toggleArchiveBtn && collapsibleArchive) {
+            toggleArchiveBtn.addEventListener('click', () => {
+                const isHidden = collapsibleArchive.style.display === 'none';
+                collapsibleArchive.style.display = isHidden ? 'block' : 'none';
+                if (archiveChevron) {
+                    archiveChevron.style.transform = isHidden ? 'rotate(180deg)' : 'rotate(0deg)';
+                }
+            });
+        }
+    </script>
 </body>
 </html>
