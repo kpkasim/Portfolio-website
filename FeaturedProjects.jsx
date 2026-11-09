@@ -215,12 +215,6 @@ export default function FeaturedProjects() {
                 className="w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-full bg-[#7B8AF4] inline-block shadow-[0_0_12px_#7B8AF4,0_0_24px_rgba(123,138,244,0.8)] animate-pulse"
                 aria-label="Glowing accent dot"
               />
-
-              {/* Glowing Neon Blue (#7B8AF4) Line Accent */}
-              <span
-                className="hidden sm:inline-block w-12 sm:w-16 h-[3px] rounded-full bg-gradient-to-r from-[#7B8AF4] via-[#7B8AF4] to-transparent shadow-[0_0_10px_#7B8AF4]"
-                aria-label="Glowing accent line"
-              />
             </div>
             <p className="mt-3 text-sm sm:text-base text-gray-400 max-w-xl font-light">
               High-impact 3D animation, brand identity, and commercial video production built for scaling modern creative ventures.
@@ -372,10 +366,10 @@ export default function FeaturedProjects() {
               <button
                 type="button"
                 onClick={() => setActiveModalProject(null)}
-                className="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-[#0F111A]/80 border border-white/10 text-white hover:text-[#7B8AF4] hover:border-[#7B8AF4] flex items-center justify-center transition-all duration-200"
+                className="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-[#0F111A]/80 border border-white/10 text-white hover:text-[#7B8AF4] hover:border-[#7B8AF4] flex items-center justify-center transition-all duration-200 text-lg"
                 aria-label="Close modal"
               >
-                Ã¢Å“â€¢
+                &times;
               </button>
 
               <div className="grid grid-cols-1 md:grid-cols-2">
