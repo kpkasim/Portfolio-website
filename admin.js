@@ -667,14 +667,20 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        const isBehance = (linkVal && linkVal.includes('behance.net')) || (imgVal && imgVal.includes('behance.net'));
+        const behanceId = (typeof extractBehanceId === 'function' ? extractBehanceId(linkVal) || extractBehanceId(imgVal) : null);
+        const isBehance = behanceId || (linkVal && linkVal.includes('behance.net')) || (imgVal && imgVal.includes('behance.net')) || (fpMediaType && fpMediaType.value === 'behance');
         if (isBehance) {
-            const displayImg = (imgVal && !imgVal.includes('behance.net')) ? imgVal : 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1000&q=80';
+            const isDirectImg = imgVal.startsWith('data:image') || 
+                /\.(jpe?g|png|webp|gif|svg)(\?.*)?$/i.test(imgVal) || 
+                imgVal.includes('unsplash.com') || 
+                imgVal.includes('project_modules') || 
+                imgVal.includes('mir-s3-cdn-cf.behance.net');
+            const displayImg = (imgVal && isDirectImg) ? imgVal : 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1000&q=80';
             if (fpPreviewContainer && fpLivePreviewBox) {
                 fpPreviewContainer.innerHTML = `
                     <div style="position:relative; width:100%; height:100%;">
                         <img src="${displayImg}" style="width:100%; height:100%; object-fit:cover;">
-                        <span style="position:absolute; top:8px; left:8px; background:#0057ff; color:#fff; font-size:0.7rem; font-weight:700; padding:3px 8px; border-radius:4px;">
+                        <span style="position:absolute; top:8px; left:8px; background:#0057ff; color:#fff; font-size:0.7rem; font-weight:700; padding:3px 8px; border-radius:4px; box-shadow:0 0 10px rgba(0,87,255,0.5);">
                             <i class="fab fa-behance"></i> BEHANCE CASE STUDY
                         </span>
                     </div>
@@ -735,9 +741,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            // Smart detection for YouTube
+            // Smart detection for YouTube & Behance
             const ytId = extractYouTubeId(linkUrl) || extractYouTubeId(image);
+            const behanceId = (typeof extractBehanceId === 'function' ? extractBehanceId(linkUrl) || extractBehanceId(image) : null);
             let videoUrl = '';
+            let behanceEmbedUrl = '';
+
             if (ytId) {
                 mediaType = 'youtube';
                 videoUrl = `https://www.youtube.com/embed/${ytId}?autoplay=1&rel=0`;
@@ -747,12 +756,23 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (!image || extractYouTubeId(image)) {
                     image = `https://img.youtube.com/vi/${ytId}/hqdefault.jpg`;
                 }
-            } else if ((linkUrl && linkUrl.includes('behance.net')) || (image && image.includes('behance.net'))) {
+            } else if (behanceId || (linkUrl && linkUrl.includes('behance.net')) || (image && image.includes('behance.net')) || mediaType === 'behance') {
                 mediaType = 'behance';
-                if (!linkUrl && image.includes('behance.net')) {
-                    linkUrl = image;
+                if (behanceId) {
+                    behanceEmbedUrl = `https://www.behance.net/embed/project/${behanceId}?ilo0=1`;
+                    if (!linkUrl || !linkUrl.startsWith('http')) {
+                        linkUrl = `https://www.behance.net/gallery/${behanceId}`;
+                    }
+                } else if (!linkUrl) {
+                    linkUrl = 'https://www.behance.net/mq_ads';
                 }
-                if (image.includes('behance.net')) {
+                const isDirectImage = image.startsWith('data:image') || 
+                    /\.(jpe?g|png|webp|gif|svg)(\?.*)?$/i.test(image) || 
+                    image.includes('unsplash.com') || 
+                    image.includes('project_modules') || 
+                    image.includes('mir-s3-cdn-cf.behance.net');
+
+                if (!isDirectImage && image.includes('behance.net')) {
                     image = 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1000&q=80';
                 }
             } else if (linkUrl && (!mediaType || mediaType === 'image')) {
@@ -792,6 +812,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 mediaType,
                 linkUrl,
                 videoUrl,
+                behanceId: behanceId || undefined,
+                behanceEmbedUrl: behanceEmbedUrl || undefined,
                 image,
                 client,
                 year,
@@ -1194,6 +1216,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const profEmail = document.getElementById('profEmail');
         const profPinterest = document.getElementById('profPinterest');
         const profLinkedin = document.getElementById('profLinkedin');
+        const profBehance = document.getElementById('profBehance');
 
         if (profPhone) profPhone.value = p.phone || '';
         if (profWhatsapp) profWhatsapp.value = p.whatsapp || '';
@@ -1201,6 +1224,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (profEmail) profEmail.value = p.email || '';
         if (profPinterest) profPinterest.value = p.pinterest || '';
         if (profLinkedin) profLinkedin.value = p.linkedin || '';
+        if (profBehance) profBehance.value = p.behance || '';
 
         // Hero & Bio
         const profHeroSubtitle = document.getElementById('profHeroSubtitle');
@@ -1234,6 +1258,7 @@ document.addEventListener('DOMContentLoaded', () => {
             portfolioData.profile.email = document.getElementById('profEmail').value.trim();
             portfolioData.profile.pinterest = document.getElementById('profPinterest').value.trim();
             portfolioData.profile.linkedin = document.getElementById('profLinkedin').value.trim();
+            portfolioData.profile.behance = document.getElementById('profBehance') ? document.getElementById('profBehance').value.trim() : (p.behance || '');
 
             savePortfolioData(portfolioData);
             showToast('Contact & Social links updated successfully!', 'success');

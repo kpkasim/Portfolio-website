@@ -1,4 +1,4 @@
-﻿/**
+/**
  * data.js - Shared Portfolio Data Store & Hydration Engine
  * Auto-generated via MQ Admin Panel
  */
@@ -19,7 +19,8 @@ const DEFAULT_PORTFOLIO_DATA = {
         "whatsapp": "https://wa.me/918606150577",
         "instagram": "https://instagram.com/mq_ads_",
         "pinterest": "https://pin.it/5X84F8n4U",
-        "linkedin": "https://linkedin.com/in/MQ-Ads"
+        "linkedin": "https://linkedin.com/in/MQ-Ads",
+        "behance": "https://www.behance.net/mq_ads"
     },
     "works": [
         {
@@ -214,6 +215,8 @@ const DEFAULT_PORTFOLIO_DATA = {
             "aspectLabel": "16:9 Landscape",
             "gridSpan": "col-span-1 md:col-span-6 lg:col-span-4",
             "heightClass": "h-[340px] sm:h-[400px] lg:h-[390px]",
+            "mediaType": "behance",
+            "linkUrl": "https://www.behance.net/mq_ads",
             "image": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1000&q=80",
             "client": "Vektor Studio",
             "year": "2026",
@@ -290,26 +293,55 @@ function extractYouTubeId(url) {
     return null;
 }
 
-// Helper: Auto-heal & sanitize featured project objects (YouTube thumbnails, Behance links)
+// Helper: Extract Behance project ID
+function extractBehanceId(url) {
+    if (!url || typeof url !== 'string') return null;
+    const trimmed = url.trim();
+    const match = trimmed.match(/behance\.net\/(?:gallery|embed\/project)\/(\d+)/i);
+    if (match && match[1]) return match[1];
+    return null;
+}
+
+// Helper: Auto-heal & sanitize featured project objects (YouTube thumbnails, Behance embeds & links)
 function sanitizeFeaturedProject(project) {
     if (!project || typeof project !== 'object') return project;
     const rawImage = project.image || '';
     const rawLink = project.linkUrl || project.videoUrl || '';
 
     const ytId = extractYouTubeId(rawLink) || extractYouTubeId(rawImage);
+    const behanceId = extractBehanceId(rawLink) || extractBehanceId(rawImage);
+
     if (ytId) {
         project.mediaType = 'youtube';
         project.videoUrl = `https://www.youtube.com/embed/${ytId}?autoplay=1&mute=0&enablejsapi=1&rel=0`;
         if (!project.linkUrl || !project.linkUrl.startsWith('http') || extractYouTubeId(project.linkUrl)) {
             project.linkUrl = `https://www.youtube.com/watch?v=${ytId}`;
         }
-        project.image = `https://img.youtube.com/vi/${ytId}/hqdefault.jpg`;
-    } else if (rawImage.includes('behance.net') || rawLink.includes('behance.net')) {
-        project.mediaType = 'behance';
-        if (!project.linkUrl && rawImage.includes('behance.net')) {
-            project.linkUrl = rawImage;
+        if (!project.image || extractYouTubeId(project.image)) {
+            project.image = `https://img.youtube.com/vi/${ytId}/hqdefault.jpg`;
         }
-        if (project.image && project.image.includes('behance.net')) {
+    } else if (behanceId || (rawLink && rawLink.includes('behance.net')) || (rawImage && rawImage.includes('behance.net')) || project.mediaType === 'behance') {
+        project.mediaType = 'behance';
+        if (behanceId) {
+            project.behanceId = behanceId;
+            project.behanceEmbedUrl = `https://www.behance.net/embed/project/${behanceId}?ilo0=1`;
+            if (!project.linkUrl || !project.linkUrl.startsWith('http')) {
+                project.linkUrl = `https://www.behance.net/gallery/${behanceId}`;
+            }
+        } else if (!project.linkUrl) {
+            project.linkUrl = 'https://www.behance.net/mq_ads';
+        }
+
+        // If rawImage was accidentally set to a Behance web page URL rather than a direct image/data URI
+        const isDirectImage = rawImage.startsWith('data:image') || 
+            /\.(jpe?g|png|webp|gif|svg)(\?.*)?$/i.test(rawImage) || 
+            rawImage.includes('unsplash.com') || 
+            rawImage.includes('project_modules') || 
+            rawImage.includes('mir-s3-cdn-cf.behance.net');
+
+        if (!isDirectImage && rawImage.includes('behance.net')) {
+            project.image = 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1000&q=80';
+        } else if (!project.image) {
             project.image = 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1000&q=80';
         }
     } else if (project.linkUrl && !project.mediaType) {
@@ -327,10 +359,13 @@ function getPortfolioData() {
             const rawFp = Array.isArray(parsed.featuredProjects) && parsed.featuredProjects.length > 0 ? parsed.featuredProjects : DEFAULT_PORTFOLIO_DATA.featuredProjects;
             const sanitizedFp = rawFp.map(sanitizeFeaturedProject);
 
-            // Persist healed videoUrl & mediaType to localStorage if updated
+            // Persist healed videoUrl, behanceEmbedUrl & mediaType to localStorage if updated
             let needsUpdate = false;
             rawFp.forEach((p, idx) => {
-                if (p.videoUrl !== sanitizedFp[idx].videoUrl || p.mediaType !== sanitizedFp[idx].mediaType) {
+                if (p.videoUrl !== sanitizedFp[idx].videoUrl || 
+                    p.mediaType !== sanitizedFp[idx].mediaType ||
+                    p.behanceEmbedUrl !== sanitizedFp[idx].behanceEmbedUrl ||
+                    p.behanceId !== sanitizedFp[idx].behanceId) {
                     needsUpdate = true;
                 }
             });
@@ -417,7 +452,7 @@ function hydrateIndexPage() {
     });
     const emailLink = document.querySelector('.editorial-email-link');
     if (emailLink) {
-        emailLink.innerHTML = `${p.email} <span class="external-arrow">â†—</span>`;
+        emailLink.innerHTML = `${p.email} <span class="external-arrow">&#x2197;</span>`;
         emailLink.href = `mailto:${p.email}`;
     }
 
@@ -436,11 +471,9 @@ function hydrateIndexPage() {
             span.textContent = p.phone;
         } else {
             const icon = el.querySelector('i');
-            const arrow = el.querySelector('span');
             el.innerHTML = '';
             if (icon) el.appendChild(icon);
-            el.append(` ${p.phone} `);
-            if (arrow) el.appendChild(arrow);
+            el.append(` ${p.phone}`);
         }
     });
 
@@ -450,6 +483,10 @@ function hydrateIndexPage() {
 
     document.querySelectorAll('.js-profile-linkedin').forEach(el => {
         el.href = p.linkedin;
+    });
+
+    document.querySelectorAll('.js-profile-behance').forEach(el => {
+        if (p.behance) el.href = p.behance;
     });
 
     const heroSub = document.querySelector('.hero-left .subtitle');
