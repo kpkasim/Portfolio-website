@@ -316,7 +316,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const fpHeaderBadge = document.getElementById('fpHeaderBadge');
         const fpHeaderSubtitle = document.getElementById('fpHeaderSubtitle');
 
-        if (fpHeaderTitle) fpHeaderTitle.value = sec.title || 'Featured Projects';
+        if (fpHeaderTitle) fpHeaderTitle.value = sec.title || 'Projects';
         if (fpHeaderBadge) fpHeaderBadge.value = sec.badge || 'CURATED ARCHIVE & CASE STUDIES';
         if (fpHeaderSubtitle) fpHeaderSubtitle.value = sec.subtitle || 'High-impact 3D animation, brand identity, and commercial video production built for scaling modern creative ventures.';
     }
@@ -333,12 +333,12 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!portfolioData.featuredSection) {
                 portfolioData.featuredSection = {};
             }
-            portfolioData.featuredSection.title = fpHeaderTitle ? fpHeaderTitle.value.trim() : 'Featured Projects';
+            portfolioData.featuredSection.title = fpHeaderTitle ? fpHeaderTitle.value.trim() : 'Projects';
             portfolioData.featuredSection.badge = fpHeaderBadge ? fpHeaderBadge.value.trim() : 'CURATED ARCHIVE & CASE STUDIES';
             portfolioData.featuredSection.subtitle = fpHeaderSubtitle ? fpHeaderSubtitle.value.trim() : '';
 
             savePortfolioData(portfolioData);
-            showToast('Featured Projects header saved successfully!', 'success');
+            showToast('Projects header saved successfully!', 'success');
         });
     }
 
@@ -552,7 +552,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="work-body">
                 <div class="work-title" style="color:#ffffff; font-weight:600;" title="${project.title}">${project.title}</div>
                 <div class="work-category" style="color: #7B8AF4;">
-                    <i class="fas fa-folder"></i> ${project.category} • ${project.year || '2026'}
+                    <i class="fas fa-folder"></i> ${project.category} â€¢ ${project.year || '2026'}
                 </div>
                 ${project.linkUrl ? `
                     <div style="font-size: 0.74rem; color: #7B8AF4; margin-bottom: 6px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
@@ -1495,7 +1495,7 @@ function hydrateIndexPage() {
     });
     const emailLink = document.querySelector('.editorial-email-link');
     if (emailLink) {
-        emailLink.innerHTML = \`\${p.email} <span class="external-arrow">â†—</span>\`;
+        emailLink.innerHTML = \`\${p.email} <span class="external-arrow">Ã¢â€ â€”</span>\`;
         emailLink.href = \`mailto:\${p.email}\`;
     }
 
@@ -1551,13 +1551,13 @@ function hydrateIndexPage() {
     // Featured Projects Section Hydration
     if (data.featuredSection) {
         document.querySelectorAll('.js-featured-title').forEach(el => {
-            el.innerHTML = data.featuredSection.title || 'Featured Projects';
+            el.innerHTML = data.featuredSection.title || 'Projects';
         });
         document.querySelectorAll('.js-featured-subtitle').forEach(el => {
             el.innerHTML = data.featuredSection.subtitle || '';
         });
         document.querySelectorAll('.js-featured-badge').forEach(el => {
-            el.innerHTML = \`<span class="tag-corner">┌</span> \${data.featuredSection.badge || 'CURATED ARCHIVE & CASE STUDIES'}\`;
+            el.innerHTML = \`<span class="tag-corner">â”Œ</span> \${data.featuredSection.badge || 'CURATED ARCHIVE & CASE STUDIES'}\`;
         });
     }
 }
@@ -1686,7 +1686,7 @@ window.addEventListener('storage', (e) => {
             });
 
             if (putRes.ok) {
-                showToast('ðŸš€ Pushed to GitHub! Changes will be live across all PCs in 1 minute.', 'success');
+                showToast('Ã°Å¸Å¡â‚¬ Pushed to GitHub! Changes will be live across all PCs in 1 minute.', 'success');
             } else {
                 const errJson = await putRes.json();
                 showToast(`GitHub Error: ${errJson.message || 'Check your token permissions'}`, 'error');

@@ -1,4 +1,4 @@
-/**
+﻿/**
  * data.js - Shared Portfolio Data Store & Hydration Engine
  * Auto-generated via MQ Admin Panel
  */
@@ -417,7 +417,7 @@ function hydrateIndexPage() {
     });
     const emailLink = document.querySelector('.editorial-email-link');
     if (emailLink) {
-        emailLink.innerHTML = `${p.email} <span class="external-arrow">↗</span>`;
+        emailLink.innerHTML = `${p.email} <span class="external-arrow">â†—</span>`;
         emailLink.href = `mailto:${p.email}`;
     }
 
@@ -479,7 +479,7 @@ function hydrateIndexPage() {
             el.innerHTML = data.featuredSection.subtitle || '';
         });
         document.querySelectorAll('.js-featured-badge').forEach(el => {
-            el.innerHTML = `<span class="tag-corner">┌</span> ${data.featuredSection.badge || 'SELECTED ARCHIVE & PRODUCTIONS'}`;
+            el.innerHTML = `<span class="tag-corner">â”Œ</span> ${data.featuredSection.badge || 'SELECTED ARCHIVE & PRODUCTIONS'}`;
         });
     }
 }
