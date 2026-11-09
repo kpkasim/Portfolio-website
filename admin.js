@@ -474,7 +474,11 @@ document.addEventListener('DOMContentLoaded', () => {
         card.dataset.id = project.id;
         card.style.borderColor = 'rgba(123, 138, 244, 0.25)';
 
-        let aspectBadgeText = project.aspectLabel || (project.aspectType === 'landscape' ? '16:9 Landscape' : (project.aspectType === 'portrait' ? '3:4 Portrait' : '1:1 Square'));
+        let aspectBadgeText = project.aspectLabel || (
+            project.aspectType === 'vertical' || project.aspectType === '9:16' ? '9:16 Vertical' :
+            (project.aspectType === 'landscape' ? '16:9 Landscape' :
+            (project.aspectType === 'square' ? '1:1 Square' : '3:4 Portrait'))
+        );
 
         card.innerHTML = `
             <div class="work-preview-wrap" style="height: 200px; background: #0F111A;">
@@ -532,7 +536,7 @@ document.addEventListener('DOMContentLoaded', () => {
             editFpId.value = project.id;
             fpTitle.value = project.title || '';
             fpCategory.value = project.category || (getActiveCategories()[0] || 'Graphic Design');
-            fpAspectType.value = project.aspectType || 'portrait';
+            fpAspectType.value = (project.aspectType === '9:16' ? 'vertical' : project.aspectType) || 'portrait';
             fpImage.value = project.image || '';
             fpClient.value = project.client || '';
             fpYear.value = project.year || '2026';
@@ -624,7 +628,11 @@ document.addEventListener('DOMContentLoaded', () => {
             let gridSpan = 'col-span-1 md:col-span-6 lg:col-span-4';
             let heightClass = 'h-[420px] sm:h-[480px] lg:h-[420px]';
 
-            if (aspectType === 'landscape') {
+            if (aspectType === 'vertical' || aspectType === '9:16') {
+                aspectLabel = '9:16 Vertical';
+                gridSpan = 'col-span-1 md:col-span-6 lg:col-span-3';
+                heightClass = 'h-[460px] sm:h-[520px] lg:h-[480px]';
+            } else if (aspectType === 'landscape') {
                 aspectLabel = '16:9 Landscape';
                 gridSpan = 'col-span-1 md:col-span-12 lg:col-span-8';
                 heightClass = 'h-[320px] sm:h-[380px] lg:h-[420px]';
