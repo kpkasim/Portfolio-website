@@ -1599,12 +1599,7 @@ footer {
 }
 
 .featured-projects-section .neon-line {
-    width: 48px;
-    height: 3px;
-    background: linear-gradient(90deg, #7B8AF4, rgba(123, 138, 244, 0));
-    border-radius: 3px;
-    display: inline-block;
-    box-shadow: 0 0 10px #7B8AF4;
+    display: none !important;
 }
 
 .mq-project-card {
@@ -1741,6 +1736,21 @@ footer {
     font-weight: 700;
     line-height: 1.25;
     letter-spacing: -0.01em;
+}
+
+@media (max-width: 640px) {
+    .featured-projects-section {
+        padding: 40px 4% 80px;
+    }
+    .mq-glass-overlay {
+        padding: 16px;
+    }
+    .mq-logo-text {
+        font-size: 2.2rem;
+    }
+    .mq-title-text {
+        font-size: 1.15rem;
+    }
 }
 
 

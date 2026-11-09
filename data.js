@@ -144,7 +144,7 @@ const DEFAULT_PORTFOLIO_DATA = {
             "aspectType": "portrait",
             "aspectLabel": "3:4 Portrait",
             "gridSpan": "col-span-1 md:col-span-6 lg:col-span-4",
-            "heightClass": "h-[420px] sm:h-[480px] lg:h-[400px]",
+            "heightClass": "h-[360px] sm:h-[440px] lg:h-[440px]",
             "image": "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=800&q=80",
             "client": "Kuro Cultural Festival",
             "year": "2026",
@@ -158,7 +158,7 @@ const DEFAULT_PORTFOLIO_DATA = {
             "aspectType": "landscape",
             "aspectLabel": "16:9 Landscape",
             "gridSpan": "col-span-1 md:col-span-12 lg:col-span-8",
-            "heightClass": "h-[320px] sm:h-[380px] lg:h-[420px]",
+            "heightClass": "h-[250px] sm:h-[340px] lg:h-[420px]",
             "image": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80",
             "client": "Aura Collective",
             "year": "2026",
@@ -172,7 +172,7 @@ const DEFAULT_PORTFOLIO_DATA = {
             "aspectType": "portrait",
             "aspectLabel": "3:4 Portrait",
             "gridSpan": "col-span-1 md:col-span-6 lg:col-span-4",
-            "heightClass": "h-[420px] sm:h-[480px] lg:h-[420px]",
+            "heightClass": "h-[360px] sm:h-[440px] lg:h-[440px]",
             "image": "https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?auto=format&fit=crop&w=800&q=80",
             "client": "NeuroTech Labs",
             "year": "2026",
@@ -186,7 +186,7 @@ const DEFAULT_PORTFOLIO_DATA = {
             "aspectType": "landscape",
             "aspectLabel": "16:9 Landscape",
             "gridSpan": "col-span-1 md:col-span-6 lg:col-span-5",
-            "heightClass": "h-[320px] sm:h-[380px] lg:h-[400px]",
+            "heightClass": "h-[250px] sm:h-[320px] lg:h-[380px]",
             "image": "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=1000&q=80",
             "client": "Apex Athletics",
             "year": "2026",
@@ -200,7 +200,7 @@ const DEFAULT_PORTFOLIO_DATA = {
             "aspectType": "square",
             "aspectLabel": "1:1 Square",
             "gridSpan": "col-span-1 md:col-span-6 lg:col-span-3",
-            "heightClass": "h-[320px] sm:h-[380px] lg:h-[400px]",
+            "heightClass": "h-[280px] sm:h-[340px] lg:h-[380px]",
             "image": "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&w=800&q=80",
             "client": "Solaria Media",
             "year": "2026",
@@ -214,7 +214,7 @@ const DEFAULT_PORTFOLIO_DATA = {
             "aspectType": "landscape",
             "aspectLabel": "16:9 Landscape",
             "gridSpan": "col-span-1 md:col-span-6 lg:col-span-4",
-            "heightClass": "h-[340px] sm:h-[400px] lg:h-[390px]",
+            "heightClass": "h-[260px] sm:h-[340px] lg:h-[400px]",
             "mediaType": "behance",
             "linkUrl": "https://www.behance.net/mq_ads",
             "image": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1000&q=80",
@@ -230,7 +230,7 @@ const DEFAULT_PORTFOLIO_DATA = {
             "aspectType": "square",
             "aspectLabel": "1:1 Square",
             "gridSpan": "col-span-1 md:col-span-6 lg:col-span-4",
-            "heightClass": "h-[340px] sm:h-[400px] lg:h-[420px]",
+            "heightClass": "h-[280px] sm:h-[340px] lg:h-[400px]",
             "image": "https://images.unsplash.com/photo-1536240478700-b869070f9279?auto=format&fit=crop&w=800&q=80",
             "client": "Indie Motion Pictures",
             "year": "2026",
@@ -244,7 +244,7 @@ const DEFAULT_PORTFOLIO_DATA = {
             "aspectType": "portrait",
             "aspectLabel": "3:4 Portrait",
             "gridSpan": "col-span-1 md:col-span-6 lg:col-span-4",
-            "heightClass": "h-[420px] sm:h-[480px] lg:h-[420px]",
+            "heightClass": "h-[360px] sm:h-[440px] lg:h-[440px]",
             "image": "https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?auto=format&fit=crop&w=800&q=80",
             "client": "Exo Organics",
             "year": "2026",
@@ -258,7 +258,7 @@ const DEFAULT_PORTFOLIO_DATA = {
             "aspectType": "landscape",
             "aspectLabel": "16:9 Landscape",
             "gridSpan": "col-span-1 md:col-span-12 lg:col-span-4",
-            "heightClass": "h-[320px] sm:h-[380px] lg:h-[420px]",
+            "heightClass": "h-[250px] sm:h-[340px] lg:h-[420px]",
             "image": "https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?auto=format&fit=crop&w=1200&q=80",
             "client": "Vektor Architecture",
             "year": "2026",
@@ -516,7 +516,7 @@ function hydrateIndexPage() {
             el.innerHTML = data.featuredSection.subtitle || '';
         });
         document.querySelectorAll('.js-featured-badge').forEach(el => {
-            el.innerHTML = `<span class="tag-corner">â”Œ</span> ${data.featuredSection.badge || 'SELECTED ARCHIVE & PRODUCTIONS'}`;
+            el.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-[#7B8AF4]"></span> ${data.featuredSection.badge || 'CURATED ARCHIVE & CASE STUDIES'}`;
         });
     }
 }

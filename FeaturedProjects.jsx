@@ -23,7 +23,7 @@ export const PROJECTS_DATA = [
     aspectType: 'landscape',
     aspectLabel: '16:9 Landscape',
     gridSpan: 'col-span-1 md:col-span-12 lg:col-span-8',
-    heightClass: 'h-[320px] sm:h-[380px] lg:h-[420px]',
+    heightClass: 'h-[250px] sm:h-[340px] lg:h-[420px]',
     image: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80',
     client: 'Aura Collective',
     year: '2026',
@@ -37,7 +37,7 @@ export const PROJECTS_DATA = [
     aspectType: 'portrait',
     aspectLabel: '3:4 Portrait',
     gridSpan: 'col-span-1 md:col-span-6 lg:col-span-4',
-    heightClass: 'h-[420px] sm:h-[480px] lg:h-[420px]',
+    heightClass: 'h-[360px] sm:h-[440px] lg:h-[440px]',
     image: 'https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?auto=format&fit=crop&w=800&q=80',
     client: 'NeuroTech Labs',
     year: '2026',
@@ -107,7 +107,7 @@ export const PROJECTS_DATA = [
     aspectType: 'portrait',
     aspectLabel: '3:4 Portrait',
     gridSpan: 'col-span-1 md:col-span-6 lg:col-span-4',
-    heightClass: 'h-[420px] sm:h-[480px] lg:h-[420px]',
+    heightClass: 'h-[360px] sm:h-[440px] lg:h-[440px]',
     image: 'https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?auto=format&fit=crop&w=800&q=80',
     client: 'Exo Organics',
     year: '2026',
@@ -121,7 +121,7 @@ export const PROJECTS_DATA = [
     aspectType: 'landscape',
     aspectLabel: '16:9 Landscape',
     gridSpan: 'col-span-1 md:col-span-12 lg:col-span-4',
-    heightClass: 'h-[320px] sm:h-[380px] lg:h-[420px]',
+    heightClass: 'h-[250px] sm:h-[340px] lg:h-[420px]',
     image: 'https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?auto=format&fit=crop&w=1200&q=80',
     client: 'Vektor Architecture',
     year: '2026',
@@ -201,7 +201,7 @@ export default function FeaturedProjects() {
           <div>
             {/* Editorial Mono Pill */}
             <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#7B8AF4]/10 border border-[#7B8AF4]/25 text-[#7B8AF4] text-xs font-mono tracking-widest uppercase mb-4 shadow-[0_0_15px_rgba(123,138,244,0.15)]">
-              <span className="text-white/40">Ã¢â€Å’</span> CURATED ARCHIVE & PRODUCTIONS
+              <span className="w-1.5 h-1.5 rounded-full bg-[#7B8AF4]"></span> CURATED ARCHIVE & CASE STUDIES
             </div>
             
             {/* Bold Section Title with Glowing Neon Blue Accent Dot & Line */}
@@ -335,9 +335,9 @@ export default function FeaturedProjects() {
           </div>
           <div className="flex items-center gap-3 text-[#7B8AF4]">
             <span>DESIGN</span>
-            <span>Ã¢â‚¬Â¢</span>
+            <span>&bull;</span>
             <span>3D ANIMATION</span>
-            <span>Ã¢â‚¬Â¢</span>
+            <span>&bull;</span>
             <span>VIDEO PRODUCTION</span>
           </div>
         </div>
@@ -368,7 +368,7 @@ export default function FeaturedProjects() {
                 onClick={() => setActiveModalProject(null)}
                 className="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-[#0F111A]/80 border border-white/10 text-white hover:text-[#7B8AF4] hover:border-[#7B8AF4] flex items-center justify-center transition-all duration-200 text-lg"
                 aria-label="Close modal"
-              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" /></svg>
                 &times;
               </button>
 
@@ -386,7 +386,7 @@ export default function FeaturedProjects() {
                   <div>
                     <div className="flex items-center gap-2 text-xs font-mono text-[#7B8AF4] uppercase tracking-widest mb-2">
                       <span className="w-2 h-2 rounded-full bg-[#7B8AF4] shadow-[0_0_8px_#7B8AF4]"></span>
-                      {activeModalProject.category} Ã¢â‚¬Â¢ {activeModalProject.year}
+                      {activeModalProject.category} &bull; {activeModalProject.year}
                     </div>
 
                     <h3 className="text-2xl sm:text-3xl font-bold text-white mb-4">
@@ -420,7 +420,7 @@ export default function FeaturedProjects() {
                   </div>
 
                   <div className="pt-4 border-t border-white/10 flex items-center justify-between">
-                    <span className="text-xs font-mono text-[#7B8AF4]">MUHAMMED QASIM Ã¢â‚¬â€ MQ</span>
+                    <span className="text-xs font-mono text-[#7B8AF4]">MUHAMMED QASIM &mdash; MQ</span>
                     <button
                       type="button"
                       onClick={() => setActiveModalProject(null)}

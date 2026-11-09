@@ -552,7 +552,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="work-body">
                 <div class="work-title" style="color:#ffffff; font-weight:600;" title="${project.title}">${project.title}</div>
                 <div class="work-category" style="color: #7B8AF4;">
-                    <i class="fas fa-folder"></i> ${project.category} â€¢ ${project.year || '2026'}
+                    <i class="fas fa-folder"></i> ${project.category} &bull; ${project.year || '2026'}
                 </div>
                 ${project.linkUrl ? `
                     <div style="font-size: 0.74rem; color: #7B8AF4; margin-bottom: 6px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
@@ -785,20 +785,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
             let aspectLabel = '3:4 Portrait';
             let gridSpan = 'col-span-1 md:col-span-6 lg:col-span-4';
-            let heightClass = 'h-[420px] sm:h-[480px] lg:h-[420px]';
+            let heightClass = 'h-[360px] sm:h-[440px] lg:h-[440px]';
 
             if (aspectType === 'vertical' || aspectType === '9:16') {
                 aspectLabel = '9:16 Vertical';
                 gridSpan = 'col-span-1 md:col-span-6 lg:col-span-3';
-                heightClass = 'h-[460px] sm:h-[520px] lg:h-[480px]';
+                heightClass = 'h-[400px] sm:h-[460px] lg:h-[480px]';
             } else if (aspectType === 'landscape') {
                 aspectLabel = '16:9 Landscape';
                 gridSpan = 'col-span-1 md:col-span-12 lg:col-span-8';
-                heightClass = 'h-[320px] sm:h-[380px] lg:h-[420px]';
+                heightClass = 'h-[250px] sm:h-[340px] lg:h-[420px]';
             } else if (aspectType === 'square') {
                 aspectLabel = '1:1 Square';
                 gridSpan = 'col-span-1 md:col-span-6 lg:col-span-4';
-                heightClass = 'h-[340px] sm:h-[400px] lg:h-[420px]';
+                heightClass = 'h-[280px] sm:h-[340px] lg:h-[400px]';
             }
 
             const projectData = {
@@ -1520,7 +1520,7 @@ function hydrateIndexPage() {
     });
     const emailLink = document.querySelector('.editorial-email-link');
     if (emailLink) {
-        emailLink.innerHTML = \`\${p.email} <span class="external-arrow">Ã¢â€ â€”</span>\`;
+        emailLink.innerHTML = `${p.email} <span class="external-arrow">&#x2197;</span>`;
         emailLink.href = \`mailto:\${p.email}\`;
     }
 
@@ -1582,7 +1582,7 @@ function hydrateIndexPage() {
             el.innerHTML = data.featuredSection.subtitle || '';
         });
         document.querySelectorAll('.js-featured-badge').forEach(el => {
-            el.innerHTML = \`<span class="tag-corner">â”Œ</span> \${data.featuredSection.badge || 'CURATED ARCHIVE & CASE STUDIES'}\`;
+            el.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-[#7B8AF4]"></span> ${data.featuredSection.badge || 'CURATED ARCHIVE & CASE STUDIES'}`;
         });
     }
 }
@@ -1711,7 +1711,7 @@ window.addEventListener('storage', (e) => {
             });
 
             if (putRes.ok) {
-                showToast('Ã°Å¸Å¡â‚¬ Pushed to GitHub! Changes will be live across all PCs in 1 minute.', 'success');
+                showToast('Pushed to GitHub! Changes will be live across all PCs in 1 minute.', 'success');
             } else {
                 const errJson = await putRes.json();
                 showToast(`GitHub Error: ${errJson.message || 'Check your token permissions'}`, 'error');
