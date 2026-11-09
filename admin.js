@@ -248,6 +248,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const fpTitle = document.getElementById('fpTitle');
     const fpCategory = document.getElementById('fpCategory');
     const fpAspectType = document.getElementById('fpAspectType');
+    const fpMediaType = document.getElementById('fpMediaType');
+    const fpLink = document.getElementById('fpLink');
     const fpImage = document.getElementById('fpImage');
     const fpImageFileInput = document.getElementById('fpImageFileInput');
     const fpFileDropZone = document.getElementById('fpFileDropZone');
@@ -257,6 +259,43 @@ document.addEventListener('DOMContentLoaded', () => {
     const fpYear = document.getElementById('fpYear');
     const fpTools = document.getElementById('fpTools');
     const fpDescription = document.getElementById('fpDescription');
+
+    // Helper: Extract YouTube ID
+    function extractYouTubeId(url) {
+        if (!url || typeof url !== 'string') return null;
+        const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|shorts\/|watch\?.+&v=))([\w-]{11})/);
+        return match ? match[1] : null;
+    }
+
+    // Helper: Auto-heal & sanitize featured project objects
+    function sanitizeFeaturedProject(project) {
+        if (!project || typeof project !== 'object') return project;
+        const rawImage = project.image || '';
+        const rawLink = project.linkUrl || project.videoUrl || '';
+
+        const ytId = extractYouTubeId(rawLink) || extractYouTubeId(rawImage);
+        if (ytId) {
+            project.mediaType = 'youtube';
+            project.videoUrl = `https://www.youtube.com/embed/${ytId}?autoplay=1&rel=0`;
+            if (!project.linkUrl || extractYouTubeId(project.linkUrl)) {
+                project.linkUrl = `https://www.youtube.com/watch?v=${ytId}`;
+            }
+            if (!project.image || extractYouTubeId(project.image)) {
+                project.image = `https://img.youtube.com/vi/${ytId}/hqdefault.jpg`;
+            }
+        } else if (rawImage.includes('behance.net') || rawLink.includes('behance.net')) {
+            project.mediaType = 'behance';
+            if (!project.linkUrl && rawImage.includes('behance.net')) {
+                project.linkUrl = rawImage;
+            }
+            if (project.image && project.image.includes('behance.net')) {
+                project.image = 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1000&q=80';
+            }
+        } else if (project.linkUrl && !project.mediaType) {
+            project.mediaType = 'link';
+        }
+        return project;
+    }
 
     // --- Dynamic Category Pills & Header Management ---
     function getActiveCategories() {
@@ -468,7 +507,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    function createFeaturedProjectCardElement(project) {
+    function createFeaturedProjectCardElement(rawProject) {
+        const project = sanitizeFeaturedProject({ ...rawProject });
         const card = document.createElement('div');
         card.className = 'work-card';
         card.dataset.id = project.id;
@@ -480,17 +520,43 @@ document.addEventListener('DOMContentLoaded', () => {
             (project.aspectType === 'square' ? '1:1 Square' : '3:4 Portrait'))
         );
 
+        let mediaTypeBadge = '';
+        if (project.mediaType === 'youtube' || project.videoUrl) {
+            mediaTypeBadge = `<span class="work-type-badge" style="background: rgba(255, 0, 0, 0.2); color: #ff4d4f; border: 1px solid rgba(255, 0, 0, 0.4);"><i class="fab fa-youtube"></i> YouTube Video</span>`;
+        } else if (project.mediaType === 'behance' || (project.linkUrl && project.linkUrl.includes('behance'))) {
+            mediaTypeBadge = `<span class="work-type-badge" style="background: rgba(0, 87, 255, 0.2); color: #3b82f6; border: 1px solid rgba(0, 87, 255, 0.4);"><i class="fab fa-behance"></i> Behance Case Study</span>`;
+        } else if (project.linkUrl) {
+            mediaTypeBadge = `<span class="work-type-badge" style="background: rgba(123, 138, 244, 0.2); color: #7B8AF4; border: 1px solid rgba(123, 138, 244, 0.4);"><i class="fas fa-link"></i> Project Link</span>`;
+        } else {
+            mediaTypeBadge = `<span class="work-type-badge" style="background: rgba(123, 138, 244, 0.2); color: #7B8AF4; border: 1px solid rgba(123, 138, 244, 0.4);"><i class="fas fa-palette"></i> ${project.category}</span>`;
+        }
+
+        const fallbackImg = 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80';
+        const displayImage = project.image || fallbackImg;
+
         card.innerHTML = `
-            <div class="work-preview-wrap" style="height: 200px; background: #0F111A;">
-                <span class="work-type-badge" style="background: rgba(123, 138, 244, 0.2); color: #7B8AF4; border: 1px solid rgba(123, 138, 244, 0.4);">
-                    <i class="fas fa-palette"></i> ${project.category}
-                </span>
+            <div class="work-preview-wrap" style="height: 200px; background: #0F111A; position: relative;">
+                ${mediaTypeBadge}
                 <span class="work-row-tag" style="background: rgba(0,0,0,0.6);">${aspectBadgeText}</span>
-                <img src="${project.image}" alt="${project.title}" loading="lazy" style="width:100%; height:100%; object-fit:cover;">
+                <img src="${displayImage}" alt="${project.title}" onerror="this.onerror=null; this.src='${fallbackImg}';" loading="lazy" style="width:100%; height:100%; object-fit:cover;">
+                ${(project.mediaType === 'youtube' || project.videoUrl) ? `
+                    <div style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; pointer-events: none;">
+                        <div style="width: 44px; height: 44px; border-radius: 50%; background: rgba(255,0,0,0.85); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; box-shadow: 0 0 15px rgba(255,0,0,0.5);">
+                            <i class="fas fa-play" style="margin-left: 3px;"></i>
+                        </div>
+                    </div>
+                ` : ''}
             </div>
             <div class="work-body">
                 <div class="work-title" style="color:#ffffff; font-weight:600;" title="${project.title}">${project.title}</div>
-                <div class="work-category" style="color: #7B8AF4;"><i class="fas fa-folder"></i> ${project.category} • ${project.year || '2026'}</div>
+                <div class="work-category" style="color: #7B8AF4;">
+                    <i class="fas fa-folder"></i> ${project.category} • ${project.year || '2026'}
+                </div>
+                ${project.linkUrl ? `
+                    <div style="font-size: 0.74rem; color: #7B8AF4; margin-bottom: 6px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                        <i class="fas fa-arrow-up-right-from-square"></i> <a href="${project.linkUrl}" target="_blank" style="color: #7B8AF4; text-decoration: underline;" onclick="event.stopPropagation();">${project.linkUrl}</a>
+                    </div>
+                ` : ''}
                 <div style="font-size: 0.78rem; color: var(--text-muted); margin-bottom: 10px; line-height: 1.4; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">
                     ${project.description || 'No description provided.'}
                 </div>
@@ -526,9 +592,10 @@ document.addEventListener('DOMContentLoaded', () => {
         return card;
     }
 
-    function openFeaturedProjectModal(project = null) {
+    function openFeaturedProjectModal(rawProject = null) {
         if (!featuredProjectModal) return;
         featuredProjectForm.reset();
+        const project = rawProject ? sanitizeFeaturedProject({ ...rawProject }) : null;
         populateFpCategoryDropdown(project ? project.category : (currentFpFilter !== 'All' ? currentFpFilter : null));
 
         if (project) {
@@ -537,21 +604,21 @@ document.addEventListener('DOMContentLoaded', () => {
             fpTitle.value = project.title || '';
             fpCategory.value = project.category || (getActiveCategories()[0] || 'Graphic Design');
             fpAspectType.value = (project.aspectType === '9:16' ? 'vertical' : project.aspectType) || 'portrait';
+            if (fpMediaType) fpMediaType.value = project.mediaType || (project.videoUrl ? 'youtube' : (project.linkUrl && project.linkUrl.includes('behance') ? 'behance' : 'image'));
+            if (fpLink) fpLink.value = project.linkUrl || project.videoUrl || '';
             fpImage.value = project.image || '';
             fpClient.value = project.client || '';
             fpYear.value = project.year || '2026';
             fpTools.value = Array.isArray(project.tools) ? project.tools.join(', ') : (project.tools || '');
             fpDescription.value = project.description || '';
-
-            if (project.image && fpPreviewContainer && fpLivePreviewBox) {
-                fpPreviewContainer.innerHTML = `<img src="${project.image}" style="width:100%; height:100%; object-fit:cover;">`;
-                fpLivePreviewBox.style.display = 'block';
-            }
+            updateFpLivePreview();
         } else {
             fpModalTitle.innerHTML = `<i class="fas fa-plus-circle" style="color:#7B8AF4; margin-right:8px;"></i> Add New Featured Project`;
             editFpId.value = '';
             fpCategory.value = currentFpFilter !== 'All' ? currentFpFilter : (getActiveCategories()[0] || 'Graphic Design');
             fpAspectType.value = 'portrait';
+            if (fpMediaType) fpMediaType.value = 'image';
+            if (fpLink) fpLink.value = '';
             fpYear.value = new Date().getFullYear().toString();
             if (fpLivePreviewBox) fpLivePreviewBox.style.display = 'none';
         }
@@ -571,18 +638,61 @@ document.addEventListener('DOMContentLoaded', () => {
     if (closeFpModalBtn) closeFpModalBtn.addEventListener('click', closeFeaturedProjectModal);
     if (cancelFpModalBtn) cancelFpModalBtn.addEventListener('click', closeFeaturedProjectModal);
 
-    // Live preview update on image URL change
-    if (fpImage) {
-        fpImage.addEventListener('input', () => {
-            const url = fpImage.value.trim();
-            if (url && fpPreviewContainer && fpLivePreviewBox) {
-                fpPreviewContainer.innerHTML = `<img src="${url}" onerror="this.src='https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80'" style="width:100%; height:100%; object-fit:cover;">`;
+    // Live preview update for Featured Project
+    function updateFpLivePreview() {
+        const linkVal = fpLink ? fpLink.value.trim() : '';
+        const imgVal = fpImage ? fpImage.value.trim() : '';
+        const ytId = extractYouTubeId(linkVal) || extractYouTubeId(imgVal);
+
+        if (ytId) {
+            const ytThumb = `https://img.youtube.com/vi/${ytId}/hqdefault.jpg`;
+            if (fpPreviewContainer && fpLivePreviewBox) {
+                fpPreviewContainer.innerHTML = `
+                    <div style="position:relative; width:100%; height:100%;">
+                        <img src="${ytThumb}" style="width:100%; height:100%; object-fit:cover;">
+                        <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,0.35);">
+                            <div style="width:48px; height:48px; border-radius:50%; background:red; color:#fff; display:flex; align-items:center; justify-content:center; font-size:1.1rem; box-shadow:0 0 15px rgba(255,0,0,0.6);">
+                                <i class="fas fa-play" style="margin-left:3px;"></i>
+                            </div>
+                        </div>
+                        <span style="position:absolute; top:8px; left:8px; background:rgba(255,0,0,0.9); color:#fff; font-size:0.7rem; font-weight:700; padding:3px 8px; border-radius:4px;">
+                            <i class="fab fa-youtube"></i> YOUTUBE VIDEO
+                        </span>
+                    </div>
+                `;
                 fpLivePreviewBox.style.display = 'block';
-            } else if (fpLivePreviewBox) {
-                fpLivePreviewBox.style.display = 'none';
             }
-        });
+            return;
+        }
+
+        const isBehance = (linkVal && linkVal.includes('behance.net')) || (imgVal && imgVal.includes('behance.net'));
+        if (isBehance) {
+            const displayImg = (imgVal && !imgVal.includes('behance.net')) ? imgVal : 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1000&q=80';
+            if (fpPreviewContainer && fpLivePreviewBox) {
+                fpPreviewContainer.innerHTML = `
+                    <div style="position:relative; width:100%; height:100%;">
+                        <img src="${displayImg}" style="width:100%; height:100%; object-fit:cover;">
+                        <span style="position:absolute; top:8px; left:8px; background:#0057ff; color:#fff; font-size:0.7rem; font-weight:700; padding:3px 8px; border-radius:4px;">
+                            <i class="fab fa-behance"></i> BEHANCE CASE STUDY
+                        </span>
+                    </div>
+                `;
+                fpLivePreviewBox.style.display = 'block';
+            }
+            return;
+        }
+
+        if (imgVal && fpPreviewContainer && fpLivePreviewBox) {
+            fpPreviewContainer.innerHTML = `<img src="${imgVal}" onerror="this.src='https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80'" style="width:100%; height:100%; object-fit:cover;">`;
+            fpLivePreviewBox.style.display = 'block';
+        } else if (fpLivePreviewBox) {
+            fpLivePreviewBox.style.display = 'none';
+        }
     }
+
+    if (fpImage) fpImage.addEventListener('input', updateFpLivePreview);
+    if (fpLink) fpLink.addEventListener('input', updateFpLivePreview);
+    if (fpMediaType) fpMediaType.addEventListener('change', updateFpLivePreview);
 
     // Local file upload for featured project image
     if (fpFileDropZone && fpImageFileInput) {
@@ -594,10 +704,7 @@ document.addEventListener('DOMContentLoaded', () => {
             reader.onload = (evt) => {
                 const dataUrl = evt.target.result;
                 fpImage.value = dataUrl;
-                if (fpPreviewContainer && fpLivePreviewBox) {
-                    fpPreviewContainer.innerHTML = `<img src="${dataUrl}" style="width:100%; height:100%; object-fit:cover;">`;
-                    fpLivePreviewBox.style.display = 'block';
-                }
+                updateFpLivePreview();
             };
             reader.readAsDataURL(file);
         });
@@ -613,15 +720,45 @@ document.addEventListener('DOMContentLoaded', () => {
             const title = fpTitle.value.trim();
             const category = fpCategory.value;
             const aspectType = fpAspectType.value;
-            const image = fpImage.value.trim();
+            let image = fpImage.value.trim();
+            let linkUrl = fpLink ? fpLink.value.trim() : '';
+            let mediaType = fpMediaType ? fpMediaType.value : 'image';
             const client = fpClient.value.trim() || 'Client Project';
             const year = fpYear.value.trim() || '2026';
             const tools = fpTools.value.split(',').map(s => s.trim()).filter(Boolean);
             const description = fpDescription.value.trim();
 
-            if (!title || !image) {
-                showToast('Please provide both a title and an image URL', 'error');
+            if (!title) {
+                showToast('Please provide a project title', 'error');
                 return;
+            }
+
+            // Smart detection for YouTube
+            const ytId = extractYouTubeId(linkUrl) || extractYouTubeId(image);
+            let videoUrl = '';
+            if (ytId) {
+                mediaType = 'youtube';
+                videoUrl = `https://www.youtube.com/embed/${ytId}?autoplay=1&rel=0`;
+                if (!linkUrl || extractYouTubeId(linkUrl)) {
+                    linkUrl = `https://www.youtube.com/watch?v=${ytId}`;
+                }
+                if (!image || extractYouTubeId(image)) {
+                    image = `https://img.youtube.com/vi/${ytId}/hqdefault.jpg`;
+                }
+            } else if ((linkUrl && linkUrl.includes('behance.net')) || (image && image.includes('behance.net'))) {
+                mediaType = 'behance';
+                if (!linkUrl && image.includes('behance.net')) {
+                    linkUrl = image;
+                }
+                if (image.includes('behance.net')) {
+                    image = 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1000&q=80';
+                }
+            } else if (linkUrl && (!mediaType || mediaType === 'image')) {
+                mediaType = 'link';
+            }
+
+            if (!image) {
+                image = 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80';
             }
 
             let aspectLabel = '3:4 Portrait';
@@ -650,6 +787,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 aspectLabel,
                 gridSpan,
                 heightClass,
+                mediaType,
+                linkUrl,
+                videoUrl,
                 image,
                 client,
                 year,
@@ -1220,23 +1360,63 @@ const DEFAULT_PORTFOLIO_DATA = ${JSON.stringify(data, null, 4)};
 
 const STORAGE_KEY = 'mq_portfolio_data';
 
+// Helper: Extract YouTube video ID
+function extractYouTubeId(url) {
+    if (!url || typeof url !== 'string') return null;
+    const match = url.match(/(?:youtu\\.be\\/|youtube\\.com\\/(?:embed\\/|v\\/|watch\\?v=|shorts\\/|watch\\?.+&v=))([\\w-]{11})/);
+    return match ? match[1] : null;
+}
+
+// Helper: Auto-heal & sanitize featured project objects (YouTube thumbnails, Behance links)
+function sanitizeFeaturedProject(project) {
+    if (!project || typeof project !== 'object') return project;
+    const rawImage = project.image || '';
+    const rawLink = project.linkUrl || project.videoUrl || '';
+
+    const ytId = extractYouTubeId(rawLink) || extractYouTubeId(rawImage);
+    if (ytId) {
+        project.mediaType = 'youtube';
+        project.videoUrl = \`https://www.youtube.com/embed/\${ytId}?autoplay=1&rel=0\`;
+        if (!project.linkUrl || extractYouTubeId(project.linkUrl)) {
+            project.linkUrl = \`https://www.youtube.com/watch?v=\${ytId}\`;
+        }
+        if (!project.image || extractYouTubeId(project.image)) {
+            project.image = \`https://img.youtube.com/vi/\${ytId}/hqdefault.jpg\`;
+        }
+    } else if (rawImage.includes('behance.net') || rawLink.includes('behance.net')) {
+        project.mediaType = 'behance';
+        if (!project.linkUrl && rawImage.includes('behance.net')) {
+            project.linkUrl = rawImage;
+        }
+        if (project.image && project.image.includes('behance.net')) {
+            project.image = 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1000&q=80';
+        }
+    } else if (project.linkUrl && !project.mediaType) {
+        project.mediaType = 'link';
+    }
+    return project;
+}
+
 // Helper: Get active data
 function getPortfolioData() {
     try {
         const stored = localStorage.getItem(STORAGE_KEY);
         if (stored) {
             const parsed = JSON.parse(stored);
+            const rawFp = Array.isArray(parsed.featuredProjects) && parsed.featuredProjects.length > 0 ? parsed.featuredProjects : DEFAULT_PORTFOLIO_DATA.featuredProjects;
             return {
                 profile: { ...DEFAULT_PORTFOLIO_DATA.profile, ...(parsed.profile || {}) },
                 works: Array.isArray(parsed.works) && parsed.works.length > 0 ? parsed.works : DEFAULT_PORTFOLIO_DATA.works,
-                featuredProjects: Array.isArray(parsed.featuredProjects) && parsed.featuredProjects.length > 0 ? parsed.featuredProjects : DEFAULT_PORTFOLIO_DATA.featuredProjects,
+                featuredProjects: rawFp.map(sanitizeFeaturedProject),
                 featuredSection: { ...DEFAULT_PORTFOLIO_DATA.featuredSection, ...(parsed.featuredSection || {}) }
             };
         }
     } catch (e) {
         console.warn("Could not load from localStorage, using defaults", e);
     }
-    return JSON.parse(JSON.stringify(DEFAULT_PORTFOLIO_DATA));
+    const cloned = JSON.parse(JSON.stringify(DEFAULT_PORTFOLIO_DATA));
+    cloned.featuredProjects = cloned.featuredProjects.map(sanitizeFeaturedProject);
+    return cloned;
 }
 
 // Helper: Save data

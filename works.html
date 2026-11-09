@@ -663,8 +663,26 @@
                                         src={project.image}
                                         alt={project.title}
                                         loading="lazy"
+                                        onError={(e) => {
+                                            e.target.onerror = null;
+                                            e.target.src = 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80';
+                                        }}
                                         className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                                     />
+
+                                    {/* Media Type Corner Pill (YouTube / Behance) */}
+                                    {(project.mediaType === 'youtube' || project.videoUrl) && (
+                                        <div className="absolute top-4 right-4 z-20 px-2.5 py-1 rounded-full bg-red-600/90 text-white flex items-center gap-1.5 shadow-lg text-[10px] font-semibold tracking-wider pointer-events-none group-hover:opacity-0 transition-opacity">
+                                            <i className="fab fa-youtube text-xs" />
+                                            <span>VIDEO</span>
+                                        </div>
+                                    )}
+                                    {project.mediaType === 'behance' && (
+                                        <div className="absolute top-4 right-4 z-20 px-2.5 py-1 rounded-full bg-[#0057ff]/90 text-white flex items-center gap-1.5 shadow-lg text-[10px] font-semibold tracking-wider pointer-events-none group-hover:opacity-0 transition-opacity">
+                                            <i className="fab fa-behance text-xs" />
+                                            <span>BEHANCE</span>
+                                        </div>
+                                    )}
 
                                     {/* 3. Dark, semi-transparent glassmorphism overlay */}
                                     <div className="absolute inset-0 bg-[#0F111A]/75 backdrop-blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-400 ease-out flex flex-col justify-between p-6 sm:p-7 z-10 pointer-events-none group-hover:pointer-events-auto">
@@ -765,20 +783,37 @@
                                     </button>
 
                                     <div className="grid grid-cols-1 md:grid-cols-2">
-                                        <div className="relative h-64 md:h-[480px]">
-                                            <img
-                                                src={activeModalProject.image}
-                                                alt={activeModalProject.title}
-                                                className="w-full h-full object-cover"
-                                            />
-                                            <div className="absolute inset-0 bg-gradient-to-t from-[#141724] via-transparent to-transparent md:hidden" />
+                                        <div className="relative h-64 sm:h-80 md:h-[480px] bg-black flex items-center justify-center overflow-hidden">
+                                            {activeModalProject.videoUrl ? (
+                                                <iframe
+                                                    src={activeModalProject.videoUrl}
+                                                    title={activeModalProject.title}
+                                                    className="w-full h-full"
+                                                    frameBorder="0"
+                                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                    allowFullScreen
+                                                />
+                                            ) : (
+                                                <>
+                                                    <img
+                                                        src={activeModalProject.image}
+                                                        alt={activeModalProject.title}
+                                                        onError={(e) => {
+                                                            e.target.onerror = null;
+                                                            e.target.src = 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80';
+                                                        }}
+                                                        className="w-full h-full object-cover"
+                                                    />
+                                                    <div className="absolute inset-0 bg-gradient-to-t from-[#141724] via-transparent to-transparent md:hidden" />
+                                                </>
+                                            )}
                                         </div>
 
                                         <div className="p-6 sm:p-8 flex flex-col justify-between">
                                             <div>
                                                 <div className="flex items-center gap-2 text-xs font-mono text-[#7B8AF4] uppercase tracking-widest mb-2">
                                                     <span className="w-2 h-2 rounded-full bg-[#7B8AF4] shadow-[0_0_8px_#7B8AF4]" />
-                                                    {activeModalProject.category} â€¢ {activeModalProject.year}
+                                                    {activeModalProject.category} • {activeModalProject.year || '2026'}
                                                 </div>
 
                                                 <h3 className="text-2xl sm:text-3xl font-bold text-white mb-4">
@@ -791,26 +826,62 @@
 
                                                 <div className="space-y-3 mb-6">
                                                     <div className="text-xs font-mono text-gray-400">
-                                                        <span className="text-white font-medium">Client:</span> {activeModalProject.client}
+                                                        <span className="text-white font-medium">Client:</span> {activeModalProject.client || 'Client Project'}
                                                     </div>
                                                     <div className="text-xs font-mono text-gray-400">
-                                                        <span className="text-white font-medium">Format:</span> {activeModalProject.aspectLabel}
+                                                        <span className="text-white font-medium">Format:</span> {activeModalProject.aspectLabel || 'Portrait'}
                                                     </div>
-                                                    <div className="flex flex-wrap gap-1.5 pt-2">
-                                                        {activeModalProject.tools.map(tool => (
-                                                            <span
-                                                                key={tool}
-                                                                className="text-[11px] font-mono px-2.5 py-1 rounded bg-white/5 border border-white/10 text-gray-300"
-                                                            >
-                                                                {tool}
-                                                            </span>
-                                                        ))}
-                                                    </div>
+                                                    {activeModalProject.tools && (
+                                                        <div className="flex flex-wrap gap-1.5 pt-2">
+                                                            {(Array.isArray(activeModalProject.tools) ? activeModalProject.tools : [activeModalProject.tools]).map(tool => (
+                                                                <span
+                                                                    key={tool}
+                                                                    className="text-[11px] font-mono px-2.5 py-1 rounded bg-white/5 border border-white/10 text-gray-300"
+                                                                >
+                                                                    {tool}
+                                                                </span>
+                                                            ))}
+                                                        </div>
+                                                    )}
                                                 </div>
+
+                                                {/* External Link (Behance / YouTube / Live URL) */}
+                                                {activeModalProject.linkUrl && (
+                                                    <div className="mb-6">
+                                                        <a
+                                                            href={activeModalProject.linkUrl}
+                                                            target="_blank"
+                                                            rel="noopener noreferrer"
+                                                            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-semibold tracking-wider uppercase transition-all duration-300 hover:scale-[1.02] shadow-lg"
+                                                            style={{
+                                                                background: activeModalProject.mediaType === 'behance'
+                                                                    ? 'linear-gradient(135deg, #0057ff, #003db3)'
+                                                                    : (activeModalProject.mediaType === 'youtube'
+                                                                        ? 'linear-gradient(135deg, #ff0000, #b30000)'
+                                                                        : 'linear-gradient(135deg, #7B8AF4, #5364e0)'),
+                                                                color: '#ffffff'
+                                                            }}
+                                                        >
+                                                            {activeModalProject.mediaType === 'behance' ? (
+                                                                <>
+                                                                    <i className="fab fa-behance text-sm" /> View Case Study on Behance ↗
+                                                                </>
+                                                            ) : activeModalProject.mediaType === 'youtube' ? (
+                                                                <>
+                                                                    <i className="fab fa-youtube text-sm" /> Watch on YouTube ↗
+                                                                </>
+                                                            ) : (
+                                                                <>
+                                                                    <i className="fas fa-arrow-up-right-from-square text-xs" /> View Full Project ↗
+                                                                </>
+                                                            )}
+                                                        </a>
+                                                    </div>
+                                                )}
                                             </div>
 
                                             <div className="pt-4 border-t border-white/10 flex items-center justify-between">
-                                                <span className="text-xs font-mono text-[#7B8AF4]">MUHAMMED QASIM â€” MQ</span>
+                                                <span className="text-xs font-mono text-[#7B8AF4]">MUHAMMED QASIM — MQ</span>
                                                 <button
                                                     type="button"
                                                     onClick={() => setActiveModalProject(null)}

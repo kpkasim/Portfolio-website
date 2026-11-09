@@ -279,23 +279,63 @@ const DEFAULT_PORTFOLIO_DATA = {
 
 const STORAGE_KEY = 'mq_portfolio_data';
 
+// Helper: Extract YouTube video ID
+function extractYouTubeId(url) {
+    if (!url || typeof url !== 'string') return null;
+    const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|shorts\/|watch\?.+&v=))([\w-]{11})/);
+    return match ? match[1] : null;
+}
+
+// Helper: Auto-heal & sanitize featured project objects (YouTube thumbnails, Behance links)
+function sanitizeFeaturedProject(project) {
+    if (!project || typeof project !== 'object') return project;
+    const rawImage = project.image || '';
+    const rawLink = project.linkUrl || project.videoUrl || '';
+
+    const ytId = extractYouTubeId(rawLink) || extractYouTubeId(rawImage);
+    if (ytId) {
+        project.mediaType = 'youtube';
+        project.videoUrl = `https://www.youtube.com/embed/${ytId}?autoplay=1&rel=0`;
+        if (!project.linkUrl || extractYouTubeId(project.linkUrl)) {
+            project.linkUrl = `https://www.youtube.com/watch?v=${ytId}`;
+        }
+        if (!project.image || extractYouTubeId(project.image)) {
+            project.image = `https://img.youtube.com/vi/${ytId}/hqdefault.jpg`;
+        }
+    } else if (rawImage.includes('behance.net') || rawLink.includes('behance.net')) {
+        project.mediaType = 'behance';
+        if (!project.linkUrl && rawImage.includes('behance.net')) {
+            project.linkUrl = rawImage;
+        }
+        if (project.image && project.image.includes('behance.net')) {
+            project.image = 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1000&q=80';
+        }
+    } else if (project.linkUrl && !project.mediaType) {
+        project.mediaType = 'link';
+    }
+    return project;
+}
+
 // Helper: Get active data
 function getPortfolioData() {
     try {
         const stored = localStorage.getItem(STORAGE_KEY);
         if (stored) {
             const parsed = JSON.parse(stored);
+            const rawFp = Array.isArray(parsed.featuredProjects) && parsed.featuredProjects.length > 0 ? parsed.featuredProjects : DEFAULT_PORTFOLIO_DATA.featuredProjects;
             return {
                 profile: { ...DEFAULT_PORTFOLIO_DATA.profile, ...(parsed.profile || {}) },
                 works: Array.isArray(parsed.works) && parsed.works.length > 0 ? parsed.works : DEFAULT_PORTFOLIO_DATA.works,
-                featuredProjects: Array.isArray(parsed.featuredProjects) && parsed.featuredProjects.length > 0 ? parsed.featuredProjects : DEFAULT_PORTFOLIO_DATA.featuredProjects,
+                featuredProjects: rawFp.map(sanitizeFeaturedProject),
                 featuredSection: { ...DEFAULT_PORTFOLIO_DATA.featuredSection, ...(parsed.featuredSection || {}) }
             };
         }
     } catch (e) {
         console.warn("Could not load from localStorage, using defaults", e);
     }
-    return JSON.parse(JSON.stringify(DEFAULT_PORTFOLIO_DATA));
+    const cloned = JSON.parse(JSON.stringify(DEFAULT_PORTFOLIO_DATA));
+    cloned.featuredProjects = cloned.featuredProjects.map(sanitizeFeaturedProject);
+    return cloned;
 }
 
 // Helper: Save data

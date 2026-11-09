@@ -572,21 +572,41 @@
                         </div>
                     </div>
 
-                    <!-- Image URL -->
+                    <!-- Media Type & Project Link (YouTube, Behance, etc.) -->
+                    <div class="form-grid-2">
+                        <div class="form-group-field">
+                            <label for="fpMediaType">Project Type</label>
+                            <select id="fpMediaType" class="admin-select">
+                                <option value="image" selected>🖼️ Image Showcase / Design Poster</option>
+                                <option value="youtube">▶️ YouTube Video / Reel</option>
+                                <option value="behance">🎨 Behance Case Study</option>
+                                <option value="link">🔗 External Project Link</option>
+                            </select>
+                        </div>
+                        <div class="form-group-field">
+                            <label for="fpLink">
+                                Video / Project Link
+                                <span class="label-hint">YouTube / Behance link</span>
+                            </label>
+                            <input type="url" id="fpLink" class="admin-input" placeholder="https://youtu.be/... or https://behance.net/gallery/...">
+                        </div>
+                    </div>
+
+                    <!-- Cover Image / Thumbnail URL -->
                     <div class="form-group-field">
                         <label for="fpImage">
-                            Image URL
-                            <span class="label-hint">Paste high-res image link</span>
+                            Cover Image / Thumbnail URL
+                            <span class="label-hint">YouTube ലിങ്ക് നൽകിയാൽ thumbnail ഓട്ടോമാറ്റിക്കായി എടുക്കും</span>
                         </label>
-                        <input type="url" id="fpImage" class="admin-input" placeholder="https://images.unsplash.com/..." required>
+                        <input type="text" id="fpImage" class="admin-input" placeholder="https://images.unsplash.com/... or paste YouTube URL">
                     </div>
 
                     <!-- Image Upload from computer -->
                     <div class="form-group-field">
-                        <label>Or Upload Image from Computer</label>
+                        <label>Or Upload Cover Image from Computer</label>
                         <div class="file-drop-zone" id="fpFileDropZone">
                             <i class="fas fa-cloud-arrow-up" style="color: #7B8AF4;"></i>
-                            <p>Click here or drag an image</p>
+                            <p>Click here or drag an image (Behance / Custom Artwork)</p>
                             <span>Supports JPG, PNG, WEBP</span>
                             <input type="file" id="fpImageFileInput" accept="image/*" style="display: none;">
                         </div>
