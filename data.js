@@ -265,7 +265,7 @@ const DEFAULT_PORTFOLIO_DATA = {
     ],
     "featuredSection": {
         "badge": "CURATED ARCHIVE & CASE STUDIES",
-        "title": "Featured Projects",
+        "title": "Projects",
         "subtitle": "High-impact 3D animation, brand identity, and commercial video production built for scaling modern creative ventures.",
         "categories": [
             "Graphic Design",
@@ -282,8 +282,12 @@ const STORAGE_KEY = 'mq_portfolio_data';
 // Helper: Extract YouTube video ID
 function extractYouTubeId(url) {
     if (!url || typeof url !== 'string') return null;
-    const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|shorts\/|watch\?.+&v=))([\w-]{11})/);
-    return match ? match[1] : null;
+    const trimmed = url.trim();
+    const thumbMatch = trimmed.match(/(?:img\.youtube\.com\/vi|i[0-9]?\.ytimg\.com\/vi(?:_webp)?)\/([a-zA-Z0-9_-]{11})/i);
+    if (thumbMatch && thumbMatch[1]) return thumbMatch[1];
+    const urlMatch = trimmed.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|shorts\/|live\/|watch\?.+&v=))([a-zA-Z0-9_-]{11})/i);
+    if (urlMatch && urlMatch[1]) return urlMatch[1];
+    return null;
 }
 
 // Helper: Auto-heal & sanitize featured project objects (YouTube thumbnails, Behance links)
@@ -295,13 +299,11 @@ function sanitizeFeaturedProject(project) {
     const ytId = extractYouTubeId(rawLink) || extractYouTubeId(rawImage);
     if (ytId) {
         project.mediaType = 'youtube';
-        project.videoUrl = `https://www.youtube.com/embed/${ytId}?autoplay=1&rel=0`;
-        if (!project.linkUrl || extractYouTubeId(project.linkUrl)) {
+        project.videoUrl = `https://www.youtube.com/embed/${ytId}?autoplay=1&mute=0&enablejsapi=1&rel=0`;
+        if (!project.linkUrl || !project.linkUrl.startsWith('http') || extractYouTubeId(project.linkUrl)) {
             project.linkUrl = `https://www.youtube.com/watch?v=${ytId}`;
         }
-        if (!project.image || extractYouTubeId(project.image)) {
-            project.image = `https://img.youtube.com/vi/${ytId}/hqdefault.jpg`;
-        }
+        project.image = `https://img.youtube.com/vi/${ytId}/hqdefault.jpg`;
     } else if (rawImage.includes('behance.net') || rawLink.includes('behance.net')) {
         project.mediaType = 'behance';
         if (!project.linkUrl && rawImage.includes('behance.net')) {
@@ -323,10 +325,28 @@ function getPortfolioData() {
         if (stored) {
             const parsed = JSON.parse(stored);
             const rawFp = Array.isArray(parsed.featuredProjects) && parsed.featuredProjects.length > 0 ? parsed.featuredProjects : DEFAULT_PORTFOLIO_DATA.featuredProjects;
+            const sanitizedFp = rawFp.map(sanitizeFeaturedProject);
+
+            // Persist healed videoUrl & mediaType to localStorage if updated
+            let needsUpdate = false;
+            rawFp.forEach((p, idx) => {
+                if (p.videoUrl !== sanitizedFp[idx].videoUrl || p.mediaType !== sanitizedFp[idx].mediaType) {
+                    needsUpdate = true;
+                }
+            });
+            if (parsed.featuredSection && parsed.featuredSection.title === 'Featured Projects') {
+                parsed.featuredSection.title = 'Projects';
+                needsUpdate = true;
+            }
+            if (needsUpdate) {
+                parsed.featuredProjects = sanitizedFp;
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(parsed));
+            }
+
             return {
                 profile: { ...DEFAULT_PORTFOLIO_DATA.profile, ...(parsed.profile || {}) },
                 works: Array.isArray(parsed.works) && parsed.works.length > 0 ? parsed.works : DEFAULT_PORTFOLIO_DATA.works,
-                featuredProjects: rawFp.map(sanitizeFeaturedProject),
+                featuredProjects: sanitizedFp,
                 featuredSection: { ...DEFAULT_PORTFOLIO_DATA.featuredSection, ...(parsed.featuredSection || {}) }
             };
         }
@@ -453,7 +473,7 @@ function hydrateIndexPage() {
     // Featured Projects Section Hydration
     if (data.featuredSection) {
         document.querySelectorAll('.js-featured-title').forEach(el => {
-            el.innerHTML = data.featuredSection.title || 'Featured Projects';
+            el.innerHTML = data.featuredSection.title || 'Projects';
         });
         document.querySelectorAll('.js-featured-subtitle').forEach(el => {
             el.innerHTML = data.featuredSection.subtitle || '';

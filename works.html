@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Featured Projects & Portfolio Works | Muhammed Qasim (MQ)</title>
+    <title>Projects & Portfolio Works | Muhammed Qasim (MQ)</title>
 
     <!-- Mobile Web App & Theme Color -->
     <meta name="theme-color" content="#0F111A" media="(prefers-color-scheme: dark)">
@@ -13,13 +13,13 @@
     <meta name="format-detection" content="telephone=no">
 
     <!-- Primary Meta Tags -->
-    <meta name="title" content="Featured Projects & Portfolio Works | Muhammed Qasim (MQ)">
-    <meta name="description" content="Explore featured design, 3D animation, and video editing portfolio projects by creative agency designer Muhammed Qasim (MQ).">
+    <meta name="title" content="Projects & Portfolio Works | Muhammed Qasim (MQ)">
+    <meta name="description" content="Explore design, 3D animation, and video editing portfolio projects by creative agency designer Muhammed Qasim (MQ).">
 
     <!-- Open Graph / Social Sharing -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://kpkasim.github.io/Portfolio-website/works.html">
-    <meta property="og:title" content="Featured Projects & Portfolio Works | Muhammed Qasim (MQ)">
+    <meta property="og:title" content="Projects & Portfolio Works | Muhammed Qasim (MQ)">
     <meta property="og:description" content="Explore featured design, 3D animation, and video editing portfolio projects by creative agency designer Muhammed Qasim (MQ).">
     <meta property="og:image" content="image_f35504.png">
 
@@ -52,6 +52,9 @@
             }
         };
     </script>
+
+    <!-- Shared Portfolio Data Store & Auto-healer -->
+    <script src="data.js"></script>
 
     <!-- React 18, Framer Motion & Babel Standalone CDN -->
     <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
@@ -672,20 +675,31 @@
 
                                     {/* Media Type Corner Pill (YouTube / Behance) */}
                                     {(project.mediaType === 'youtube' || project.videoUrl) && (
-                                        <div className="absolute top-4 right-4 z-20 px-2.5 py-1 rounded-full bg-red-600/90 text-white flex items-center gap-1.5 shadow-lg text-[10px] font-semibold tracking-wider pointer-events-none group-hover:opacity-0 transition-opacity">
+                                        <div className="absolute top-4 right-4 z-20 px-3 py-1 rounded-full bg-red-600/95 text-white flex items-center gap-1.5 shadow-lg text-[10px] font-bold tracking-wider pointer-events-none">
                                             <i className="fab fa-youtube text-xs" />
-                                            <span>VIDEO</span>
+                                            <span>VIDEO REEL</span>
                                         </div>
                                     )}
                                     {project.mediaType === 'behance' && (
-                                        <div className="absolute top-4 right-4 z-20 px-2.5 py-1 rounded-full bg-[#0057ff]/90 text-white flex items-center gap-1.5 shadow-lg text-[10px] font-semibold tracking-wider pointer-events-none group-hover:opacity-0 transition-opacity">
+                                        <div className="absolute top-4 right-4 z-20 px-3 py-1 rounded-full bg-[#0057ff]/95 text-white flex items-center gap-1.5 shadow-lg text-[10px] font-bold tracking-wider pointer-events-none">
                                             <i className="fab fa-behance text-xs" />
-                                            <span>BEHANCE</span>
+                                            <span>CASE STUDY</span>
+                                        </div>
+                                    )}
+
+                                    {/* Prominent Center Play Button for Video Projects */}
+                                    {(project.mediaType === 'youtube' || project.videoUrl) && (
+                                        <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none group-hover:scale-110 transition-transform duration-300">
+                                            <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-red-600/90 text-white flex items-center justify-center shadow-[0_0_30px_rgba(255,0,0,0.7)] border-2 border-white/60 backdrop-blur-sm">
+                                                <svg className="w-7 h-7 sm:w-9 sm:h-9 ml-1 fill-current" viewBox="0 0 24 24">
+                                                    <path d="M8 5v14l11-7z" />
+                                                </svg>
+                                            </div>
                                         </div>
                                     )}
 
                                     {/* 3. Dark, semi-transparent glassmorphism overlay */}
-                                    <div className="absolute inset-0 bg-[#0F111A]/75 backdrop-blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-400 ease-out flex flex-col justify-between p-6 sm:p-7 z-10 pointer-events-none group-hover:pointer-events-auto">
+                                    <div className="absolute inset-0 bg-[#0F111A]/80 backdrop-blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-out flex flex-col justify-between p-6 sm:p-7 z-20 pointer-events-none group-hover:pointer-events-auto">
                                         
                                         {/* Top Aspect Ratio Tag & Arrow */}
                                         <div className="flex items-center justify-between opacity-0 group-hover:opacity-100 transform -translate-y-2 group-hover:translate-y-0 transition-all duration-300 ease-out">
@@ -699,28 +713,40 @@
                                             </div>
                                         </div>
 
-                                        {/* 3. LOGO REVEAL: In exact center of hover overlay */}
+                                        {/* 3. CENTER ACTION: Play button or MQ Logo */}
                                         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                                            <div className="transform scale-75 group-hover:scale-100 opacity-0 group-hover:opacity-100 transition-all duration-400 ease-out flex flex-col items-center">
-                                                <div className="relative flex items-center justify-center">
-                                                    <div className="absolute -inset-6 bg-[#7B8AF4]/25 rounded-full blur-xl pointer-events-none" />
-                                                    {/* Glowing soft neon blue (#7B8AF4) "MQ" text/logo */}
-                                                    <span 
-                                                        className="relative text-[#7B8AF4] font-black text-4xl sm:text-5xl md:text-6xl tracking-widest select-none"
-                                                        style={{
-                                                            textShadow: '0 0 15px #7B8AF4, 0 0 30px rgba(123, 138, 244, 0.8), 0 0 50px rgba(123, 138, 244, 0.45)'
-                                                        }}
-                                                    >
-                                                        MQ
+                                            {(project.mediaType === 'youtube' || project.videoUrl) ? (
+                                                <div className="transform scale-90 group-hover:scale-100 opacity-0 group-hover:opacity-100 transition-all duration-300 flex flex-col items-center">
+                                                    <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-red-600 text-white flex items-center justify-center shadow-[0_0_30px_rgba(255,0,0,0.85)] border-2 border-white">
+                                                        <svg className="w-7 h-7 sm:w-9 sm:h-9 ml-1 fill-current" viewBox="0 0 24 24">
+                                                            <path d="M8 5v14l11-7z" />
+                                                        </svg>
+                                                    </div>
+                                                    <span className="mt-2 text-[11px] font-mono tracking-widest uppercase text-white font-bold bg-black/75 px-3 py-1 rounded-full border border-white/20">
+                                                        CLICK TO PLAY VIDEO
                                                     </span>
                                                 </div>
-                                                <span 
-                                                    className="text-[10px] sm:text-[11px] font-mono tracking-[0.35em] uppercase text-[#7B8AF4]/90 mt-1.5 select-none"
-                                                    style={{ textShadow: '0 0 10px rgba(123, 138, 244, 0.7)' }}
-                                                >
-                                                    AGENCY
-                                                </span>
-                                            </div>
+                                            ) : (
+                                                <div className="transform scale-75 group-hover:scale-100 opacity-0 group-hover:opacity-100 transition-all duration-400 ease-out flex flex-col items-center">
+                                                    <div className="relative flex items-center justify-center">
+                                                        <div className="absolute -inset-6 bg-[#7B8AF4]/25 rounded-full blur-xl pointer-events-none" />
+                                                        <span 
+                                                            className="relative text-[#7B8AF4] font-black text-4xl sm:text-5xl md:text-6xl tracking-widest select-none"
+                                                            style={{
+                                                                textShadow: '0 0 15px #7B8AF4, 0 0 30px rgba(123, 138, 244, 0.8), 0 0 50px rgba(123, 138, 244, 0.45)'
+                                                            }}
+                                                        >
+                                                            MQ
+                                                        </span>
+                                                    </div>
+                                                    <span 
+                                                        className="text-[10px] sm:text-[11px] font-mono tracking-[0.35em] uppercase text-[#7B8AF4]/90 mt-1.5 select-none"
+                                                        style={{ textShadow: '0 0 10px rgba(123, 138, 244, 0.7)' }}
+                                                    >
+                                                        AGENCY
+                                                    </span>
+                                                </div>
+                                            )}
                                         </div>
 
                                         {/* 3. PROJECT DETAILS: Slides up into view from bottom */}
@@ -728,6 +754,16 @@
                                             <span className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold tracking-wider uppercase text-[#7B8AF4] mb-1">
                                                 <span className="w-1.5 h-1.5 rounded-full bg-[#7B8AF4] shadow-[0_0_8px_#7B8AF4]" />
                                                 {project.category}
+                                                {(project.mediaType === 'youtube' || project.videoUrl) && (
+                                                    <span className="ml-2 px-2 py-0.5 rounded text-[10px] bg-red-600/90 text-white font-mono font-bold">
+                                                        ▶ Play Video
+                                                    </span>
+                                                )}
+                                                {project.mediaType === 'behance' && (
+                                                    <span className="ml-2 px-2 py-0.5 rounded text-[10px] bg-[#0057ff]/90 text-white font-mono font-bold">
+                                                        Behance ↗
+                                                    </span>
+                                                )}
                                             </span>
                                             <h3 className="text-white font-bold text-lg sm:text-xl md:text-2xl tracking-tight leading-snug">
                                                 {project.title}
@@ -846,29 +882,32 @@
                                                 </div>
 
                                                 {/* External Link (Behance / YouTube / Live URL) */}
-                                                {activeModalProject.linkUrl && (
+                                                {(activeModalProject.linkUrl || activeModalProject.videoUrl) && (
                                                     <div className="mb-6">
                                                         <a
-                                                            href={activeModalProject.linkUrl}
+                                                            href={activeModalProject.linkUrl || (activeModalProject.videoUrl ? `https://www.youtube.com/watch?v=${(typeof extractYouTubeId === 'function' ? extractYouTubeId(activeModalProject.videoUrl) : '') || ''}` : '#')}
                                                             target="_blank"
                                                             rel="noopener noreferrer"
-                                                            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-semibold tracking-wider uppercase transition-all duration-300 hover:scale-[1.02] shadow-lg"
+                                                            className="inline-flex items-center gap-2 px-5 py-3 rounded-xl text-xs font-bold tracking-wider uppercase transition-all duration-300 hover:scale-[1.03] shadow-lg"
                                                             style={{
                                                                 background: activeModalProject.mediaType === 'behance'
                                                                     ? 'linear-gradient(135deg, #0057ff, #003db3)'
-                                                                    : (activeModalProject.mediaType === 'youtube'
+                                                                    : ((activeModalProject.mediaType === 'youtube' || activeModalProject.videoUrl)
                                                                         ? 'linear-gradient(135deg, #ff0000, #b30000)'
                                                                         : 'linear-gradient(135deg, #7B8AF4, #5364e0)'),
-                                                                color: '#ffffff'
+                                                                color: '#ffffff',
+                                                                boxShadow: (activeModalProject.mediaType === 'youtube' || activeModalProject.videoUrl)
+                                                                    ? '0 0 20px rgba(255, 0, 0, 0.4)'
+                                                                    : '0 0 20px rgba(0, 87, 255, 0.3)'
                                                             }}
                                                         >
                                                             {activeModalProject.mediaType === 'behance' ? (
                                                                 <>
                                                                     <i className="fab fa-behance text-sm" /> View Case Study on Behance ↗
                                                                 </>
-                                                            ) : activeModalProject.mediaType === 'youtube' ? (
+                                                            ) : (activeModalProject.mediaType === 'youtube' || activeModalProject.videoUrl) ? (
                                                                 <>
-                                                                    <i className="fab fa-youtube text-sm" /> Watch on YouTube ↗
+                                                                    <i className="fab fa-youtube text-base" /> Watch directly on YouTube ↗
                                                                 </>
                                                             ) : (
                                                                 <>
