@@ -82,6 +82,10 @@ document.addEventListener('DOMContentLoaded', () => {
             title: 'Dashboard Overview',
             subtitle: 'Overview of works, media, and quick actions'
         },
+        featured: {
+            title: 'Featured Projects (Grid & Categories)',
+            subtitle: 'Add, edit, and organize portfolio grid cards across Graphic Design, 3D, and Video'
+        },
         works: {
             title: 'Works & Media Gallery',
             subtitle: 'Add, edit, and organize YouTube videos, Instagram posts & images'
@@ -129,7 +133,9 @@ document.addEventListener('DOMContentLoaded', () => {
         closeSidebar();
 
         // Re-render relevant parts
-        if (tabKey === 'works') {
+        if (tabKey === 'featured') {
+            renderFeaturedProjectsGrid();
+        } else if (tabKey === 'works') {
             renderWorksGrid();
         } else if (tabKey === 'profile') {
             populateProfileForms();
@@ -187,17 +193,20 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderOverview() {
         portfolioData = getPortfolioData();
         const works = portfolioData.works || [];
+        const featuredProjects = portfolioData.featuredProjects || [];
 
         const totalWorks = works.length;
         const totalYt = works.filter(w => w.type === 'youtube').length;
         const totalIg = works.filter(w => w.type === 'instagram').length;
         const totalImg = works.filter(w => w.type === 'image').length;
 
+        const statFeaturedProjects = document.getElementById('statFeaturedProjects');
         const statTotalWorks = document.getElementById('statTotalWorks');
         const statYoutube = document.getElementById('statYoutube');
         const statInstagram = document.getElementById('statInstagram');
         const statImages = document.getElementById('statImages');
 
+        if (statFeaturedProjects) statFeaturedProjects.textContent = featuredProjects.length;
         if (statTotalWorks) statTotalWorks.textContent = totalWorks;
         if (statYoutube) statYoutube.textContent = totalYt;
         if (statInstagram) statInstagram.textContent = totalIg;
@@ -216,6 +225,283 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             }
         }
+    }
+
+    // =========================================================
+    // 3.5. FEATURED PROJECTS TAB (CRUD FOR MASONRY GRID)
+    // =========================================================
+    let currentFpFilter = 'All';
+    const featuredProjectsGrid = document.getElementById('featuredProjectsGrid');
+    const fpFilterChips = document.querySelectorAll('.fp-filters .filter-chip');
+    const fpCountAll = document.getElementById('fpCountAll');
+    const openAddFpModalBtn = document.getElementById('openAddFpModalBtn');
+    const quickAddFpBtn = document.getElementById('quickAddFpBtn');
+    const featuredProjectModal = document.getElementById('featuredProjectModal');
+    const closeFpModalBtn = document.getElementById('closeFpModalBtn');
+    const cancelFpModalBtn = document.getElementById('cancelFpModalBtn');
+    const featuredProjectForm = document.getElementById('featuredProjectForm');
+    const editFpId = document.getElementById('editFpId');
+    const fpModalTitle = document.getElementById('fpModalTitle');
+    const fpTitle = document.getElementById('fpTitle');
+    const fpCategory = document.getElementById('fpCategory');
+    const fpAspectType = document.getElementById('fpAspectType');
+    const fpImage = document.getElementById('fpImage');
+    const fpImageFileInput = document.getElementById('fpImageFileInput');
+    const fpFileDropZone = document.getElementById('fpFileDropZone');
+    const fpLivePreviewBox = document.getElementById('fpLivePreviewBox');
+    const fpPreviewContainer = document.getElementById('fpPreviewContainer');
+    const fpClient = document.getElementById('fpClient');
+    const fpYear = document.getElementById('fpYear');
+    const fpTools = document.getElementById('fpTools');
+    const fpDescription = document.getElementById('fpDescription');
+
+    function renderFeaturedProjectsGrid() {
+        portfolioData = getPortfolioData();
+        const list = portfolioData.featuredProjects || [];
+
+        if (fpCountAll) fpCountAll.textContent = list.length;
+
+        let filtered = list;
+        if (currentFpFilter && currentFpFilter !== 'All') {
+            filtered = list.filter(p => p.category === currentFpFilter);
+        }
+
+        if (!featuredProjectsGrid) return;
+        featuredProjectsGrid.innerHTML = '';
+
+        if (filtered.length === 0) {
+            featuredProjectsGrid.innerHTML = `
+                <div style="grid-column: 1/-1; text-align: center; padding: 60px 20px; background: var(--bg-card); border-radius: var(--radius-lg); border: 1px dashed var(--border-glass);">
+                    <i class="fas fa-layer-group" style="font-size: 2.5rem; color: #7B8AF4; margin-bottom: 12px; display: block;"></i>
+                    <p style="color: var(--text-muted); font-size: 1rem;">No projects found in category "${currentFpFilter}".</p>
+                    <button type="button" class="btn-primary-action" id="emptyAddFpBtn" style="margin-top: 15px; background: #7B8AF4; border-color: #7B8AF4;">
+                        <i class="fas fa-plus"></i> Add ${currentFpFilter === 'All' ? 'New' : currentFpFilter} Project
+                    </button>
+                </div>
+            `;
+            const emptyAddFpBtn = document.getElementById('emptyAddFpBtn');
+            if (emptyAddFpBtn) {
+                emptyAddFpBtn.addEventListener('click', () => openFeaturedProjectModal());
+            }
+            return;
+        }
+
+        filtered.forEach(project => {
+            featuredProjectsGrid.appendChild(createFeaturedProjectCardElement(project));
+        });
+    }
+
+    function createFeaturedProjectCardElement(project) {
+        const card = document.createElement('div');
+        card.className = 'work-card';
+        card.dataset.id = project.id;
+        card.style.borderColor = 'rgba(123, 138, 244, 0.25)';
+
+        let aspectBadgeText = project.aspectLabel || (project.aspectType === 'landscape' ? '16:9 Landscape' : (project.aspectType === 'portrait' ? '3:4 Portrait' : '1:1 Square'));
+
+        card.innerHTML = `
+            <div class="work-preview-wrap" style="height: 200px; background: #0F111A;">
+                <span class="work-type-badge" style="background: rgba(123, 138, 244, 0.2); color: #7B8AF4; border: 1px solid rgba(123, 138, 244, 0.4);">
+                    <i class="fas fa-palette"></i> ${project.category}
+                </span>
+                <span class="work-row-tag" style="background: rgba(0,0,0,0.6);">${aspectBadgeText}</span>
+                <img src="${project.image}" alt="${project.title}" loading="lazy" style="width:100%; height:100%; object-fit:cover;">
+            </div>
+            <div class="work-body">
+                <div class="work-title" style="color:#ffffff; font-weight:600;" title="${project.title}">${project.title}</div>
+                <div class="work-category" style="color: #7B8AF4;"><i class="fas fa-folder"></i> ${project.category} • ${project.year || '2026'}</div>
+                <div style="font-size: 0.78rem; color: var(--text-muted); margin-bottom: 10px; line-height: 1.4; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">
+                    ${project.description || 'No description provided.'}
+                </div>
+                <div class="work-actions">
+                    <button type="button" class="btn-card-action edit" title="Edit this project" style="color: #7B8AF4; border-color: rgba(123, 138, 244, 0.4);">
+                        <i class="fas fa-pen-to-square"></i> Edit
+                    </button>
+                    <button type="button" class="btn-card-action delete" title="Delete project">
+                        <i class="fas fa-trash-can"></i>
+                    </button>
+                </div>
+            </div>
+        `;
+
+        const editBtn = card.querySelector('.btn-card-action.edit');
+        if (editBtn) {
+            editBtn.addEventListener('click', () => openFeaturedProjectModal(project));
+        }
+
+        const deleteBtn = card.querySelector('.btn-card-action.delete');
+        if (deleteBtn) {
+            deleteBtn.addEventListener('click', () => {
+                if (confirm(`Are you sure you want to delete "${project.title}" from Featured Projects?`)) {
+                    portfolioData.featuredProjects = (portfolioData.featuredProjects || []).filter(p => p.id !== project.id);
+                    savePortfolioData(portfolioData);
+                    showToast(`Deleted "${project.title}"`, 'success');
+                    renderFeaturedProjectsGrid();
+                    renderOverview();
+                }
+            });
+        }
+
+        return card;
+    }
+
+    function openFeaturedProjectModal(project = null) {
+        if (!featuredProjectModal) return;
+        featuredProjectForm.reset();
+
+        if (project) {
+            fpModalTitle.innerHTML = `<i class="fas fa-pen-to-square" style="color:#7B8AF4; margin-right:8px;"></i> Edit Featured Project`;
+            editFpId.value = project.id;
+            fpTitle.value = project.title || '';
+            fpCategory.value = project.category || 'Graphic Design';
+            fpAspectType.value = project.aspectType || 'portrait';
+            fpImage.value = project.image || '';
+            fpClient.value = project.client || '';
+            fpYear.value = project.year || '2026';
+            fpTools.value = Array.isArray(project.tools) ? project.tools.join(', ') : (project.tools || '');
+            fpDescription.value = project.description || '';
+
+            if (project.image && fpPreviewContainer && fpLivePreviewBox) {
+                fpPreviewContainer.innerHTML = `<img src="${project.image}" style="width:100%; height:100%; object-fit:cover;">`;
+                fpLivePreviewBox.style.display = 'block';
+            }
+        } else {
+            fpModalTitle.innerHTML = `<i class="fas fa-plus-circle" style="color:#7B8AF4; margin-right:8px;"></i> Add New Featured Project`;
+            editFpId.value = '';
+            fpCategory.value = currentFpFilter !== 'All' ? currentFpFilter : 'Graphic Design';
+            fpAspectType.value = 'portrait';
+            fpYear.value = new Date().getFullYear().toString();
+            if (fpLivePreviewBox) fpLivePreviewBox.style.display = 'none';
+        }
+
+        featuredProjectModal.classList.add('show');
+    }
+
+    function closeFeaturedProjectModal() {
+        if (featuredProjectModal) featuredProjectModal.classList.remove('show');
+    }
+
+    if (openAddFpModalBtn) openAddFpModalBtn.addEventListener('click', () => openFeaturedProjectModal());
+    if (quickAddFpBtn) quickAddFpBtn.addEventListener('click', () => {
+        switchTab('featured');
+        openFeaturedProjectModal();
+    });
+    if (closeFpModalBtn) closeFpModalBtn.addEventListener('click', closeFeaturedProjectModal);
+    if (cancelFpModalBtn) cancelFpModalBtn.addEventListener('click', closeFeaturedProjectModal);
+
+    // Live preview update on image URL change
+    if (fpImage) {
+        fpImage.addEventListener('input', () => {
+            const url = fpImage.value.trim();
+            if (url && fpPreviewContainer && fpLivePreviewBox) {
+                fpPreviewContainer.innerHTML = `<img src="${url}" onerror="this.src='https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80'" style="width:100%; height:100%; object-fit:cover;">`;
+                fpLivePreviewBox.style.display = 'block';
+            } else if (fpLivePreviewBox) {
+                fpLivePreviewBox.style.display = 'none';
+            }
+        });
+    }
+
+    // Local file upload for featured project image
+    if (fpFileDropZone && fpImageFileInput) {
+        fpFileDropZone.addEventListener('click', () => fpImageFileInput.click());
+        fpImageFileInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = (evt) => {
+                const dataUrl = evt.target.result;
+                fpImage.value = dataUrl;
+                if (fpPreviewContainer && fpLivePreviewBox) {
+                    fpPreviewContainer.innerHTML = `<img src="${dataUrl}" style="width:100%; height:100%; object-fit:cover;">`;
+                    fpLivePreviewBox.style.display = 'block';
+                }
+            };
+            reader.readAsDataURL(file);
+        });
+    }
+
+    // Category filter chips in featured tab
+    fpFilterChips.forEach(chip => {
+        chip.addEventListener('click', () => {
+            fpFilterChips.forEach(c => c.classList.remove('active'));
+            chip.classList.add('active');
+            currentFpFilter = chip.dataset.fpFilter;
+            renderFeaturedProjectsGrid();
+        });
+    });
+
+    // Form submit for featured project
+    if (featuredProjectForm) {
+        featuredProjectForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const id = editFpId.value.trim();
+            const title = fpTitle.value.trim();
+            const category = fpCategory.value;
+            const aspectType = fpAspectType.value;
+            const image = fpImage.value.trim();
+            const client = fpClient.value.trim() || 'Client Project';
+            const year = fpYear.value.trim() || '2026';
+            const tools = fpTools.value.split(',').map(s => s.trim()).filter(Boolean);
+            const description = fpDescription.value.trim();
+
+            if (!title || !image) {
+                showToast('Please provide both a title and an image URL', 'error');
+                return;
+            }
+
+            let aspectLabel = '3:4 Portrait';
+            let gridSpan = 'col-span-1 md:col-span-6 lg:col-span-4';
+            let heightClass = 'h-[420px] sm:h-[480px] lg:h-[420px]';
+
+            if (aspectType === 'landscape') {
+                aspectLabel = '16:9 Landscape';
+                gridSpan = 'col-span-1 md:col-span-12 lg:col-span-8';
+                heightClass = 'h-[320px] sm:h-[380px] lg:h-[420px]';
+            } else if (aspectType === 'square') {
+                aspectLabel = '1:1 Square';
+                gridSpan = 'col-span-1 md:col-span-6 lg:col-span-4';
+                heightClass = 'h-[340px] sm:h-[400px] lg:h-[420px]';
+            }
+
+            const projectData = {
+                id: id || `fp_${Date.now()}`,
+                title,
+                category,
+                aspectType,
+                aspectLabel,
+                gridSpan,
+                heightClass,
+                image,
+                client,
+                year,
+                tools: tools.length > 0 ? tools : ['Photoshop', 'Illustrator'],
+                description: description || `${category} creative showcase by Muhammed Qasim.`
+            };
+
+            portfolioData = getPortfolioData();
+            if (!Array.isArray(portfolioData.featuredProjects)) {
+                portfolioData.featuredProjects = [];
+            }
+
+            if (id) {
+                const index = portfolioData.featuredProjects.findIndex(p => p.id === id);
+                if (index !== -1) {
+                    portfolioData.featuredProjects[index] = projectData;
+                } else {
+                    portfolioData.featuredProjects.unshift(projectData);
+                }
+                showToast(`Updated "${title}" successfully!`, 'success');
+            } else {
+                portfolioData.featuredProjects.unshift(projectData);
+                showToast(`Added "${title}" to Featured Projects!`, 'success');
+            }
+
+            savePortfolioData(portfolioData);
+            closeFeaturedProjectModal();
+            renderFeaturedProjectsGrid();
+            renderOverview();
+        });
     }
 
     // =========================================================
@@ -764,7 +1050,8 @@ function getPortfolioData() {
             const parsed = JSON.parse(stored);
             return {
                 profile: { ...DEFAULT_PORTFOLIO_DATA.profile, ...(parsed.profile || {}) },
-                works: Array.isArray(parsed.works) && parsed.works.length > 0 ? parsed.works : DEFAULT_PORTFOLIO_DATA.works
+                works: Array.isArray(parsed.works) && parsed.works.length > 0 ? parsed.works : DEFAULT_PORTFOLIO_DATA.works,
+                featuredProjects: Array.isArray(parsed.featuredProjects) && parsed.featuredProjects.length > 0 ? parsed.featuredProjects : DEFAULT_PORTFOLIO_DATA.featuredProjects
             };
         }
     } catch (e) {
@@ -832,7 +1119,7 @@ function hydrateIndexPage() {
     });
     const emailLink = document.querySelector('.editorial-email-link');
     if (emailLink) {
-        emailLink.innerHTML = \`\${p.email} <span class="external-arrow">↗</span>\`;
+        emailLink.innerHTML = \`\${p.email} <span class="external-arrow">â†—</span>\`;
         emailLink.href = \`mailto:\${p.email}\`;
     }
 
@@ -1010,7 +1297,7 @@ window.addEventListener('storage', (e) => {
             });
 
             if (putRes.ok) {
-                showToast('🚀 Pushed to GitHub! Changes will be live across all PCs in 1 minute.', 'success');
+                showToast('ðŸš€ Pushed to GitHub! Changes will be live across all PCs in 1 minute.', 'success');
             } else {
                 const errJson = await putRes.json();
                 showToast(`GitHub Error: ${errJson.message || 'Check your token permissions'}`, 'error');
@@ -1080,6 +1367,7 @@ window.addEventListener('storage', (e) => {
     // Initialize
     function initDashboard() {
         renderOverview();
+        renderFeaturedProjectsGrid();
         renderWorksGrid();
         populateProfileForms();
     }

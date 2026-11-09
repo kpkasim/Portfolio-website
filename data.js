@@ -134,6 +134,134 @@ const DEFAULT_PORTFOLIO_DATA = {
             "category": "Graphic Design",
             "row": 2
         }
+    ],
+    "featuredProjects": [
+        {
+            "id": "fp1",
+            "title": "Neo-Tokyo Editorial Poster",
+            "category": "Graphic Design",
+            "aspectType": "portrait",
+            "aspectLabel": "3:4 Portrait",
+            "gridSpan": "col-span-1 md:col-span-6 lg:col-span-4",
+            "heightClass": "h-[420px] sm:h-[480px] lg:h-[400px]",
+            "image": "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=800&q=80",
+            "client": "Kuro Cultural Festival",
+            "year": "2026",
+            "tools": "Photoshop, Illustrator, Glyphs",
+            "description": "Brutalist typographic hierarchy blending bilingual kanji-latin lettering with distressed risograph textures and vector grids."
+        },
+        {
+            "id": "fp2",
+            "title": "Aura Kinetic Identity",
+            "category": "Brand Identity",
+            "aspectType": "landscape",
+            "aspectLabel": "16:9 Landscape",
+            "gridSpan": "col-span-1 md:col-span-12 lg:col-span-8",
+            "heightClass": "h-[320px] sm:h-[380px] lg:h-[420px]",
+            "image": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80",
+            "client": "Aura Collective",
+            "year": "2026",
+            "tools": "Cinema 4D, Illustrator, After Effects",
+            "description": "Complete visual identity, kinetic motion guidelines, and high-contrast editorial system engineered for an avant-garde digital arts collective."
+        },
+        {
+            "id": "fp3",
+            "title": "Cybernetic HUD & Hologram",
+            "category": "3D Motion",
+            "aspectType": "portrait",
+            "aspectLabel": "3:4 Portrait",
+            "gridSpan": "col-span-1 md:col-span-6 lg:col-span-4",
+            "heightClass": "h-[420px] sm:h-[480px] lg:h-[420px]",
+            "image": "https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?auto=format&fit=crop&w=800&q=80",
+            "client": "NeuroTech Labs",
+            "year": "2026",
+            "tools": "Blender Cycles, Octane, Figma",
+            "description": "Futuristic holographic HUD simulation with dispersion shaders and tactile glass refraction designed for next-gen wearable spatial interfaces."
+        },
+        {
+            "id": "fp4",
+            "title": "Apex Velocity Commercial",
+            "category": "Video Editing",
+            "aspectType": "landscape",
+            "aspectLabel": "16:9 Landscape",
+            "gridSpan": "col-span-1 md:col-span-6 lg:col-span-5",
+            "heightClass": "h-[320px] sm:h-[380px] lg:h-[400px]",
+            "image": "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=1000&q=80",
+            "client": "Apex Athletics",
+            "year": "2026",
+            "tools": "Premiere Pro, DaVinci Resolve, Soundly",
+            "description": "High-octane commercial pacing with dynamic match cuts, analog film texture, and bespoke cinematic sound design for social campaign launches."
+        },
+        {
+            "id": "fp5",
+            "title": "Fluid Chromatic Vortex",
+            "category": "3D Motion",
+            "aspectType": "square",
+            "aspectLabel": "1:1 Square",
+            "gridSpan": "col-span-1 md:col-span-6 lg:col-span-3",
+            "heightClass": "h-[320px] sm:h-[380px] lg:h-[400px]",
+            "image": "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&w=800&q=80",
+            "client": "Solaria Media",
+            "year": "2026",
+            "tools": "Houdini, Redshift, Photoshop",
+            "description": "Complex particle and fluid simulation exploring chromatic aberration, surface tension dynamics, and caustic light interactions."
+        },
+        {
+            "id": "fp6",
+            "title": "Visual Branding & Packaging",
+            "category": "Graphic Design",
+            "aspectType": "landscape",
+            "aspectLabel": "16:9 Landscape",
+            "gridSpan": "col-span-1 md:col-span-6 lg:col-span-4",
+            "heightClass": "h-[340px] sm:h-[400px] lg:h-[390px]",
+            "image": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1000&q=80",
+            "client": "Vektor Studio",
+            "year": "2026",
+            "tools": "Illustrator, Photoshop, InDesign",
+            "description": "Minimalist editorial packaging design, embossed foil identity systems, and high-impact poster marketing collateral."
+        },
+        {
+            "id": "fp7",
+            "title": "Solstice Cinematic Grade",
+            "category": "Video Editing",
+            "aspectType": "square",
+            "aspectLabel": "1:1 Square",
+            "gridSpan": "col-span-1 md:col-span-6 lg:col-span-4",
+            "heightClass": "h-[340px] sm:h-[400px] lg:h-[420px]",
+            "image": "https://images.unsplash.com/photo-1536240478700-b869070f9279?auto=format&fit=crop&w=800&q=80",
+            "client": "Indie Motion Pictures",
+            "year": "2026",
+            "tools": "DaVinci Resolve, FilmConvert, After Effects",
+            "description": "Moody atmospheric color grading and analog film grain mastering for a psychological drama short, tuned with custom HDR color curves."
+        },
+        {
+            "id": "fp8",
+            "title": "Bioluminescent Synthetics",
+            "category": "AI Workflows",
+            "aspectType": "portrait",
+            "aspectLabel": "3:4 Portrait",
+            "gridSpan": "col-span-1 md:col-span-6 lg:col-span-4",
+            "heightClass": "h-[420px] sm:h-[480px] lg:h-[420px]",
+            "image": "https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?auto=format&fit=crop&w=800&q=80",
+            "client": "Exo Organics",
+            "year": "2026",
+            "tools": "ComfyUI, Photoshop, Topaz AI",
+            "description": "Custom diffusion-driven visual synthesis guided by 3D depth control nets, refined with manual hand-painted composite textures."
+        },
+        {
+            "id": "fp9",
+            "title": "Quantum Monolith Renders",
+            "category": "3D Motion",
+            "aspectType": "landscape",
+            "aspectLabel": "16:9 Landscape",
+            "gridSpan": "col-span-1 md:col-span-12 lg:col-span-4",
+            "heightClass": "h-[320px] sm:h-[380px] lg:h-[420px]",
+            "image": "https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?auto=format&fit=crop&w=1200&q=80",
+            "client": "Vektor Architecture",
+            "year": "2026",
+            "tools": "Blender, Cycles, After Effects",
+            "description": "Photorealistic brutalist architecture situated in atmospheric foggy terrain with volumetric neon perimeter illumination."
+        }
     ]
 };
 
@@ -147,7 +275,8 @@ function getPortfolioData() {
             const parsed = JSON.parse(stored);
             return {
                 profile: { ...DEFAULT_PORTFOLIO_DATA.profile, ...(parsed.profile || {}) },
-                works: Array.isArray(parsed.works) && parsed.works.length > 0 ? parsed.works : DEFAULT_PORTFOLIO_DATA.works
+                works: Array.isArray(parsed.works) && parsed.works.length > 0 ? parsed.works : DEFAULT_PORTFOLIO_DATA.works,
+                featuredProjects: Array.isArray(parsed.featuredProjects) && parsed.featuredProjects.length > 0 ? parsed.featuredProjects : DEFAULT_PORTFOLIO_DATA.featuredProjects
             };
         }
     } catch (e) {

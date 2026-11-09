@@ -76,7 +76,7 @@ export const PROJECTS_DATA: ProjectItem[] = [
   {
     id: 'p5',
     title: 'Neo-Tokyo Editorial Poster',
-    category: 'Brand Identity',
+    category: 'Graphic Design',
     aspectType: 'portrait',
     aspectLabel: '3:4 Portrait',
     gridSpan: 'col-span-1 md:col-span-6 lg:col-span-4',
@@ -131,7 +131,7 @@ export const PROJECTS_DATA: ProjectItem[] = [
   }
 ];
 
-const CATEGORIES = ['All', '3D Motion', 'Brand Identity', 'Video Editing', 'AI Workflows'] as const;
+const CATEGORIES = ['All', 'Graphic Design', '3D Motion', 'Brand Identity', 'Video Editing', 'AI Workflows'] as const;
 type CategoryType = typeof CATEGORIES[number];
 
 export default function FeaturedProjects(): JSX.Element {
@@ -198,7 +198,7 @@ export default function FeaturedProjects(): JSX.Element {
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 sm:mb-16 gap-6">
           <div>
             <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#7B8AF4]/10 border border-[#7B8AF4]/25 text-[#7B8AF4] text-xs font-mono tracking-widest uppercase mb-4 shadow-[0_0_15px_rgba(123,138,244,0.15)]">
-              <span className="text-white/40">┌</span> CURATED ARCHIVE & PRODUCTIONS
+              <span className="text-white/40">â”Œ</span> CURATED ARCHIVE & PRODUCTIONS
             </div>
             
             <div className="flex items-center flex-wrap gap-3 sm:gap-4">
@@ -335,9 +335,9 @@ export default function FeaturedProjects(): JSX.Element {
           </div>
           <div className="flex items-center gap-3 text-[#7B8AF4]">
             <span>DESIGN</span>
-            <span>•</span>
+            <span>â€¢</span>
             <span>3D ANIMATION</span>
-            <span>•</span>
+            <span>â€¢</span>
             <span>VIDEO PRODUCTION</span>
           </div>
         </div>
@@ -368,7 +368,7 @@ export default function FeaturedProjects(): JSX.Element {
                 className="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-[#0F111A]/80 border border-white/10 text-white hover:text-[#7B8AF4] hover:border-[#7B8AF4] flex items-center justify-center transition-all duration-200"
                 aria-label="Close modal"
               >
-                ✕
+                âœ•
               </button>
 
               <div className="grid grid-cols-1 md:grid-cols-2">
@@ -385,7 +385,7 @@ export default function FeaturedProjects(): JSX.Element {
                   <div>
                     <div className="flex items-center gap-2 text-xs font-mono text-[#7B8AF4] uppercase tracking-widest mb-2">
                       <span className="w-2 h-2 rounded-full bg-[#7B8AF4] shadow-[0_0_8px_#7B8AF4]"></span>
-                      {activeModalProject.category} • {activeModalProject.year}
+                      {activeModalProject.category} â€¢ {activeModalProject.year}
                     </div>
 
                     <h3 className="text-2xl sm:text-3xl font-bold text-white mb-4">
@@ -419,7 +419,7 @@ export default function FeaturedProjects(): JSX.Element {
                   </div>
 
                   <div className="pt-4 border-t border-white/10 flex items-center justify-between">
-                    <span className="text-xs font-mono text-[#7B8AF4]">MUHAMMED QASIM — MQ</span>
+                    <span className="text-xs font-mono text-[#7B8AF4]">MUHAMMED QASIM â€” MQ</span>
                     <button
                       type="button"
                       onClick={() => setActiveModalProject(null)}

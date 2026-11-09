@@ -52,7 +52,7 @@
             <div class="sidebar-brand">
                 <div class="sidebar-logo">MQ<span>.</span> <small style="font-size: 0.75rem; font-weight: 500; color: #8e9bb0;">Admin</small></div>
                 <div style="display: flex; align-items: center; gap: 8px;">
-                    <span class="sidebar-badge">V1.0</span>
+                    <span class="sidebar-badge">V2.0</span>
                     <button type="button" class="sidebar-close-btn" id="sidebarCloseBtn" aria-label="Close sidebar">
                         <i class="fas fa-times"></i>
                     </button>
@@ -63,6 +63,10 @@
                 <a class="nav-item active" data-tab="overview">
                     <i class="fas fa-chart-pie"></i>
                     <span>Overview</span>
+                </a>
+                <a class="nav-item" data-tab="featured">
+                    <i class="fas fa-layer-group" style="color: #7B8AF4;"></i>
+                    <span>Featured Projects</span>
                 </a>
                 <a class="nav-item" data-tab="works">
                     <i class="fas fa-photo-film"></i>
@@ -82,8 +86,8 @@
                 <a href="index.html" target="_blank" class="btn-sidebar-view">
                     <i class="fas fa-external-link-alt"></i> View Home Page
                 </a>
-                <a href="works.html" target="_blank" class="btn-sidebar-view">
-                    <i class="fas fa-layer-group"></i> View Works Page
+                <a href="works.html" target="_blank" class="btn-sidebar-view" style="color: #7B8AF4; border-color: rgba(123, 138, 244, 0.3);">
+                    <i class="fas fa-layer-group"></i> View Live Projects ↗
                 </a>
                 <button type="button" class="btn-sidebar-logout" id="logoutBtn">
                     <i class="fas fa-sign-out-alt"></i> Logout
@@ -101,7 +105,7 @@
                     </button>
                     <div class="header-title-box">
                         <h1 id="pageTitle">Dashboard Overview</h1>
-                        <p id="pageSubtitle">Manage works, phone numbers, and social links</p>
+                        <p id="pageSubtitle">Manage featured projects, works, and social links</p>
                     </div>
                 </div>
 
@@ -109,7 +113,7 @@
                     <button type="button" class="btn-live-link btn-sync-header" id="headerSyncGithubBtn">
                         <i class="fab fa-github"></i> <span class="action-btn-text">Sync to GitHub</span>
                     </button>
-                    <a href="works.html" target="_blank" class="btn-live-link btn-works-header">
+                    <a href="works.html" target="_blank" class="btn-live-link btn-works-header" style="background: rgba(123, 138, 244, 0.15); color: #7B8AF4; border-color: rgba(123, 138, 244, 0.4);">
                         <i class="fas fa-arrow-up-right-from-square"></i> <span class="action-btn-text">Live Works</span>
                     </a>
                 </div>
@@ -123,11 +127,18 @@
                 <section class="tab-content active" id="tab-overview">
                     <!-- Stats Grid -->
                     <div class="stats-grid">
+                        <div class="stat-card" style="border-color: rgba(123, 138, 244, 0.3);">
+                            <div class="stat-icon" style="background: rgba(123, 138, 244, 0.15); color: #7B8AF4;"><i class="fas fa-layer-group"></i></div>
+                            <div class="stat-info">
+                                <div class="stat-number" id="statFeaturedProjects" style="color: #7B8AF4;">0</div>
+                                <div class="stat-label">Featured Projects</div>
+                            </div>
+                        </div>
                         <div class="stat-card">
-                            <div class="stat-icon blue"><i class="fas fa-layer-group"></i></div>
+                            <div class="stat-icon blue"><i class="fas fa-photo-film"></i></div>
                             <div class="stat-info">
                                 <div class="stat-number" id="statTotalWorks">0</div>
-                                <div class="stat-label">Total Works & Media</div>
+                                <div class="stat-label">Media & Reels</div>
                             </div>
                         </div>
                         <div class="stat-card">
@@ -144,13 +155,6 @@
                                 <div class="stat-label">Instagram Posts</div>
                             </div>
                         </div>
-                        <div class="stat-card">
-                            <div class="stat-icon green"><i class="fas fa-image"></i></div>
-                            <div class="stat-info">
-                                <div class="stat-number" id="statImages">0</div>
-                                <div class="stat-label">Images & Artwork</div>
-                            </div>
-                        </div>
                     </div>
 
                     <!-- Quick Actions Card -->
@@ -162,14 +166,17 @@
                             </div>
                         </div>
                         <div style="display: flex; gap: 14px; flex-wrap: wrap;">
+                            <button type="button" class="btn-primary-action" id="quickAddFpBtn" style="background: linear-gradient(135deg, #7B8AF4, #5364e0); border-color: #7B8AF4;">
+                                <i class="fas fa-plus"></i> Add Featured Project
+                            </button>
                             <button type="button" class="btn-primary-action" id="quickAddVideoBtn">
-                                <i class="fas fa-plus"></i> Add New Video / Work
+                                <i class="fas fa-film"></i> Add Video / Media
                             </button>
                             <button type="button" class="btn-secondary" id="quickEditLinksBtn">
                                 <i class="fas fa-address-book"></i> Change Phone / Insta Link
                             </button>
                             <a href="works.html" target="_blank" class="btn-secondary" style="text-decoration:none;">
-                                <i class="fas fa-eye"></i> Preview Portfolio Marquee
+                                <i class="fas fa-eye"></i> View Live Portfolio
                             </a>
                         </div>
                     </div>
@@ -192,7 +199,31 @@
                 </section>
 
                 <!-- =========================================================
-                     TAB 2: WORKS & MEDIA (VIDEOS & IMAGES)
+                     TAB 2: FEATURED PROJECTS (GRID & CATEGORIES)
+                     ========================================================= -->
+                <section class="tab-content" id="tab-featured">
+                    <div class="section-toolbar">
+                        <div class="toolbar-filters fp-filters">
+                            <button class="filter-chip active" data-fp-filter="All">All (<span id="fpCountAll">0</span>)</button>
+                            <button class="filter-chip" data-fp-filter="Graphic Design"><i class="fas fa-palette" style="color:#7B8AF4"></i> Graphic Design</button>
+                            <button class="filter-chip" data-fp-filter="3D Motion"><i class="fas fa-cube" style="color:#00e575"></i> 3D Motion</button>
+                            <button class="filter-chip" data-fp-filter="Brand Identity"><i class="fas fa-award" style="color:#ffb800"></i> Brand Identity</button>
+                            <button class="filter-chip" data-fp-filter="Video Editing"><i class="fas fa-film" style="color:#ff4757"></i> Video Editing</button>
+                            <button class="filter-chip" data-fp-filter="AI Workflows"><i class="fas fa-wand-magic-sparkles" style="color:#9DACFF"></i> AI Workflows</button>
+                        </div>
+                        <button type="button" class="btn-primary-action" id="openAddFpModalBtn" style="background: linear-gradient(135deg, #7B8AF4, #5364e0); border-color: #7B8AF4;">
+                            <i class="fas fa-plus"></i> Add New Featured Project
+                        </button>
+                    </div>
+
+                    <!-- Featured Projects Grid Container -->
+                    <div class="works-grid" id="featuredProjectsGrid">
+                        <!-- Populated dynamically -->
+                    </div>
+                </section>
+
+                <!-- =========================================================
+                     TAB 3: WORKS & MEDIA (VIDEOS & IMAGES)
                      ========================================================= -->
                 <section class="tab-content" id="tab-works">
                     <div class="section-toolbar">
@@ -216,7 +247,7 @@
                 </section>
 
                 <!-- =========================================================
-                     TAB 3: PROFILE & DETAILS (PHONE, INSTA, BIO)
+                     TAB 4: PROFILE & DETAILS (PHONE, INSTA, BIO)
                      ========================================================= -->
                 <section class="tab-content" id="tab-profile">
                     
@@ -299,35 +330,30 @@
                                     <input type="text" id="profHeroSubtitle" class="admin-input" placeholder="Hey, I'm a">
                                 </div>
                                 <div class="form-group-field">
-                                    <label for="profHeroTitle">Hero Title</label>
+                                    <label for="profHeroTitle">Hero Main Title (HTML allowed)</label>
                                     <input type="text" id="profHeroTitle" class="admin-input" placeholder="Multidisciplinary<br>Designer">
                                 </div>
-                            </div>
-
-                            <div class="form-grid-2">
                                 <div class="form-group-field">
                                     <label for="profHeroHeadline">Hero Right Headline</label>
                                     <input type="text" id="profHeroHeadline" class="admin-input" placeholder="Shaping ideas<br>into reality.">
                                 </div>
                                 <div class="form-group-field">
-                                    <label for="profHeroDesc">Hero Right Description</label>
-                                    <textarea id="profHeroDesc" class="admin-textarea" rows="3"></textarea>
+                                    <label for="profHeroDescription">Hero Right Paragraph</label>
+                                    <textarea id="profHeroDescription" class="admin-input" rows="3" placeholder="Data-driven strategies..."></textarea>
                                 </div>
-                            </div>
-
-                            <div class="form-group-field">
-                                <label for="profAboutTitle">About Section Title</label>
-                                <input type="text" id="profAboutTitle" class="admin-input" placeholder="Smart Strategies<br>Real Results<br>Meaningful Growth">
-                            </div>
-
-                            <div class="form-group-field">
-                                <label for="profAboutDesc">About Section Description</label>
-                                <textarea id="profAboutDesc" class="admin-textarea" rows="4"></textarea>
+                                <div class="form-group-field">
+                                    <label for="profAboutTitle">About Section Title</label>
+                                    <input type="text" id="profAboutTitle" class="admin-input" placeholder="Smart Strategies<br>Real Results<br>Meaningful Growth">
+                                </div>
+                                <div class="form-group-field">
+                                    <label for="profAboutDescription">About Section Description</label>
+                                    <textarea id="profAboutDescription" class="admin-input" rows="3" placeholder="I combine creativity, technical skills..."></textarea>
+                                </div>
                             </div>
 
                             <div class="form-save-bar">
                                 <button type="submit" class="btn-primary-action">
-                                    <i class="fas fa-floppy-disk"></i> Save Bio & Content
+                                    <i class="fas fa-floppy-disk"></i> Save Hero & About Texts
                                 </button>
                             </div>
                         </form>
@@ -335,18 +361,19 @@
                 </section>
 
                 <!-- =========================================================
-                     TAB 4: SETTINGS & BACKUP
+                     TAB 5: SETTINGS & BACKUP
                      ========================================================= -->
                 <section class="tab-content" id="tab-settings">
                     
-                    <!-- Admin Password / PIN -->
+                    <!-- Change PIN -->
                     <div class="editor-card">
                         <div class="editor-card-header">
                             <div>
-                                <h2><i class="fas fa-key"></i> Security PIN</h2>
-                                <p>അഡ്മിൻ പാനലിലേക്ക് ലോഗിൻ ചെയ്യാനുള്ള പാസ്‌വേഡ് മാറ്റുക</p>
+                                <h2><i class="fas fa-key"></i> Change Admin Password / PIN</h2>
+                                <p>അഡ്മിൻ പാനലിലേക്ക് ലോഗിൻ ചെയ്യാനുള്ള PIN മാറ്റുക</p>
                             </div>
                         </div>
+
                         <form id="changePinForm" style="max-width: 450px;">
                             <div class="form-group-field">
                                 <label for="newPin">New Password / PIN</label>
@@ -373,7 +400,7 @@
                         </div>
 
                         <div style="margin-bottom: 20px; line-height: 1.6; font-size: 0.85rem; color: var(--text-muted);">
-                            നിങ്ങൾ അഡ്മിൻ പാനലിൽ വരുത്തുന്ന മാറ്റങ്ങൾ (പുതിയ വീഡിയോ, ഫോൺ നമ്പർ, ഇൻസ്റ്റാഗ്രാം ലിങ്ക്) ഏത് PC-യിലും അല്ലെങ്കിൽ ലോകത്ത് ആര് സന്ദർശിച്ചാലും തത്സമയം കാണാൻ ഒരു തവണ നിങ്ങളുടെ GitHub Token നൽകി <strong>Push All Changes</strong> ക്ലിക്ക് ചെയ്യുക.
+                            നിങ്ങൾ അഡ്മിൻ പാനലിൽ വരുത്തുന്ന മാറ്റങ്ങൾ (പുതിയ പ്രൊജക്റ്റുകൾ, ഗ്രാഫിക് ഡിസൈൻ കാർഡുകൾ, ഫോൺ നമ്പർ, ഇൻസ്റ്റാഗ്രാം ലിങ്ക്) ലോകത്ത് ആര് സന്ദർശിച്ചാലും തത്സമയം കാണാൻ ഒരു തവണ നിങ്ങളുടെ GitHub Token നൽകി <strong>Push All Changes</strong> ക്ലിക്ക് ചെയ്യുക.
                         </div>
 
                         <form id="githubSyncForm">
@@ -424,7 +451,7 @@
                             </button>
                         </div>
                         <p style="font-size: 0.82rem; color: var(--text-dim); line-height: 1.6;">
-                            * "Download Backup" ക്ലിക്ക് ചെയ്താൽ നിലവിലെ എല്ലാ വീഡിയോകളും ലിങ്കുകളും അടങ്ങിയ ഒരു ഫയൽ നിങ്ങളുടെ കമ്പ്യൂട്ടറിൽ സേവാകും.
+                            * "Download Backup" ക്ലിക്ക് ചെയ്താൽ നിലവിലെ എല്ലാ പ്രൊജക്റ്റുകളും വീഡിയോകളും അടങ്ങിയ ഒരു ഫയൽ നിങ്ങളുടെ കമ്പ്യൂട്ടറിൽ സേവാകും.
                         </p>
                     </div>
                 </section>
@@ -434,7 +461,115 @@
     </div>
 
     <!-- =========================================================
-         ADD / EDIT WORK MODAL
+         ADD / EDIT FEATURED PROJECT MODAL (GRID & CATEGORIES)
+         ========================================================= -->
+    <div class="modal-overlay" id="featuredProjectModal">
+        <div class="modal-window">
+            <div class="modal-header" style="border-bottom-color: rgba(123, 138, 244, 0.3);">
+                <h3 id="fpModalTitle"><i class="fas fa-layer-group" style="color:#7B8AF4; margin-right:8px;"></i> Add New Featured Project</h3>
+                <button type="button" class="modal-close-btn" id="closeFpModalBtn">&times;</button>
+            </div>
+            
+            <form id="featuredProjectForm">
+                <input type="hidden" id="editFpId" value="">
+                
+                <div class="modal-body">
+                    <!-- Project Title -->
+                    <div class="form-group-field">
+                        <label for="fpTitle">Project Title / Name</label>
+                        <input type="text" id="fpTitle" class="admin-input" placeholder="e.g. Neo-Tokyo Editorial Poster / Branding" required>
+                    </div>
+
+                    <!-- Category & Aspect Ratio / Shape -->
+                    <div class="form-grid-2">
+                        <div class="form-group-field">
+                            <label for="fpCategory">Category Filter</label>
+                            <select id="fpCategory" class="admin-select">
+                                <option value="Graphic Design" selected>Graphic Design</option>
+                                <option value="3D Motion">3D Motion</option>
+                                <option value="Brand Identity">Brand Identity</option>
+                                <option value="Video Editing">Video Editing</option>
+                                <option value="AI Workflows">AI Workflows</option>
+                            </select>
+                        </div>
+                        <div class="form-group-field">
+                            <label for="fpAspectType">Card Format / Shape</label>
+                            <select id="fpAspectType" class="admin-select">
+                                <option value="portrait" selected>3:4 Portrait (Tall Grid Span)</option>
+                                <option value="landscape">16:9 Landscape (Wide Grid Span)</option>
+                                <option value="square">1:1 Square (Balanced Span)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Image URL -->
+                    <div class="form-group-field">
+                        <label for="fpImage">
+                            Image URL
+                            <span class="label-hint">Paste high-res image link</span>
+                        </label>
+                        <input type="url" id="fpImage" class="admin-input" placeholder="https://images.unsplash.com/..." required>
+                    </div>
+
+                    <!-- Image Upload from computer -->
+                    <div class="form-group-field">
+                        <label>Or Upload Image from Computer</label>
+                        <div class="file-drop-zone" id="fpFileDropZone">
+                            <i class="fas fa-cloud-arrow-up" style="color: #7B8AF4;"></i>
+                            <p>Click here or drag an image</p>
+                            <span>Supports JPG, PNG, WEBP</span>
+                            <input type="file" id="fpImageFileInput" accept="image/*" style="display: none;">
+                        </div>
+                    </div>
+
+                    <!-- Live Preview Box -->
+                    <div class="live-preview-box" id="fpLivePreviewBox" style="display: none;">
+                        <div style="font-size: 0.76rem; color: var(--text-muted); margin-bottom: 8px; text-align: left;">Card Preview:</div>
+                        <div class="preview-container" id="fpPreviewContainer" style="height: 200px; overflow: hidden; border-radius: 12px; background: #0F111A;">
+                            <!-- Injected dynamically -->
+                        </div>
+                    </div>
+
+                    <!-- Client & Year -->
+                    <div class="form-grid-2">
+                        <div class="form-group-field">
+                            <label for="fpClient">Client / Brand Name</label>
+                            <input type="text" id="fpClient" class="admin-input" placeholder="e.g. Kuro Cultural Festival">
+                        </div>
+                        <div class="form-group-field">
+                            <label for="fpYear">Production Year</label>
+                            <input type="text" id="fpYear" class="admin-input" placeholder="2026">
+                        </div>
+                    </div>
+
+                    <!-- Software / Tools Used -->
+                    <div class="form-group-field">
+                        <label for="fpTools">
+                            Software / Tools Used
+                            <span class="label-hint">Comma separated</span>
+                        </label>
+                        <input type="text" id="fpTools" class="admin-input" placeholder="Photoshop, Illustrator, Glyphs">
+                    </div>
+
+                    <!-- Description -->
+                    <div class="form-group-field">
+                        <label for="fpDescription">Project Description / Case Summary</label>
+                        <textarea id="fpDescription" class="admin-input" rows="3" placeholder="Brief summary of creative concept, typography hierarchy, 3D materials, or video workflow..."></textarea>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn-secondary" id="cancelFpModalBtn">Cancel</button>
+                    <button type="submit" class="btn-primary-action" id="saveFpSubmitBtn" style="background: linear-gradient(135deg, #7B8AF4, #5364e0); border-color: #7B8AF4;">
+                        <i class="fas fa-check"></i> Save Featured Project
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- =========================================================
+         ADD / EDIT WORK MODAL (VIDEOS & MARQUEE)
          ========================================================= -->
     <div class="modal-overlay" id="workModal">
         <div class="modal-window">
@@ -515,8 +650,8 @@
                         <div class="form-group-field">
                             <label for="workCategory">Category Tag</label>
                             <select id="workCategory" class="admin-select">
-                                <option value="Video Production">Video Production</option>
                                 <option value="Graphic Design">Graphic Design</option>
+                                <option value="Video Production">Video Production</option>
                                 <option value="3D Visualization">3D Visualization</option>
                                 <option value="AI Workflows">AI Workflows</option>
                                 <option value="Commercial Ads">Commercial Ads</option>
@@ -541,9 +676,13 @@
             <i class="fas fa-chart-pie"></i>
             <span>Overview</span>
         </button>
+        <button type="button" class="bottom-nav-item" data-tab="featured">
+            <i class="fas fa-layer-group" style="color: #7B8AF4;"></i>
+            <span>Projects</span>
+        </button>
         <button type="button" class="bottom-nav-item" data-tab="works">
             <i class="fas fa-photo-film"></i>
-            <span>Works</span>
+            <span>Media</span>
         </button>
         <button type="button" class="bottom-nav-item" data-tab="profile">
             <i class="fas fa-user-gear"></i>
