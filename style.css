@@ -571,15 +571,12 @@ ul { list-style: none; }
 }
 .text-center { text-align: center; }
 
-/* ==================================================
-   INTERACTIVE WAVE PLAYGROUND (Make a little wave)
-   ================================================== */
 .section-tag-mono {
-    font-family: 'SF Mono', 'Fira Code', 'Roboto Mono', 'Courier New', monospace;
+    font-family: 'Space Mono', 'SF Mono', 'Fira Code', 'Roboto Mono', 'Courier New', monospace;
     font-size: 0.8rem;
     letter-spacing: 2px;
     text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.6);
+    color: var(--text-gray);
     margin-bottom: 1.5rem;
     display: inline-flex;
     align-items: center;
@@ -596,147 +593,6 @@ ul { list-style: none; }
 }
 .section-tag-mono.dark-tag .tag-corner {
     color: #0d1127;
-}
-
-.wave-playground-section {
-    background-color: #0d0e12;
-    color: #ffffff;
-    padding: 100px 6% 110px;
-    position: relative;
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.wave-playground-container {
-    max-width: 1350px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 60px;
-}
-
-.wave-info-col {
-    flex: 0 0 380px;
-}
-
-.wave-heading {
-    font-size: clamp(2.4rem, 4vw, 3.4rem);
-    font-weight: 700;
-    line-height: 1.15;
-    letter-spacing: -1.2px;
-    color: #ffffff;
-    margin-bottom: 14px;
-}
-
-.wave-subheading {
-    font-size: 1.1rem;
-    color: rgba(255, 255, 255, 0.55);
-    font-weight: 400;
-}
-
-.wave-interactive-col {
-    flex: 1;
-    width: 100%;
-    max-width: 760px;
-}
-
-.wave-display-card {
-    background: #14161b;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 18px;
-    overflow: hidden;
-    padding: 16px 20px;
-    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.45);
-    position: relative;
-}
-
-#waveCanvas {
-    width: 100%;
-    height: 180px;
-    display: block;
-    cursor: crosshair;
-}
-
-.wave-controls-bar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 16px;
-    font-size: 0.85rem;
-    color: rgba(255, 255, 255, 0.6);
-}
-
-.wave-slider-group {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.wave-speed-label {
-    font-size: 0.82rem;
-    color: rgba(255, 255, 255, 0.65);
-    font-weight: 500;
-}
-
-.wave-range-input {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 110px;
-    height: 6px;
-    background: rgba(255, 255, 255, 0.18);
-    border-radius: 10px;
-    outline: none;
-    cursor: pointer;
-    transition: background 0.2s ease;
-}
-.wave-range-input::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    background: #7e99ff;
-    cursor: pointer;
-    box-shadow: 0 0 12px rgba(126, 153, 255, 0.7);
-    transition: transform 0.2s ease;
-}
-.wave-range-input::-webkit-slider-thumb:hover {
-    transform: scale(1.15);
-}
-
-.wave-motion-btn {
-    background: transparent;
-    border: none;
-    color: rgba(255, 255, 255, 0.75);
-    font-size: 0.85rem;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.35);
-    padding-bottom: 2px;
-    font-weight: 500;
-    transition: color 0.3s, border-color 0.3s;
-}
-.wave-motion-btn:hover {
-    color: #ffffff;
-    border-color: #ffffff;
-}
-.wave-motion-symbol {
-    font-weight: 700;
-    letter-spacing: -1px;
-}
-
-@media (max-width: 960px) {
-    .wave-playground-container {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 35px;
-    }
-    .wave-info-col {
-        flex: 1;
-        width: 100%;
-    }
 }
 
 /* ==================================================
@@ -1636,7 +1492,6 @@ footer {
     .tools-vector-section,
     .approach-section,
     .projects-section,
-    .wave-playground-section,
     .editorial-contact-section {
         padding: 65px 5% 75px;
     }
@@ -1698,19 +1553,6 @@ footer {
     .tools-vector-grid {
         grid-template-columns: 1fr;
     }
-    .wave-controls-bar {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 12px;
-    }
-    .wave-slider-group {
-        justify-content: space-between;
-        width: 100%;
-    }
-    .wave-motion-btn {
-        width: 100%;
-        justify-content: center;
-    }
     .editorial-headline {
         font-size: clamp(2.2rem, 9.5vw, 3.4rem);
         letter-spacing: -1px;
@@ -1739,7 +1581,6 @@ footer {
     .hero-content,
     .vector-cards-grid,
     .tools-vector-grid,
-    .wave-playground-container,
     .editorial-contact-container {
         max-width: 1700px;
     }
