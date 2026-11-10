@@ -12,12 +12,53 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Admin CSS -->
-    <link rel="stylesheet" href="admin.css?v=4.0">
+    <link rel="stylesheet" href="admin.css?v=4.1">
 </head>
 <body>
 
     <!-- =========================================================
-         MAIN ADMIN DASHBOARD LAYOUT (Direct Access - No Lock Screen)
+         1. LOGIN OVERLAY (Password Protection Option)
+         ========================================================= -->
+    <div id="loginOverlay" class="login-wrapper">
+        <div class="login-card">
+            <div class="login-logo">MQ<span>.</span></div>
+            <p class="login-subtitle">Portfolio Control Center</p>
+
+            <form id="adminLoginForm" class="login-form">
+                <div class="form-group">
+                    <label for="adminPinInput">Enter Admin Password / PIN</label>
+                    <div class="input-icon-wrap">
+                        <i class="fas fa-lock prefix-icon"></i>
+                        <input type="password" id="adminPinInput" placeholder="Enter password (Default: admin123)" required autofocus autocomplete="current-password" autocapitalize="none" autocorrect="off" spellcheck="false">
+                        <button type="button" class="toggle-pwd-btn" id="togglePwdBtn" aria-label="Toggle password visibility">
+                            <i class="fas fa-eye" id="togglePwdIcon"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; font-size: 0.8rem; color: var(--text-muted);">
+                    <label style="display: inline-flex; align-items: center; gap: 8px; cursor: pointer; user-select: none; margin: 0;">
+                        <input type="checkbox" id="rememberMeCheck" style="accent-color: #0066ff; width: 16px; height: 16px; cursor: pointer;">
+                        <span>Remember this device</span>
+                    </label>
+                    <button type="button" id="forgotPinBtn" style="background: none; border: none; color: #7B8AF4; cursor: pointer; text-decoration: underline; font-size: 0.8rem;">
+                        Reset PIN
+                    </button>
+                </div>
+
+                <button type="submit" class="login-btn">
+                    Unlock Dashboard <i class="fas fa-arrow-right"></i>
+                </button>
+
+                <p class="login-hint" style="margin-top: 18px;">
+                    Default Password: <code>admin123</code> &bull; Settings-ൽ മാറ്റാം
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <!-- =========================================================
+         2. MAIN ADMIN DASHBOARD LAYOUT
          ========================================================= -->
     <!-- Sidebar Backdrop for Mobile/Tablet -->
     <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
@@ -66,7 +107,10 @@
                 <a href="works.html" target="_blank" class="btn-sidebar-view" style="color: #7B8AF4; border-color: rgba(123, 138, 244, 0.3);">
                     <i class="fas fa-layer-group"></i> View Live Projects &#x2197;
                 </a>
-                <a href="index.html" class="btn-sidebar-logout" style="text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                <button type="button" class="btn-sidebar-logout" id="lockDashboardBtn" style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                    <i class="fas fa-lock"></i> Lock Dashboard
+                </button>
+                <a href="index.html" class="btn-sidebar-view" style="text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px; opacity: 0.75;">
                     <i class="fas fa-arrow-left"></i> Back to Website
                 </a>
             </div>
@@ -418,6 +462,66 @@
                      ========================================================= -->
                 <section class="tab-content" id="tab-settings">
                     
+                    <!-- Password & Security Option -->
+                    <div class="editor-card" id="passwordSettingsCard">
+                        <div class="editor-card-header">
+                            <div>
+                                <h2><i class="fas fa-shield-halved" style="color: #0066ff;"></i> Password & Security Option</h2>
+                                <p>Control admin panel password protection and update your login password</p>
+                            </div>
+                            <span id="pwdStatusBadge" style="background: rgba(0, 229, 117, 0.15); color: #00e575; border: 1px solid rgba(0, 229, 117, 0.3); padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 600;">
+                                <i class="fas fa-lock"></i> Password Protected
+                            </span>
+                        </div>
+
+                        <!-- Toggle switch to Enable / Disable Password Protection -->
+                        <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border-glass); border-radius: 12px; padding: 18px; margin-bottom: 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 15px;">
+                            <div>
+                                <strong style="color: #fff; font-size: 0.95rem; display: block; margin-bottom: 4px;">Password Protection Option</strong>
+                                <span style="font-size: 0.8rem; color: var(--text-muted);">When turned ON, visiting the Admin Panel requires your password.</span>
+                            </div>
+                            <label style="display: inline-flex; align-items: center; gap: 10px; cursor: pointer; user-select: none;">
+                                <input type="checkbox" id="togglePasswordLockOption" checked style="accent-color: #0066ff; width: 22px; height: 22px; cursor: pointer;">
+                                <span id="togglePasswordLockText" style="font-size: 0.88rem; font-weight: 600; color: #fff;">Enabled</span>
+                            </label>
+                        </div>
+
+                        <!-- Change Password Form -->
+                        <form id="changePasswordForm" style="max-width: 480px;">
+                            <div class="form-group-field">
+                                <label for="newAdminPassword">
+                                    New Password / PIN
+                                    <span class="label-hint">Default: admin123</span>
+                                </label>
+                                <div class="input-icon-wrap" style="position: relative;">
+                                    <input type="password" id="newAdminPassword" class="admin-input" placeholder="Enter new password" required style="padding-right: 45px;">
+                                    <button type="button" class="toggle-pwd-btn" id="toggleNewPwdBtn" style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); background: none; border: none; color: var(--text-muted); cursor: pointer;">
+                                        <i class="fas fa-eye" id="toggleNewPwdIcon"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="form-group-field">
+                                <label for="confirmAdminPassword">Confirm New Password</label>
+                                <div class="input-icon-wrap" style="position: relative;">
+                                    <input type="password" id="confirmAdminPassword" class="admin-input" placeholder="Repeat new password" required style="padding-right: 45px;">
+                                    <button type="button" class="toggle-pwd-btn" id="toggleConfirmPwdBtn" style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); background: none; border: none; color: var(--text-muted); cursor: pointer;">
+                                        <i class="fas fa-eye" id="toggleConfirmPwdIcon"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div style="display: flex; gap: 12px; align-items: center; margin-top: 18px; flex-wrap: wrap;">
+                                <button type="submit" class="btn-primary-action">
+                                    <i class="fas fa-check"></i> Save New Password
+                                </button>
+                                <button type="button" class="btn-secondary" id="resetPasswordToDefaultBtn" style="color: #ff5252; border-color: rgba(255, 82, 82, 0.3);">
+                                    <i class="fas fa-rotate-left"></i> Reset to admin123
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    
                     <!-- GitHub Live Cloud Sync -->
                     <div class="editor-card">
                         <div class="editor-card-header">
@@ -748,7 +852,7 @@
     <div class="toast-container" id="toastContainer"></div>
 
     <!-- Shared Data Store & Admin Script -->
-    <script src="data.js?v=4.0"></script>
-    <script src="admin.js?v=4.0"></script>
+    <script src="data.js?v=4.1"></script>
+    <script src="admin.js?v=4.1"></script>
 </body>
 </html>

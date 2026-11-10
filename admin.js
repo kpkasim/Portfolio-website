@@ -9,13 +9,221 @@ document.addEventListener('DOMContentLoaded', () => {
     let uploadedImageDataUrl = '';
 
     // =========================================================
-    // 1. DIRECT ACCESS & INITIALIZATION (Zero Lock Screen Barrier)
+    // 1. PASSWORD PROTECTION & AUTHENTICATION
     // =========================================================
-    sessionStorage.setItem('mq_admin_logged_in', 'true');
     const loginOverlay = document.getElementById('loginOverlay');
-    if (loginOverlay) {
-        loginOverlay.style.display = 'none';
-        loginOverlay.classList.add('hidden');
+    const adminLoginForm = document.getElementById('adminLoginForm');
+    const adminPinInput = document.getElementById('adminPinInput');
+    const togglePwdBtn = document.getElementById('togglePwdBtn');
+    const togglePwdIcon = document.getElementById('togglePwdIcon');
+    const forgotPinBtn = document.getElementById('forgotPinBtn');
+    const rememberMeCheck = document.getElementById('rememberMeCheck');
+    const lockDashboardBtn = document.getElementById('lockDashboardBtn');
+
+    // Password Settings Elements
+    const togglePasswordLockOption = document.getElementById('togglePasswordLockOption');
+    const togglePasswordLockText = document.getElementById('togglePasswordLockText');
+    const pwdStatusBadge = document.getElementById('pwdStatusBadge');
+    const changePasswordForm = document.getElementById('changePasswordForm');
+    const newAdminPassword = document.getElementById('newAdminPassword');
+    const confirmAdminPassword = document.getElementById('confirmAdminPassword');
+    const toggleNewPwdBtn = document.getElementById('toggleNewPwdBtn');
+    const toggleNewPwdIcon = document.getElementById('toggleNewPwdIcon');
+    const toggleConfirmPwdBtn = document.getElementById('toggleConfirmPwdBtn');
+    const toggleConfirmPwdIcon = document.getElementById('toggleConfirmPwdIcon');
+    const resetPasswordToDefaultBtn = document.getElementById('resetPasswordToDefaultBtn');
+
+    let isDashboardInitialized = false;
+
+    function isPasswordProtectionEnabled() {
+        return localStorage.getItem('mq_admin_password_enabled') !== 'false';
+    }
+
+    function getStoredPin() {
+        return localStorage.getItem('mq_admin_pin') || 'admin123';
+    }
+
+    function checkAuth() {
+        // Emergency URL unlock: admin.html?unlock=true or admin.html?reset=true
+        try {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has('unlock') || urlParams.has('reset')) {
+                localStorage.setItem('mq_admin_pin', 'admin123');
+                sessionStorage.setItem('mq_admin_logged_in', 'true');
+                window.history.replaceState({}, document.title, window.location.pathname);
+            }
+        } catch (e) {
+            console.warn(e);
+        }
+
+        // If password protection is disabled by user in settings
+        if (!isPasswordProtectionEnabled()) {
+            if (loginOverlay) loginOverlay.classList.add('hidden');
+            if (!isDashboardInitialized) initDashboard();
+            return;
+        }
+
+        // Check if user is logged in via session or remembered on device
+        const isLoggedIn = sessionStorage.getItem('mq_admin_logged_in') === 'true' || 
+                           localStorage.getItem('mq_admin_remember_device') === 'true';
+
+        if (isLoggedIn) {
+            if (loginOverlay) loginOverlay.classList.add('hidden');
+            if (!isDashboardInitialized) initDashboard();
+        } else {
+            if (loginOverlay) loginOverlay.classList.remove('hidden');
+            if (adminPinInput) adminPinInput.focus();
+        }
+    }
+
+    if (adminLoginForm) {
+        adminLoginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const inputPin = adminPinInput.value.trim();
+            const validPin = getStoredPin();
+
+            // Fail-safe matching: case-insensitive, plus master PINs admin123, kpkasim, mq2026
+            const isMatch = (inputPin && validPin && inputPin.toLowerCase() === validPin.toLowerCase()) ||
+                            inputPin === validPin ||
+                            inputPin.toLowerCase() === 'admin123' ||
+                            inputPin.toLowerCase() === 'kpkasim' ||
+                            inputPin.toLowerCase() === 'mq2026';
+
+            if (isMatch) {
+                if (inputPin.toLowerCase() === 'admin123' && validPin !== 'admin123') {
+                    localStorage.setItem('mq_admin_pin', 'admin123');
+                }
+                if (rememberMeCheck && rememberMeCheck.checked) {
+                    localStorage.setItem('mq_admin_remember_device', 'true');
+                }
+                sessionStorage.setItem('mq_admin_logged_in', 'true');
+                if (loginOverlay) loginOverlay.classList.add('hidden');
+                adminPinInput.value = '';
+                showToast('Welcome back, Muhammed Qasim!', 'success');
+                if (!isDashboardInitialized) initDashboard();
+            } else {
+                showToast('Incorrect password! Default is: admin123', 'error');
+                adminPinInput.select();
+            }
+        });
+    }
+
+    if (togglePwdBtn && adminPinInput) {
+        togglePwdBtn.addEventListener('click', () => {
+            const isPwd = adminPinInput.type === 'password';
+            adminPinInput.type = isPwd ? 'text' : 'password';
+            if (togglePwdIcon) togglePwdIcon.className = isPwd ? 'fas fa-eye-slash' : 'fas fa-eye';
+        });
+    }
+
+    if (forgotPinBtn) {
+        forgotPinBtn.addEventListener('click', () => {
+            localStorage.setItem('mq_admin_pin', 'admin123');
+            if (adminPinInput) {
+                adminPinInput.value = 'admin123';
+                adminPinInput.type = 'text';
+                if (togglePwdIcon) togglePwdIcon.className = 'fas fa-eye-slash';
+            }
+            showToast('Password reset to default: admin123', 'success');
+        });
+    }
+
+    if (lockDashboardBtn) {
+        lockDashboardBtn.addEventListener('click', () => {
+            sessionStorage.removeItem('mq_admin_logged_in');
+            localStorage.removeItem('mq_admin_remember_device');
+            if (loginOverlay) {
+                loginOverlay.classList.remove('hidden');
+                if (adminPinInput) {
+                    adminPinInput.value = '';
+                    adminPinInput.focus();
+                }
+            }
+            showToast('Dashboard locked', 'success');
+        });
+    }
+
+    // Password Settings Tab Handlers
+    function initPasswordSettings() {
+        const enabled = isPasswordProtectionEnabled();
+        if (togglePasswordLockOption) {
+            togglePasswordLockOption.checked = enabled;
+            if (togglePasswordLockText) togglePasswordLockText.textContent = enabled ? 'Enabled' : 'Disabled';
+            if (pwdStatusBadge) {
+                pwdStatusBadge.innerHTML = enabled 
+                    ? '<i class="fas fa-lock"></i> Password Protected' 
+                    : '<i class="fas fa-lock-open" style="color:#ffb703;"></i> Protection Disabled';
+                pwdStatusBadge.style.color = enabled ? '#00e575' : '#ffb703';
+                pwdStatusBadge.style.borderColor = enabled ? 'rgba(0, 229, 117, 0.3)' : 'rgba(255, 183, 3, 0.3)';
+            }
+        }
+    }
+
+    if (togglePasswordLockOption) {
+        togglePasswordLockOption.addEventListener('change', () => {
+            const isChecked = togglePasswordLockOption.checked;
+            localStorage.setItem('mq_admin_password_enabled', isChecked ? 'true' : 'false');
+            if (togglePasswordLockText) togglePasswordLockText.textContent = isChecked ? 'Enabled' : 'Disabled';
+            if (pwdStatusBadge) {
+                pwdStatusBadge.innerHTML = isChecked 
+                    ? '<i class="fas fa-lock"></i> Password Protected' 
+                    : '<i class="fas fa-lock-open" style="color:#ffb703;"></i> Protection Disabled';
+                pwdStatusBadge.style.color = isChecked ? '#00e575' : '#ffb703';
+                pwdStatusBadge.style.borderColor = isChecked ? 'rgba(0, 229, 117, 0.3)' : 'rgba(255, 183, 3, 0.3)';
+            }
+            showToast(isChecked ? 'Password protection enabled!' : 'Password protection disabled!', 'success');
+        });
+    }
+
+    if (changePasswordForm) {
+        changePasswordForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const newPwd = newAdminPassword ? newAdminPassword.value.trim() : '';
+            const confirmPwd = confirmAdminPassword ? confirmAdminPassword.value.trim() : '';
+
+            if (!newPwd) {
+                showToast('Password cannot be empty', 'error');
+                return;
+            }
+            if (newPwd !== confirmPwd) {
+                showToast('Passwords do not match!', 'error');
+                return;
+            }
+
+            localStorage.setItem('mq_admin_pin', newPwd);
+            localStorage.setItem('mq_admin_password_enabled', 'true');
+            if (togglePasswordLockOption) togglePasswordLockOption.checked = true;
+            changePasswordForm.reset();
+            initPasswordSettings();
+            showToast('Admin password updated successfully!', 'success');
+        });
+    }
+
+    if (toggleNewPwdBtn && newAdminPassword) {
+        toggleNewPwdBtn.addEventListener('click', () => {
+            const isPwd = newAdminPassword.type === 'password';
+            newAdminPassword.type = isPwd ? 'text' : 'password';
+            if (toggleNewPwdIcon) toggleNewPwdIcon.className = isPwd ? 'fas fa-eye-slash' : 'fas fa-eye';
+        });
+    }
+
+    if (toggleConfirmPwdBtn && confirmAdminPassword) {
+        toggleConfirmPwdBtn.addEventListener('click', () => {
+            const isPwd = confirmAdminPassword.type === 'password';
+            confirmAdminPassword.type = isPwd ? 'text' : 'password';
+            if (toggleConfirmPwdIcon) toggleConfirmPwdIcon.className = isPwd ? 'fas fa-eye-slash' : 'fas fa-eye';
+        });
+    }
+
+    if (resetPasswordToDefaultBtn) {
+        resetPasswordToDefaultBtn.addEventListener('click', () => {
+            localStorage.setItem('mq_admin_pin', 'admin123');
+            localStorage.setItem('mq_admin_password_enabled', 'true');
+            if (togglePasswordLockOption) togglePasswordLockOption.checked = true;
+            if (changePasswordForm) changePasswordForm.reset();
+            initPasswordSettings();
+            showToast('Password reset to default: admin123', 'success');
+        });
     }
 
     // =========================================================
@@ -1731,6 +1939,8 @@ window.addEventListener('storage', (e) => {
 
     // Initialize
     function initDashboard() {
+        if (isDashboardInitialized) return;
+        isDashboardInitialized = true;
         renderOverview();
         populateFeaturedHeaderForm();
         renderCategoryPillsManager();
@@ -1739,8 +1949,9 @@ window.addEventListener('storage', (e) => {
         renderFeaturedProjectsGrid();
         renderWorksGrid();
         populateProfileForms();
+        initPasswordSettings();
     }
 
-    // Direct launch - zero lock screen barrier
-    initDashboard();
+    // Check password protection on startup
+    checkAuth();
 });
