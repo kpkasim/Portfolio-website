@@ -79,36 +79,64 @@
         }
 
         /* Light mode explicit styling */
-        html[data-theme="light"] body {
-            background-color: #fbfbfd !important;
-            color: #0f111a !important;
+        html[data-theme="light"],
+        html[data-theme="light"] body,
+        html[data-theme="light"] .hero-section,
+        html[data-theme="light"] .tools-vector-section,
+        html[data-theme="light"] .approach-section,
+        html[data-theme="light"] .projects-section,
+        html[data-theme="light"] .featured-projects-section,
+        html[data-theme="light"] footer {
+            background-color: #ffffff !important;
+            color: #0b0c10 !important;
         }
         html[data-theme="light"] .title,
         html[data-theme="light"] .hero-right h2,
         html[data-theme="light"] .approach-title,
+        html[data-theme="light"] .js-featured-title,
         html[data-theme="light"] .logo {
-            color: #0f111a !important;
+            color: #0b0c10 !important;
         }
         html[data-theme="light"] .vector-card,
         html[data-theme="light"] .tool-vector-box,
         html[data-theme="light"] .vector-narrative-box {
-            background-color: #ffffff !important;
-            border-color: rgba(15, 17, 26, 0.1) !important;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05) !important;
+            background-color: #f7f8fa !important;
+            border-color: rgba(15, 17, 26, 0.08) !important;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04) !important;
         }
         html[data-theme="light"] .vector-card-body h3,
         html[data-theme="light"] .tool-meta h4 {
-            color: #0f111a !important;
+            color: #0b0c10 !important;
+        }
+        html[data-theme="light"] .vector-card-body p,
+        html[data-theme="light"] .tool-meta span,
+        html[data-theme="light"] .approach-desc {
+            color: #555e70 !important;
+        }
+        html[data-theme="light"] .tool-arrow {
+            color: #0b0c10 !important;
+        }
+        html[data-theme="light"] .mq-project-card {
+            background-color: #f7f8fa !important;
+            border-color: rgba(15, 17, 26, 0.1) !important;
         }
 
         /* Dark mode explicit styling */
-        html[data-theme="dark"] body {
+        html[data-theme="dark"],
+        html[data-theme="dark"] body,
+        html[data-theme="dark"] .hero-section,
+        html[data-theme="dark"] .tools-vector-section,
+        html[data-theme="dark"] .approach-section,
+        html[data-theme="dark"] .projects-section,
+        html[data-theme="dark"] .featured-projects-section,
+        html[data-theme="dark"] footer {
             background-color: #0b0c10 !important;
             color: #f5f6fa !important;
         }
         html[data-theme="dark"] .title,
         html[data-theme="dark"] .hero-right h2,
         html[data-theme="dark"] .approach-title,
+        html[data-theme="dark"] .js-featured-title,
         html[data-theme="dark"] .logo {
             color: #ffffff !important;
         }
@@ -121,6 +149,11 @@
         html[data-theme="dark"] .vector-card-body h3,
         html[data-theme="dark"] .tool-meta h4 {
             color: #ffffff !important;
+        }
+        html[data-theme="dark"] .vector-card-body p,
+        html[data-theme="dark"] .tool-meta span,
+        html[data-theme="dark"] .approach-desc {
+            color: #9295a6 !important;
         }
 
         /* Toggle Button Track & Knob States */
@@ -316,7 +349,10 @@
         </div>
         <div class="tools-vector-grid fade-up" style="transition-delay: 150ms;">
             <div class="tool-vector-box">
-                <img src="assets/icons/blender.svg?v=5.0" alt="Blender">
+                <svg class="tool-icon-svg" viewBox="0 0 128 128" width="42" height="42" style="border-radius: 9px; flex-shrink: 0;" aria-label="Blender 3D Logo">
+                    <path d="M66.332 70.032c.24-4.242 2.327-7.987 5.485-10.634 3.094-2.602 7.248-4.193 11.809-4.193 4.537 0 8.69 1.59 11.78 4.193 3.163 2.647 5.237 6.392 5.485 10.634.24 4.35-1.523 8.41-4.605 11.417-3.158 3.05-7.627 4.977-12.66 4.977-5.037 0-9.526-1.915-12.664-4.977-3.094-3.006-4.853-7.044-4.606-11.397zm0 0" fill="#235785"/>
+                    <path d="M39.245 79.002c.028 1.66.564 4.89 1.36 7.404 1.682 5.336 4.537 10.273 8.49 14.599 4.062 4.465 9.074 8.055 14.85 10.61 6.073 2.67 12.665 4.037 19.505 4.037 6.84-.009 13.432-1.4 19.504-4.102 5.776-2.582 10.79-6.168 14.85-10.657 3.974-4.374 6.82-9.307 8.491-14.647a37 37 0 001.595-8.163c.208-2.69.12-5.405-.263-8.12a37.535 37.535 0 00-5.417-14.714c-2.574-4.15-5.916-7.76-9.89-10.813l.012-.004-39.955-30.506c-.036-.028-.068-.056-.104-.08-2.619-2.002-7.044-1.994-9.91.008-2.914 2.031-3.25 5.385-.656 7.496l-.012.008 16.682 13.484-50.789.051h-.068c-4.197.004-8.239 2.739-9.03 6.213-.82 3.521 2.035 6.46 6.412 6.46l-.008.016 25.736-.048L4.58 82.524c-.056.044-.12.088-.176.132C.069 85.95-1.33 91.446 1.4 94.9c2.778 3.522 8.666 3.546 13.047.02L39.505 74.51s-.368 2.758-.336 4.397zm64.56 9.219c-5.168 5.228-12.416 8.21-20.227 8.21-7.831.012-15.079-2.918-20.248-8.142-2.526-2.559-4.377-5.473-5.528-8.591a22.202 22.202 0 01-1.271-9.602 22.446 22.446 0 012.778-9.039c1.507-2.714 3.59-5.18 6.14-7.267 5.033-4.058 11.42-6.28 18.1-6.28 6.709-.008 13.097 2.174 18.13 6.236 2.55 2.075 4.625 4.529 6.14 7.243a22.302 22.302 0 012.774 9.043 22.313 22.313 0 01-1.271 9.598c-1.147 3.142-3.002 6.056-5.533 8.615zm0 0" fill="#E87500"/>
+                </svg>
                 <div class="tool-meta">
                     <h4>Blender 3D</h4>
                     <span>Modeling & Cycles Render</span>
@@ -324,7 +360,11 @@
                 <span class="tool-arrow">&#x2197;</span>
             </div>
             <div class="tool-vector-box">
-                <img src="assets/icons/photoshop.svg?v=5.0" alt="Photoshop">
+                <svg class="tool-icon-svg" viewBox="0 0 240 234" width="42" height="42" style="border-radius: 9px; flex-shrink: 0;" aria-label="Adobe Photoshop Logo">
+                    <path fill="#001E36" d="M42.5 0h155C221 0 240 19 240 42.5v149c0 23.5-19 42.5-42.5 42.5h-155C19 234 0 215 0 191.5v-149C0 19 19 0 42.5 0z"/>
+                    <path fill="#31A8FF" d="M54 164.1V61.2c0-.7.3-1.1 1-1.1 1.7 0 3.3 0 5.6-.1 2.4-.1 4.9-.1 7.6-.2 2.7-.1 5.6-.1 8.7-.2 3.1-.1 6.1-.1 9.1-.1 8.2 0 15 1 20.6 3.1 5 1.7 9.6 4.5 13.4 8.2 3.2 3.2 5.7 7.1 7.3 11.4 1.5 4.2 2.3 8.5 2.3 13 0 8.6-2 15.7-6 21.3-4 5.6-9.6 9.8-16.1 12.2-6.8 2.5-14.3 3.4-22.5 3.4-2.4 0-4 0-5-.1-1-.1-2.4-.1-4.3-.1v32.1c.1.7-.4 1.3-1.1 1.4-.1 0-.2 0-.4 0H55.2c-.8-.1-1.2-.5-1.2-1.4zm21.8-84.7V113c1.4.1 2.7.2 3.9.2H85c3.9 0 7.8-.6 11.5-1.8 3.2-.9 6-2.8 8.2-5.3 2.1-2.5 3.1-5.9 3.1-10.3.1-3.1-.7-6.2-2.3-8.9-1.7-2.6-4.1-4.6-7-5.7-3.7-1.5-7.7-2.1-11.8-2-2.6 0-4.9 0-6.8.1-.7.1-2.1.2-2.8.3z"/>
+                    <path fill="#31A8FF" d="M192 106.9c-3-1.6-6.2-2.7-9.6-3.4-3.7-.8-7.4-1.3-11.2-1.3-2-.1-4.1.2-6 .7-1.3.3-2.4 1-3.1 2-.5.8-.8 1.8-.8 2.7 0 .9.4 1.8 1 2.6.9 1.1 2.1 2 3.4 2.7 2.3 1.2 4.7 2.3 7.1 3.3 5.4 1.8 10.6 4.3 15.4 7.3 3.3 2.1 6 4.9 7.9 8.3 1.6 3.2 2.4 6.7 2.3 10.3.1 4.7-1.3 9.4-3.9 13.3-2.8 4-6.7 7.1-11.2 8.9-4.9 2.1-10.9 3.2-18.1 3.2-4.6 0-9.1-.4-13.6-1.3-3.5-.6-7-1.7-10.2-3.2-.7-.4-1.2-1.1-1.1-1.9v-17.4c0-.3.1-.7.4-.9.3-.2.6-.1.9.1 3.9 2.3 8 3.9 12.4 4.9 3.8 1 7.8 1.5 11.8 1.5 3.8 0 6.5-.5 8.3-1.4 1.6-.7 2.7-2.4 2.7-4.2 0-1.4-.8-2.7-2.4-4-1.6-1.3-4.9-2.8-9.8-4.7-5.1-1.8-9.8-4.2-14.2-7.2-3.1-2.2-5.7-5.1-7.6-8.5-1.6-3.2-2.4-6.7-2.3-10.2 0-4.3 1.2-8.4 3.4-12.1 2.5-4 6.2-7.2 10.5-9.2 4.7-2.4 10.6-3.5 17.7-3.5 4.1 0 8.3.3 12.4.9 3 .4 5.9 1.2 8.6 2.3.4.1.8.5 1 .9.1.4.2.8.2 1.2v16.3c0 .4-.2.8-.5 1-.4.2-.9.2-1.3 0z"/>
+                </svg>
                 <div class="tool-meta">
                     <h4>Photoshop</h4>
                     <span>Raster & Compositing</span>
@@ -332,7 +372,12 @@
                 <span class="tool-arrow">&#x2197;</span>
             </div>
             <div class="tool-vector-box">
-                <img src="assets/icons/illustrator.svg?v=5.0" alt="Illustrator">
+                <svg class="tool-icon-svg" viewBox="0 0 250 250" width="42" height="42" style="border-radius: 9px; flex-shrink: 0;" aria-label="Adobe Illustrator Logo">
+                    <rect width="250" height="250" rx="42.74" ry="42.74" fill="#330000"/>
+                    <path fill="#FF9A00" d="M122.11 66.15H84.7L41.73 181.77h33.48l5.58-17.27h42.98l5.58 17.27h34.5L122.11 66.15zM102.27 135.65H90.1l12.17-37.69 12.17 37.69h-12.17z"/>
+                    <rect x="168.12" y="90.74" width="30.98" height="91.03" fill="#FF9A00"/>
+                    <path fill="#FF9A00" d="M200.12 74.28c.09 8.49-6.78 14.49-16.5 14.41-9.73.08-16.59-5.92-16.5-14.41-.09-8.49 6.78-14.49 16.5-14.41 9.73-.08 16.59 5.92 16.5 14.41z"/>
+                </svg>
                 <div class="tool-meta">
                     <h4>Illustrator</h4>
                     <span>Vector & Typography</span>
@@ -340,7 +385,11 @@
                 <span class="tool-arrow">&#x2197;</span>
             </div>
             <div class="tool-vector-box">
-                <img src="assets/icons/premiere.svg?v=5.0" alt="Premiere Pro">
+                <svg class="tool-icon-svg" viewBox="0 0 240 234" width="42" height="42" style="border-radius: 9px; flex-shrink: 0;" aria-label="Adobe Premiere Pro Logo">
+                    <path fill="#00005B" d="M42.5 0h155C221 0 240 19 240 42.5v149c0 23.5-19 42.5-42.5 42.5h-155C19 234 0 215 0 191.5v-149C0 19 19 0 42.5 0z"/>
+                    <path fill="#9999FF" d="M57 164V61c0-.7.3-1.1 1-1.1 1.7 0 3.3 0 5.6-.1 2.4-.1 4.9-.1 7.6-.2s5.6-.1 8.7-.2 6.1-.1 9.1-.1c8.2 0 15 1 20.6 3.1 5 1.7 9.6 4.5 13.4 8.2 3.2 3.2 5.7 7.1 7.3 11.4 1.5 4.2 2.3 8.5 2.3 13 0 8.6-2 15.7-6 21.3s-9.6 9.8-16.1 12.2c-6.8 2.5-14.3 3.4-22.5 3.4-2.4 0-4 0-5-.1s-2.4-.1-4.3-.1v32.1c.1.7-.4 1.3-1.1 1.4h-.4-19c-.8 0-1.2-.4-1.2-1.3zm21.8-84.7v33.6c1.4.1 2.7.2 3.9.2h5.3c3.9 0 7.8-.6 11.5-1.8 3.2-.9 6-2.8 8.2-5.3 2.1-2.5 3.1-5.9 3.1-10.3.1-3.1-.7-6.2-2.3-8.9-1.7-2.6-4.1-4.6-7-5.7-3.7-1.5-7.7-2.1-11.8-2-2.6 0-4.9 0-6.8.1-2-.1-3.4 0-4.1.1z"/>
+                    <path fill="#9999FF" d="M147 85.2h17.5c1 0 1.8.7 2.1 1.6.3.8.5 1.6.6 2.5.2 1 .4 2.1.5 3.1.1 1.1.2 2.3.2 3.6 3-3.5 6.6-6.4 10.7-8.6 4.6-2.6 9.9-3.9 15.2-3.9.7-.1 1.3.4 1.4 1.1v.4 19.5c0 .8-.5 1.1-1.6 1.1-3.6-.1-7.3.2-10.8 1-2.9.6-5.7 1.5-8.4 2.7-1.9.9-3.7 2.1-5.1 3.7v51c0 1-.4 1.4-1.3 1.4h-19.7c-.8.1-1.5-.4-1.6-1.2v-.4-55.4c0-2.4 0-4.9-.1-7.5s-.1-5.2-.2-7.8c0-2.3-.2-4.5-.4-6.8-.1-.5.2-1 .7-1.1 0-.1.2-.1.3 0z"/>
+                </svg>
                 <div class="tool-meta">
                     <h4>Premiere Pro</h4>
                     <span>Video Editing & Sound</span>
@@ -348,7 +397,11 @@
                 <span class="tool-arrow">&#x2197;</span>
             </div>
             <div class="tool-vector-box">
-                <img src="assets/icons/aftereffects.svg?v=5.0" alt="After Effects">
+                <svg class="tool-icon-svg" viewBox="0 0 240 234" width="42" height="42" style="border-radius: 9px; flex-shrink: 0;" aria-label="Adobe After Effects Logo">
+                    <path fill="#00005B" d="M42.5 0h155C221 0 240 19 240 42.5v149c0 23.5-19 42.5-42.5 42.5h-155C19 234 0 215 0 191.5v-149C0 19 19 0 42.5 0z"/>
+                    <path fill="#9999FF" d="M96.4 140H59.2l-7.6 23.6c-.2.9-1 1.5-1.9 1.4H30.9c-1.1 0-1.4-.6-1.1-1.8l32.2-92.3c.3-1 .6-1.9 1-3.1.4-2.1.6-4.3.6-6.5-.1-.5.3-1 .8-1.1h25.9c.7 0 1.2.3 1.3.8l36.5 102c.3 1.1 0 1.6-1 1.6h-20.9c-.7.1-1.4-.4-1.6-1.1l-8.2-24zm-31.4-19.9h25.4c-.6-2.1-1.4-4.6-2.3-7.2-.9-2.7-1.8-5.6-2.7-8.6-1-3.1-1.9-6.1-2.9-9.2s-1.9-6-2.7-8.9c-.8-2.8-1.5-5.4-2.2-7.8h-.2c-.9 4.3-2 8.6-3.4 12.9-1.5 4.8-3 9.8-4.6 14.8-1.3 5.1-2.9 9.8-4.4 14z"/>
+                    <path fill="#9999FF" d="M187 131h-31.7c.4 3.1 1.4 6.2 3.1 8.9 1.8 2.7 4.3 4.8 7.3 6 4 1.7 8.4 2.6 12.8 2.5 3.5-.1 7-.4 10.4-1.1 3.1-.4 6.1-1.2 8.9-2.3.5-.4.8-.2.8.8v15.3c0 .4-.1.8-.2 1.2-.2.3-.4.5-.7.7-3.2 1.4-6.5 2.4-10 3-4.7.9-9.4 1.3-14.2 1.2-7.6 0-14-1.2-19.2-3.5-4.9-2.1-9.2-5.4-12.6-9.5-3.2-3.9-5.5-8.3-6.9-13.1-1.4-4.7-2.1-9.6-2.1-14.6 0-5.4.8-10.7 2.5-15.9 1.6-5 4.1-9.6 7.5-13.7 3.3-4 7.4-7.2 12.1-9.5s10.3-3.1 16.7-3.1c5.3-.1 10.6.9 15.5 3.1 4.1 1.8 7.7 4.5 10.5 8 2.6 3.4 4.7 7.2 6 11.4 1.3 4 1.9 8.1 1.9 12.2 0 2.4-.1 4.5-.2 6.4-.2 1.9-.3 3.3-.4 4.2-.1.7-.7 1.3-1.4 1.3-.6 0-1.7.1-3.3.2-1.6.2-3.5.3-5.8.3s-4.7-.4-7.3-.4zm-31.7-14.6h21.1c2.6 0 4.5 0 5.7-.1.8-.1 1.6-.3 2.3-.8v-1c0-1.3-.2-2.5-.6-3.7-1.8-5.6-7.1-9.4-13-9.2-5.5-.3-10.7 2.6-13.3 7.6-1.2 2.3-1.9 4.7-2.2 7.2z"/>
+                </svg>
                 <div class="tool-meta">
                     <h4>After Effects</h4>
                     <span>Motion Graphics & VFX</span>

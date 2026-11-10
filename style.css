@@ -503,16 +503,18 @@ html[data-theme="dark"] .toggle-icon-light { display: none !important; }
     transform: translateY(-3px);
     box-shadow: 0 10px 25px var(--glass-shadow);
 }
-.tool-vector-box img {
-    width: 40px;
-    height: 40px;
+.tool-vector-box img,
+.tool-vector-box .tool-icon-svg {
+    width: 42px;
+    height: 42px;
     object-fit: contain;
     flex-shrink: 0;
     border-radius: 9px;
     transition: transform 0.3s ease;
     display: block;
 }
-.tool-vector-box:hover img {
+.tool-vector-box:hover img,
+.tool-vector-box:hover .tool-icon-svg {
     transform: scale(1.08);
 }
 .tool-meta h4 {
@@ -1641,12 +1643,21 @@ footer {
    FEATURED PROJECTS SECTION (#0F111A Dark Theme & #7B8AF4 Neon Blue Accents)
    ========================================================================== */
 .featured-projects-section {
-    background-color: #0F111A !important;
+    background-color: #0F111A;
     color: #ffffff;
     position: relative;
     width: 100%;
     padding: 80px 5% 120px;
     overflow: hidden;
+    transition: background-color 0.35s ease, color 0.35s ease;
+}
+html[data-theme="dark"] .featured-projects-section {
+    background-color: #0F111A !important;
+    color: #ffffff !important;
+}
+html[data-theme="light"] .featured-projects-section {
+    background-color: #ffffff !important;
+    color: #0f111a !important;
 }
 
 .featured-projects-section .neon-dot {

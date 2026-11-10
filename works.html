@@ -78,18 +78,49 @@
             transition: background-color 0.35s ease, color 0.35s ease;
         }
 
+        /* Light mode explicit styling */
+        html[data-theme="light"],
         html[data-theme="light"] body,
-        html[data-theme="light"] .morphic-works-body {
-            background-color: #fbfbfd !important;
+        html[data-theme="light"] .morphic-works-body,
+        html[data-theme="light"] #featured-projects {
+            background-color: #ffffff !important;
             color: #0f111a !important;
         }
-        html[data-theme="light"] .mh-title,
+        html[data-theme="light"] .navbar {
+            background: rgba(255, 255, 255, 0.92) !important;
+            border-bottom: 1px solid rgba(15, 17, 26, 0.08) !important;
+        }
         html[data-theme="light"] .logo {
             color: #0f111a !important;
         }
+        html[data-theme="light"] .logo-box {
+            background: #0f111a !important;
+            color: #ffffff !important;
+        }
+        html[data-theme="light"] .mh-title {
+            color: #0f111a !important;
+        }
+        html[data-theme="light"] .mh-desc {
+            color: #555e70 !important;
+        }
+        html[data-theme="light"] .morphic-links a {
+            color: #555e70 !important;
+        }
+        html[data-theme="light"] .morphic-links a.active,
+        html[data-theme="light"] .morphic-links a:hover {
+            color: #0f111a !important;
+        }
+        html[data-theme="light"] .editorial-pill {
+            background: #f0f2f7 !important;
+            color: #0f111a !important;
+            border-color: rgba(15, 17, 26, 0.12) !important;
+        }
 
+        /* Dark mode explicit styling */
+        html[data-theme="dark"],
         html[data-theme="dark"] body,
-        html[data-theme="dark"] .morphic-works-body {
+        html[data-theme="dark"] .morphic-works-body,
+        html[data-theme="dark"] #featured-projects {
             background-color: #0b0c10 !important;
             color: #f5f6fa !important;
         }
@@ -168,11 +199,18 @@
     <script src="https://unpkg.com/@babel/standalone/babel.min.js" crossorigin></script>
 
     <style>
-        /* Dark Theme Force for Works Page matching #0F111A */
+        /* Base Works Page Styling with dynamic theme */
         body.morphic-works-body {
+            overflow-x: hidden;
+            transition: background-color 0.35s ease, color 0.35s ease;
+        }
+        html[data-theme="dark"] body.morphic-works-body {
             background-color: #0F111A !important;
             color: #ffffff;
-            overflow-x: hidden;
+        }
+        html[data-theme="light"] body.morphic-works-body {
+            background-color: #ffffff !important;
+            color: #0f111a;
         }
         .morphic-works-body .navbar {
             background: rgba(15, 17, 26, 0.85);
