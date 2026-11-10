@@ -9,98 +9,13 @@ document.addEventListener('DOMContentLoaded', () => {
     let uploadedImageDataUrl = '';
 
     // =========================================================
-    // 1. AUTHENTICATION & LOGIN
+    // 1. DIRECT ACCESS & INITIALIZATION (Zero Lock Screen Barrier)
     // =========================================================
+    sessionStorage.setItem('mq_admin_logged_in', 'true');
     const loginOverlay = document.getElementById('loginOverlay');
-    const adminLoginForm = document.getElementById('adminLoginForm');
-    const adminPinInput = document.getElementById('adminPinInput');
-    const togglePwdBtn = document.getElementById('togglePwdBtn');
-    const togglePwdIcon = document.getElementById('togglePwdIcon');
-    const forgotPinBtn = document.getElementById('forgotPinBtn');
-    const logoutBtn = document.getElementById('logoutBtn');
-
-    function getStoredPin() {
-        return localStorage.getItem('mq_admin_pin') || 'admin123';
-    }
-
-    function checkAuth() {
-        // Emergency URL unlock: admin.html?unlock=true or admin.html?reset=true
-        try {
-            const urlParams = new URLSearchParams(window.location.search);
-            if (urlParams.has('unlock') || urlParams.has('reset')) {
-                localStorage.setItem('mq_admin_pin', 'admin123');
-                sessionStorage.setItem('mq_admin_logged_in', 'true');
-                window.history.replaceState({}, document.title, window.location.pathname);
-            }
-        } catch (e) {
-            console.warn(e);
-        }
-
-        const isLoggedIn = sessionStorage.getItem('mq_admin_logged_in') === 'true';
-        if (isLoggedIn) {
-            loginOverlay.classList.add('hidden');
-        } else {
-            loginOverlay.classList.remove('hidden');
-            if (adminPinInput) adminPinInput.focus();
-        }
-    }
-
-    if (adminLoginForm) {
-        adminLoginForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const inputPin = adminPinInput.value.trim();
-            const validPin = getStoredPin();
-
-            // Case-insensitive match, plus accept master PIN 'admin123', 'kpkasim', 'mq2026'
-            const isMatch = (inputPin && validPin && inputPin.toLowerCase() === validPin.toLowerCase()) ||
-                            inputPin === validPin ||
-                            inputPin.toLowerCase() === 'admin123' ||
-                            inputPin.toLowerCase() === 'kpkasim' ||
-                            inputPin.toLowerCase() === 'mq2026';
-
-            if (isMatch) {
-                // If they entered admin123, ensure stored pin is reset to admin123
-                if (inputPin.toLowerCase() === 'admin123') {
-                    localStorage.setItem('mq_admin_pin', 'admin123');
-                }
-                sessionStorage.setItem('mq_admin_logged_in', 'true');
-                loginOverlay.classList.add('hidden');
-                adminPinInput.value = '';
-                showToast('Welcome back, Muhammed Qasim!', 'success');
-                initDashboard();
-            } else {
-                showToast('Incorrect PIN! Default PIN is: admin123', 'error');
-                adminPinInput.select();
-            }
-        });
-    }
-
-    if (forgotPinBtn) {
-        forgotPinBtn.addEventListener('click', () => {
-            localStorage.setItem('mq_admin_pin', 'admin123');
-            if (adminPinInput) {
-                adminPinInput.value = 'admin123';
-                adminPinInput.type = 'text';
-                if (togglePwdIcon) togglePwdIcon.className = 'fas fa-eye-slash';
-            }
-            showToast('PIN reset to default: admin123', 'success');
-        });
-    }
-
-    if (togglePwdBtn && adminPinInput) {
-        togglePwdBtn.addEventListener('click', () => {
-            const isPassword = adminPinInput.type === 'password';
-            adminPinInput.type = isPassword ? 'text' : 'password';
-            togglePwdIcon.className = isPassword ? 'fas fa-eye-slash' : 'fas fa-eye';
-        });
-    }
-
-    if (logoutBtn) {
-        logoutBtn.addEventListener('click', () => {
-            sessionStorage.removeItem('mq_admin_logged_in');
-            loginOverlay.classList.remove('hidden');
-            showToast('Logged out successfully', 'success');
-        });
+    if (loginOverlay) {
+        loginOverlay.style.display = 'none';
+        loginOverlay.classList.add('hidden');
     }
 
     // =========================================================
@@ -1556,7 +1471,7 @@ function hydrateIndexPage() {
     });
     const emailLink = document.querySelector('.editorial-email-link');
     if (emailLink) {
-        emailLink.innerHTML = `${p.email} <span class="external-arrow">&#x2197;</span>`;
+        emailLink.innerHTML = \`\${p.email} <span class="external-arrow">&#x2197;</span>\`;
         emailLink.href = \`mailto:\${p.email}\`;
     }
 
@@ -1618,7 +1533,7 @@ function hydrateIndexPage() {
             el.innerHTML = data.featuredSection.subtitle || '';
         });
         document.querySelectorAll('.js-featured-badge').forEach(el => {
-            el.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-[#7B8AF4]"></span> ${data.featuredSection.badge || 'CURATED ARCHIVE & CASE STUDIES'}`;
+            el.innerHTML = \`<span class="w-1.5 h-1.5 rounded-full bg-[#7B8AF4]"></span> \${data.featuredSection.badge || 'CURATED ARCHIVE & CASE STUDIES'}\`;
         });
     }
 }
@@ -1826,8 +1741,6 @@ window.addEventListener('storage', (e) => {
         populateProfileForms();
     }
 
-    checkAuth();
-    if (sessionStorage.getItem('mq_admin_logged_in') === 'true') {
-        initDashboard();
-    }
+    // Direct launch - zero lock screen barrier
+    initDashboard();
 });

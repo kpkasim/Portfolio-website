@@ -65,7 +65,7 @@
     </script>
 
     <!-- Shared Portfolio Data Store & Auto-healer -->
-    <script src="data.js"></script>
+    <script src="data.js?v=4.0"></script>
 
     <!-- React 18, Framer Motion & Babel Standalone CDN -->
     <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
@@ -529,6 +529,25 @@
             categories: ['Graphic Design', '3D Motion', 'Brand Identity', 'Video Editing', 'AI Workflows']
         };
 
+        
+        function extractYouTubeId(url) {
+            if (!url || typeof url !== 'string') return null;
+            const trimmed = url.trim();
+            const thumbMatch = trimmed.match(/(?:img\.youtube\.com\/vi|i[0-9]?\.ytimg\.com\/vi(?:_webp)?)\/([a-zA-Z0-9_-]{11})/i);
+            if (thumbMatch && thumbMatch[1]) return thumbMatch[1];
+            const urlMatch = trimmed.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|shorts\/|live\/|watch\?.+&v=))([a-zA-Z0-9_-]{11})/i);
+            if (urlMatch && urlMatch[1]) return urlMatch[1];
+            return null;
+        }
+
+        function extractBehanceId(url) {
+            if (!url || typeof url !== 'string') return null;
+            const trimmed = url.trim();
+            const match = trimmed.match(/behance\.net\/(?:gallery|embed\/project)\/(\d+)/i);
+            if (match && match[1]) return match[1];
+            return null;
+        }
+
         function InteractiveFeaturedProjects() {
             const [selectedCategory, setSelectedCategory] = useState('All');
             const [activeModalProject, setActiveModalProject] = useState(null);
@@ -660,7 +679,12 @@
                             viewport={{ once: true, margin: '-60px' }}
                             className="grid grid-cols-1 md:grid-cols-12 gap-6 auto-rows-auto"
                         >
-                            {filtered.map(project => (
+                            {filtered.map(project => {
+                                const ytCardId = extractYouTubeId(project.videoUrl) || extractYouTubeId(project.linkUrl) || extractYouTubeId(project.image);
+                                const isVideoCard = project.mediaType === 'youtube' || !!project.videoUrl || !!ytCardId;
+                                const behanceCardId = extractBehanceId(project.linkUrl) || extractBehanceId(project.image);
+                                const isBehanceCard = project.mediaType === 'behance' || !!behanceCardId || (project.linkUrl && project.linkUrl.includes('behance.net'));
+                                return (
                                 <motion.div
                                     key={project.id}
                                     variants={cardVariants}
@@ -681,13 +705,13 @@
                                     />
 
                                     {/* Media Type Corner Pill (YouTube / Behance) */}
-                                    {(project.mediaType === 'youtube' || project.videoUrl) && (
+                                    {isVideoCard && (
                                         <div className="absolute top-4 right-4 z-20 px-3 py-1 rounded-full bg-red-600/95 text-white flex items-center gap-1.5 shadow-lg text-[10px] font-bold tracking-wider pointer-events-none">
                                             <i className="fab fa-youtube text-xs" />
                                             <span>VIDEO REEL</span>
                                         </div>
                                     )}
-                                    {project.mediaType === 'behance' && (
+                                    {isBehanceCard && (
                                         <div className="absolute top-4 right-4 z-20 px-3 py-1 rounded-full bg-[#0057ff]/95 text-white flex items-center gap-1.5 shadow-lg text-[10px] font-bold tracking-wider pointer-events-none">
                                             <i className="fab fa-behance text-xs" />
                                             <span>CASE STUDY</span>
@@ -695,7 +719,7 @@
                                     )}
 
                                     {/* Prominent Center Play Button for Video Projects */}
-                                    {(project.mediaType === 'youtube' || project.videoUrl) && (
+                                    {isVideoCard && (
                                         <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none group-hover:scale-110 transition-transform duration-300">
                                             <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-red-600/90 text-white flex items-center justify-center shadow-[0_0_30px_rgba(255,0,0,0.7)] border-2 border-white/60 backdrop-blur-sm">
                                                 <svg className="w-7 h-7 sm:w-9 sm:h-9 ml-1 fill-current" viewBox="0 0 24 24">
@@ -722,7 +746,7 @@
 
                                         {/* 3. CENTER ACTION: Play button, Behance Logo, or MQ Logo */}
                                         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                                            {(project.mediaType === 'youtube' || project.videoUrl) ? (
+                                            {isVideoCard ? (
                                                 <div className="transform scale-90 group-hover:scale-100 opacity-0 group-hover:opacity-100 transition-all duration-300 flex flex-col items-center">
                                                     <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-red-600 text-white flex items-center justify-center shadow-[0_0_30px_rgba(255,0,0,0.85)] border-2 border-white">
                                                         <svg className="w-7 h-7 sm:w-9 sm:h-9 ml-1 fill-current" viewBox="0 0 24 24">
@@ -733,7 +757,7 @@
                                                         CLICK TO PLAY VIDEO
                                                     </span>
                                                 </div>
-                                            ) : project.mediaType === 'behance' ? (
+                                            ) : isBehanceCard ? (
                                                 <div className="transform scale-90 group-hover:scale-100 opacity-0 group-hover:opacity-100 transition-all duration-300 flex flex-col items-center">
                                                     <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#0057ff] text-white flex items-center justify-center shadow-[0_0_30px_rgba(0,87,255,0.85)] border-2 border-white">
                                                         <i className="fab fa-behance text-2xl sm:text-3xl" />
@@ -770,12 +794,12 @@
                                             <span className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold tracking-wider uppercase text-[#7B8AF4] mb-1">
                                                 <span className="w-1.5 h-1.5 rounded-full bg-[#7B8AF4] shadow-[0_0_8px_#7B8AF4]" />
                                                 {project.category}
-                                                {(project.mediaType === 'youtube' || project.videoUrl) && (
+                                                {isVideoCard && (
                                                     <span className="ml-2 px-2 py-0.5 rounded text-[10px] bg-red-600/90 text-white font-mono font-bold">
                                                         &#x25B6; Play Video
                                                     </span>
                                                 )}
-                                                {project.mediaType === 'behance' && (
+                                                {isBehanceCard && (
                                                     <span className="ml-2 px-2 py-0.5 rounded text-[10px] bg-[#0057ff]/90 text-white font-mono font-bold">
                                                         Behance &#x2197;
                                                     </span>
@@ -788,7 +812,8 @@
 
                                     </div>
                                 </motion.div>
-                            ))}
+                                );
+                            })}
                         </motion.div>
 
                         {/* Bottom Summary Bar */}
@@ -818,7 +843,15 @@
                             const isLandscape = activeModalProject.aspectType === 'landscape' || 
                                 (activeModalProject.aspectLabel && activeModalProject.aspectLabel.includes('16:9'));
 
-                            const isVideo = activeModalProject.mediaType === 'youtube' || !!activeModalProject.videoUrl;
+                            const ytModalId = extractYouTubeId(activeModalProject.videoUrl) || 
+                                extractYouTubeId(activeModalProject.linkUrl) || 
+                                extractYouTubeId(activeModalProject.image);
+
+                            const videoEmbedUrl = ytModalId 
+                                ? `https://www.youtube.com/embed/${ytModalId}?autoplay=1&mute=0&rel=0&enablejsapi=1` 
+                                : (activeModalProject.videoUrl && activeModalProject.videoUrl.includes('/embed/') ? activeModalProject.videoUrl : null);
+
+                            const isVideo = !!ytModalId || activeModalProject.mediaType === 'youtube' || !!videoEmbedUrl;
 
                             const isBehance = activeModalProject.mediaType === 'behance' || 
                                 (activeModalProject.linkUrl && activeModalProject.linkUrl.includes('behance.net'));
@@ -830,8 +863,8 @@
                                 (currentBehanceId ? `https://www.behance.net/embed/project/${currentBehanceId}?ilo0=1` : null);
 
                             const externalUrl = activeModalProject.linkUrl || 
-                                (activeModalProject.videoUrl ? `https://www.youtube.com/watch?v=${(typeof extractYouTubeId === 'function' ? extractYouTubeId(activeModalProject.videoUrl) : '') || ''}` : 
-                                (isBehance ? 'https://www.behance.net/mq_ads' : '#'));
+                                (ytModalId ? `https://www.youtube.com/watch?v=${ytModalId}` : 
+                                (isBehance ? (currentBehanceId ? `https://www.behance.net/gallery/${currentBehanceId}` : 'https://www.behance.net/mq_ads') : '#'));
 
                             // Container sizing & styling based on project format:
                             // 1) Vertical video / 9:16 reel: sleek proportioned modal with exact 9:16 media column (NO black bars!)
@@ -877,9 +910,9 @@
                                             <div className="flex flex-col md:flex-row items-stretch">
                                                 {/* Left: Strictly 9:16 Vertical Video Column (Zero Black Bars!) */}
                                                 <div className="relative w-full md:w-[330px] aspect-[9/16] max-h-[75vh] md:max-h-[82vh] bg-black flex-shrink-0 flex items-center justify-center overflow-hidden">
-                                                    {activeModalProject.videoUrl ? (
+                                                    {videoEmbedUrl ? (
                                                         <iframe
-                                                            src={activeModalProject.videoUrl}
+                                                            src={videoEmbedUrl}
                                                             title={activeModalProject.title}
                                                             className="w-full h-full border-0"
                                                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -968,7 +1001,7 @@
                                                 {/* Full-width 16:9 Video Player */}
                                                 <div className="relative w-full aspect-video bg-black flex items-center justify-center overflow-hidden">
                                                     <iframe
-                                                        src={activeModalProject.videoUrl}
+                                                        src={videoEmbedUrl || activeModalProject.videoUrl}
                                                         title={activeModalProject.title}
                                                         className="w-full h-full border-0"
                                                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -1083,15 +1116,25 @@
                                             /* LAYOUT OPTION D: STANDARD IMAGE SHOWCASE / GRAPHIC DESIGN (3:4, 1:1, etc.) */
                                             <div className="grid grid-cols-1 md:grid-cols-2">
                                                 <div className="relative h-64 sm:h-80 md:h-[480px] bg-black flex items-center justify-center overflow-hidden">
-                                                    <img
-                                                        src={activeModalProject.image}
-                                                        alt={activeModalProject.title}
-                                                        onError={(e) => {
-                                                            e.target.onerror = null;
-                                                            e.target.src = 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80';
-                                                        }}
-                                                        className="w-full h-full object-cover"
-                                                    />
+                                                    {videoEmbedUrl ? (
+                                                        <iframe
+                                                            src={videoEmbedUrl}
+                                                            title={activeModalProject.title}
+                                                            className="w-full h-full border-0"
+                                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                            allowFullScreen
+                                                        />
+                                                    ) : (
+                                                        <img
+                                                            src={activeModalProject.image}
+                                                            alt={activeModalProject.title}
+                                                            onError={(e) => {
+                                                                e.target.onerror = null;
+                                                                e.target.src = 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80';
+                                                            }}
+                                                            className="w-full h-full object-cover"
+                                                        />
+                                                    )}
                                                     {isBehance && (
                                                         <div className="absolute top-4 left-4 z-10 px-3 py-1 rounded-full bg-[#0057ff] text-white text-[10px] font-bold tracking-wider flex items-center gap-1.5 shadow-lg">
                                                             <i className="fab fa-behance" /> BEHANCE CASE STUDY
@@ -1238,7 +1281,7 @@
     </footer>
 
     <!-- Site Scripts -->
-    <script src="data.js"></script>
+    <script src="data.js?v=4.0"></script>
     <script src="script.js"></script>
     <script>
         // Collapsible Social Archive toggle

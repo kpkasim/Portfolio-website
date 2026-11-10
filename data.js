@@ -292,6 +292,9 @@ function extractYouTubeId(url) {
     if (urlMatch && urlMatch[1]) return urlMatch[1];
     return null;
 }
+if (typeof window !== 'undefined') {
+    window.extractYouTubeId = extractYouTubeId;
+}
 
 // Helper: Extract Behance project ID
 function extractBehanceId(url) {
@@ -300,6 +303,9 @@ function extractBehanceId(url) {
     const match = trimmed.match(/behance\.net\/(?:gallery|embed\/project)\/(\d+)/i);
     if (match && match[1]) return match[1];
     return null;
+}
+if (typeof window !== 'undefined') {
+    window.extractBehanceId = extractBehanceId;
 }
 
 // Helper: Auto-heal & sanitize featured project objects (YouTube thumbnails, Behance embeds & links)
