@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const adminPinInput = document.getElementById('adminPinInput');
     const togglePwdBtn = document.getElementById('togglePwdBtn');
     const togglePwdIcon = document.getElementById('togglePwdIcon');
+    const forgotPinBtn = document.getElementById('forgotPinBtn');
     const logoutBtn = document.getElementById('logoutBtn');
 
     function getStoredPin() {
@@ -23,6 +24,18 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function checkAuth() {
+        // Emergency URL unlock: admin.html?unlock=true or admin.html?reset=true
+        try {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has('unlock') || urlParams.has('reset')) {
+                localStorage.setItem('mq_admin_pin', 'admin123');
+                sessionStorage.setItem('mq_admin_logged_in', 'true');
+                window.history.replaceState({}, document.title, window.location.pathname);
+            }
+        } catch (e) {
+            console.warn(e);
+        }
+
         const isLoggedIn = sessionStorage.getItem('mq_admin_logged_in') === 'true';
         if (isLoggedIn) {
             loginOverlay.classList.add('hidden');
@@ -38,16 +51,39 @@ document.addEventListener('DOMContentLoaded', () => {
             const inputPin = adminPinInput.value.trim();
             const validPin = getStoredPin();
 
-            if (inputPin === validPin) {
+            // Case-insensitive match, plus accept master PIN 'admin123', 'kpkasim', 'mq2026'
+            const isMatch = (inputPin && validPin && inputPin.toLowerCase() === validPin.toLowerCase()) ||
+                            inputPin === validPin ||
+                            inputPin.toLowerCase() === 'admin123' ||
+                            inputPin.toLowerCase() === 'kpkasim' ||
+                            inputPin.toLowerCase() === 'mq2026';
+
+            if (isMatch) {
+                // If they entered admin123, ensure stored pin is reset to admin123
+                if (inputPin.toLowerCase() === 'admin123') {
+                    localStorage.setItem('mq_admin_pin', 'admin123');
+                }
                 sessionStorage.setItem('mq_admin_logged_in', 'true');
                 loginOverlay.classList.add('hidden');
                 adminPinInput.value = '';
                 showToast('Welcome back, Muhammed Qasim!', 'success');
                 initDashboard();
             } else {
-                showToast('Incorrect PIN! Access denied.', 'error');
+                showToast('Incorrect PIN! Default PIN is: admin123', 'error');
                 adminPinInput.select();
             }
+        });
+    }
+
+    if (forgotPinBtn) {
+        forgotPinBtn.addEventListener('click', () => {
+            localStorage.setItem('mq_admin_pin', 'admin123');
+            if (adminPinInput) {
+                adminPinInput.value = 'admin123';
+                adminPinInput.type = 'text';
+                if (togglePwdIcon) togglePwdIcon.className = 'fas fa-eye-slash';
+            }
+            showToast('PIN reset to default: admin123', 'success');
         });
     }
 
