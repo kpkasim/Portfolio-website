@@ -63,26 +63,18 @@ document.querySelectorAll('.fade-up').forEach((el) => {
 });
 
 // --- Dark Mode / Light Mode System ---
-const themeToggles = document.querySelectorAll('.theme-toggle');
-const savedTheme = localStorage.getItem('theme') || 'dark';
-
-function applyTheme(theme) {
-    const nextTheme = theme === 'light' ? 'light' : 'dark';
+window.toggleSiteTheme = window.toggleSiteTheme || function(e) {
+    if (e) {
+        try { e.preventDefault(); e.stopPropagation(); } catch(err) {}
+    }
+    const currentTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+    const nextTheme = currentTheme === 'dark' ? 'light' : 'dark';
     document.documentElement.setAttribute('data-theme', nextTheme);
-    localStorage.setItem('theme', nextTheme);
-}
+    try { localStorage.setItem('theme', nextTheme); } catch(err) {}
+};
 
-// Ensure theme is set consistently on initialization
-applyTheme(savedTheme);
-
-themeToggles.forEach(toggle => {
-    toggle.addEventListener('click', (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        const currentTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
-        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-        applyTheme(newTheme);
-    });
+document.querySelectorAll('.theme-toggle').forEach(toggle => {
+    toggle.onclick = window.toggleSiteTheme;
 });
 // --- Contact Form & Google Form Logic ---
 const contactForm = document.getElementById('contactForm');

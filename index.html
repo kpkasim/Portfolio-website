@@ -5,12 +5,136 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Muhammed Qasim | Multidisciplinary Designer</title>
 
+    <!-- CRITICAL INLINE THEME ENGINE (Guaranteed instant toggle, 0 latency, immune to cache) -->
     <script>
         (function() {
-            var theme = localStorage.getItem('theme') || 'dark';
-            document.documentElement.setAttribute('data-theme', theme === 'light' ? 'light' : 'dark');
+            var saved = null;
+            try { saved = localStorage.getItem('theme'); } catch(e) {}
+            var theme = saved || 'dark';
+            document.documentElement.setAttribute('data-theme', theme);
         })();
+
+        function toggleSiteTheme(e) {
+            if (e) {
+                try { e.preventDefault(); e.stopPropagation(); } catch(err) {}
+            }
+            var cur = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+            var next = cur === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', next);
+            try { localStorage.setItem('theme', next); } catch(err) {}
+        }
+        window.toggleSiteTheme = toggleSiteTheme;
     </script>
+
+    <style id="themeCriticalStyles">
+        :root,
+        html[data-theme="light"],
+        [data-theme="light"] {
+            color-scheme: light !important;
+            --bg-main: #fbfbfd !important;
+            --hero-bg: #f5f5f7 !important;
+            --accent-color: #5568fe !important;
+            --accent-glow: rgba(85, 104, 254, 0.25) !important;
+            --text-dark: #0f111a !important;
+            --text-gray: #555869 !important;
+            --vector-card-bg: #ffffff !important;
+            --vector-border: rgba(15, 17, 26, 0.12) !important;
+            --vector-border-hover: rgba(85, 104, 254, 0.6) !important;
+            --divider-color: rgba(15, 17, 26, 0.08) !important;
+            --pill-bg: rgba(15, 17, 26, 0.05) !important;
+            --pill-border: rgba(15, 17, 26, 0.14) !important;
+            --glass-bg: rgba(255, 255, 255, 0.85) !important;
+            --glass-border: rgba(15, 17, 26, 0.12) !important;
+            --glass-shadow: 0 4px 20px rgba(0, 0, 0, 0.06) !important;
+            --input-bg: #ffffff !important;
+            --input-border: rgba(15, 17, 26, 0.18) !important;
+        }
+
+        [data-theme="dark"],
+        html[data-theme="dark"] {
+            color-scheme: dark !important;
+            --bg-main: #0b0c10 !important;
+            --hero-bg: #101116 !important;
+            --accent-color: #7b91ff !important;
+            --accent-glow: rgba(123, 145, 255, 0.25) !important;
+            --text-dark: #f5f6fa !important;
+            --text-gray: #9295a6 !important;
+            --vector-card-bg: rgba(22, 24, 31, 0.85) !important;
+            --vector-border: rgba(255, 255, 255, 0.09) !important;
+            --vector-border-hover: rgba(123, 145, 255, 0.7) !important;
+            --divider-color: rgba(255, 255, 255, 0.06) !important;
+            --pill-bg: rgba(255, 255, 255, 0.06) !important;
+            --pill-border: rgba(255, 255, 255, 0.14) !important;
+            --glass-bg: rgba(25, 27, 36, 0.65) !important;
+            --glass-border: rgba(255, 255, 255, 0.1) !important;
+            --glass-shadow: 0 4px 20px rgba(0, 0, 0, 0.4) !important;
+            --input-bg: rgba(22, 24, 31, 0.85) !important;
+            --input-border: rgba(255, 255, 255, 0.14) !important;
+        }
+
+        html, body {
+            background-color: var(--bg-main) !important;
+            color: var(--text-dark) !important;
+            transition: background-color 0.35s ease, color 0.35s ease;
+        }
+
+        /* Light mode explicit styling */
+        html[data-theme="light"] body {
+            background-color: #fbfbfd !important;
+            color: #0f111a !important;
+        }
+        html[data-theme="light"] .title,
+        html[data-theme="light"] .hero-right h2,
+        html[data-theme="light"] .approach-title,
+        html[data-theme="light"] .logo {
+            color: #0f111a !important;
+        }
+        html[data-theme="light"] .vector-card,
+        html[data-theme="light"] .tool-vector-box,
+        html[data-theme="light"] .vector-narrative-box {
+            background-color: #ffffff !important;
+            border-color: rgba(15, 17, 26, 0.1) !important;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05) !important;
+        }
+        html[data-theme="light"] .vector-card-body h3,
+        html[data-theme="light"] .tool-meta h4 {
+            color: #0f111a !important;
+        }
+
+        /* Dark mode explicit styling */
+        html[data-theme="dark"] body {
+            background-color: #0b0c10 !important;
+            color: #f5f6fa !important;
+        }
+        html[data-theme="dark"] .title,
+        html[data-theme="dark"] .hero-right h2,
+        html[data-theme="dark"] .approach-title,
+        html[data-theme="dark"] .logo {
+            color: #ffffff !important;
+        }
+        html[data-theme="dark"] .vector-card,
+        html[data-theme="dark"] .tool-vector-box,
+        html[data-theme="dark"] .vector-narrative-box {
+            background-color: rgba(22, 24, 31, 0.85) !important;
+            border-color: rgba(255, 255, 255, 0.09) !important;
+        }
+        html[data-theme="dark"] .vector-card-body h3,
+        html[data-theme="dark"] .tool-meta h4 {
+            color: #ffffff !important;
+        }
+
+        /* Toggle Button Track & Knob States */
+        .toggle-track { pointer-events: none; }
+        .toggle-knob { pointer-events: none; }
+        html[data-theme="dark"] .toggle-track {
+            background: linear-gradient(90deg, #00c6ff, #0072ff) !important;
+        }
+        html[data-theme="dark"] .toggle-knob {
+            transform: translateX(32px) !important;
+        }
+        html[data-theme="dark"] .toggle-icon-dark { display: block !important; }
+        html[data-theme="dark"] .toggle-icon-light { display: none !important; }
+    </style>
 
     <!-- Mobile Web App & Theme Color (Matches dark & light mode seamlessly) -->
     <meta name="theme-color" content="#0b0c10" media="(prefers-color-scheme: dark)">
@@ -112,7 +236,7 @@
                 <li><a href="works.html">Projects</a></li>
             </ul>
             <div style="display: flex; gap: 15px; align-items: center;">
-                <button class="theme-toggle glass-switch" aria-label="Toggle theme">
+                <button class="theme-toggle glass-switch" id="themeToggleBtn" aria-label="Toggle theme" onclick="toggleSiteTheme(event)">
                     <div class="toggle-track"></div>
                     <div class="toggle-knob"><i class="fas fa-sun toggle-icon-light"></i><i class="fas fa-moon toggle-icon-dark"></i></div>
                 </button>
