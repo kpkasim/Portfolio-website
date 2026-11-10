@@ -1,9 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Projects & Portfolio Works | Muhammed Qasim (MQ)</title>
+
+    <script>
+        (function() {
+            var theme = localStorage.getItem('theme') || 'dark';
+            if (theme === 'dark') {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            } else {
+                document.documentElement.removeAttribute('data-theme');
+            }
+        })();
+    </script>
 
     <!-- Mobile Web App & Theme Color -->
     <meta name="theme-color" content="#0F111A" media="(prefers-color-scheme: dark)">
@@ -148,19 +159,34 @@
         </div>
     </nav>
 
+    <!-- Morphic Style Hero Section -->
+    <section class="morphic-hero container" style="padding-top: 50px; padding-bottom: 40px;">
+        <div class="mh-left">
+            <div class="section-tag-mono"><span class="tag-corner">&#x250C;</span> SELECTED ARCHIVE & PRODUCTIONS</div>
+            <h1 class="mh-title">Smart storytelling<br><span class="mh-muted">For every creative</span></h1>
+        </div>
+        <div class="mh-right">
+            <p class="mh-desc">I specialize in generating, animating, and editing high-quality visuals effortlessly using a blend of traditional tools and breakthrough AI technologies.</p>
+            <div class="mh-buttons">
+                <a href="index.html#contact" class="editorial-pill"><i class="fas fa-paper-plane"></i> Contact me <span>&#x2197;</span></a>
+                <a href="index.html#about" class="editorial-pill">About me <span>&#x2197;</span></a>
+            </div>
+        </div>
+    </section>
+
     <!-- =========================================================================
-         PROJECTS SECTION (React + Tailwind CSS + Framer Motion Root)
+         FEATURED PROJECTS SECTION (React + Tailwind CSS + Framer Motion Root)
          Matches Dark Theme (#0F111A)
          ========================================================================= -->
     <div id="featured-projects-root">
         <!-- Static HTML/CSS Fallback for Instant Render Before React Mounts -->
-        <section id="featured-projects" class="featured-projects-section" style="padding-top: 60px; padding-bottom: 80px;">
+        <section id="featured-projects" class="featured-projects-section">
             <div class="max-w-7xl mx-auto">
                 <!-- 1. Section Header -->
                 <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 sm:mb-16 gap-6">
                     <div>
                         <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#7B8AF4]/10 border border-[#7B8AF4]/25 text-[#7B8AF4] text-xs font-mono tracking-widest uppercase mb-4 shadow-[0_0_15px_rgba(123,138,244,0.15)] js-featured-badge">
-                            <span class="w-1.5 h-1.5 rounded-full bg-[#7B8AF4] shadow-[0_0_8px_#7B8AF4]"></span> CURATED ARCHIVE &amp; CASE STUDIES
+                            <span class="text-white/40">&#x250C;</span> CURATED ARCHIVE & CASE STUDIES
                         </div>
                         <div class="flex items-center flex-wrap gap-3 sm:gap-4">
                             <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white tracking-tight js-featured-title">
@@ -189,7 +215,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-12 gap-6 auto-rows-auto">
                     
                     <!-- Card 1: Landscape (16:9) -->
-                    <div class="mq-project-card col-span-1 md:col-span-12 lg:col-span-8 h-[250px] sm:h-[340px] lg:h-[420px]">
+                    <div class="mq-project-card col-span-1 md:col-span-12 lg:col-span-8 h-[340px] sm:h-[400px]">
                         <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80" alt="Aura Kinetic Identity" loading="lazy">
                         <div class="mq-glass-overlay">
                             <div class="flex items-center justify-between">
@@ -210,7 +236,7 @@
                     </div>
 
                     <!-- Card 2: Portrait (3:4) -->
-                    <div class="mq-project-card col-span-1 md:col-span-6 lg:col-span-4 h-[360px] sm:h-[440px] lg:h-[440px]">
+                    <div class="mq-project-card col-span-1 md:col-span-6 lg:col-span-4 h-[420px] sm:h-[480px] lg:h-[400px]">
                         <img src="https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?auto=format&fit=crop&w=800&q=80" alt="Cybernetic HUD & Hologram" loading="lazy">
                         <div class="mq-glass-overlay">
                             <div class="flex items-center justify-between">
@@ -231,7 +257,7 @@
                     </div>
 
                     <!-- Card 3: Landscape (16:9) -->
-                    <div class="mq-project-card col-span-1 md:col-span-6 lg:col-span-5 h-[250px] sm:h-[320px] lg:h-[380px]">
+                    <div class="mq-project-card col-span-1 md:col-span-6 lg:col-span-5 h-[340px] sm:h-[390px]">
                         <img src="https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=1000&q=80" alt="Apex Velocity Commercial" loading="lazy">
                         <div class="mq-glass-overlay">
                             <div class="flex items-center justify-between">
@@ -252,7 +278,7 @@
                     </div>
 
                     <!-- Card 4: Square (1:1) -->
-                    <div class="mq-project-card col-span-1 md:col-span-6 lg:col-span-3 h-[280px] sm:h-[340px] lg:h-[380px]">
+                    <div class="mq-project-card col-span-1 md:col-span-6 lg:col-span-3 h-[340px] sm:h-[390px]">
                         <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&w=800&q=80" alt="Fluid Chromatic Vortex" loading="lazy">
                         <div class="mq-glass-overlay">
                             <div class="flex items-center justify-between">
@@ -273,7 +299,7 @@
                     </div>
 
                     <!-- Card 5: Portrait (3:4) -->
-                    <div class="mq-project-card col-span-1 md:col-span-6 lg:col-span-4 h-[360px] sm:h-[440px] lg:h-[440px]">
+                    <div class="mq-project-card col-span-1 md:col-span-6 lg:col-span-4 h-[420px] sm:h-[480px] lg:h-[390px]">
                         <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=800&q=80" alt="Neo-Tokyo Editorial Poster" loading="lazy">
                         <div class="mq-glass-overlay">
                             <div class="flex items-center justify-between">
@@ -294,7 +320,7 @@
                     </div>
 
                     <!-- Card 6: Square (1:1) -->
-                    <div class="mq-project-card col-span-1 md:col-span-6 lg:col-span-4 h-[280px] sm:h-[340px] lg:h-[400px]">
+                    <div class="mq-project-card col-span-1 md:col-span-6 lg:col-span-4 h-[340px] sm:h-[400px]">
                         <img src="https://images.unsplash.com/photo-1536240478700-b869070f9279?auto=format&fit=crop&w=800&q=80" alt="Solstice Cinematic Grade" loading="lazy">
                         <div class="mq-glass-overlay">
                             <div class="flex items-center justify-between">
@@ -315,7 +341,7 @@
                     </div>
 
                     <!-- Card 7: Portrait (3:4) -->
-                    <div class="mq-project-card col-span-1 md:col-span-6 lg:col-span-4 h-[360px] sm:h-[440px] lg:h-[440px]">
+                    <div class="mq-project-card col-span-1 md:col-span-6 lg:col-span-4 h-[420px] sm:h-[480px] lg:h-[400px]">
                         <img src="https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?auto=format&fit=crop&w=800&q=80" alt="Bioluminescent Synthetics" loading="lazy">
                         <div class="mq-glass-overlay">
                             <div class="flex items-center justify-between">
@@ -336,7 +362,7 @@
                     </div>
 
                     <!-- Card 8: Landscape (16:9) -->
-                    <div class="mq-project-card col-span-1 md:col-span-12 lg:col-span-4 h-[250px] sm:h-[340px] lg:h-[420px]">
+                    <div class="mq-project-card col-span-1 md:col-span-12 lg:col-span-4 h-[340px] sm:h-[400px]">
                         <img src="https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?auto=format&fit=crop&w=1200&q=80" alt="Quantum Monolith Renders" loading="lazy">
                         <div class="mq-glass-overlay">
                             <div class="flex items-center justify-between">
@@ -383,27 +409,13 @@
 
         const PROJECTS_LIST = [
             {
-                id: 'fp1',
-                title: 'Neo-Tokyo Editorial Poster',
-                category: 'Graphic Design',
-                aspectType: 'portrait',
-                aspectLabel: '3:4 Portrait',
-                gridSpan: 'col-span-1 md:col-span-6 lg:col-span-4',
-                heightClass: 'h-[360px] sm:h-[440px] lg:h-[440px]',
-                image: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=800&q=80',
-                client: 'Kuro Cultural Festival',
-                year: '2026',
-                tools: ['Photoshop', 'Illustrator', 'Glyphs'],
-                description: 'Brutalist typographic hierarchy blending bilingual kanji-latin lettering with distressed risograph textures and vector grids.'
-            },
-            {
-                id: 'fp2',
+                id: 'p1',
                 title: 'Aura Kinetic Identity',
                 category: 'Brand Identity',
                 aspectType: 'landscape',
                 aspectLabel: '16:9 Landscape',
                 gridSpan: 'col-span-1 md:col-span-12 lg:col-span-8',
-                heightClass: 'h-[250px] sm:h-[340px] lg:h-[420px]',
+                heightClass: 'h-[320px] sm:h-[380px] lg:h-[420px]',
                 image: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80',
                 client: 'Aura Collective',
                 year: '2026',
@@ -411,13 +423,13 @@
                 description: 'Complete visual identity, kinetic motion guidelines, and high-contrast editorial system engineered for an avant-garde digital arts collective.'
             },
             {
-                id: 'fp3',
+                id: 'p2',
                 title: 'Cybernetic HUD & Hologram',
                 category: '3D Motion',
                 aspectType: 'portrait',
                 aspectLabel: '3:4 Portrait',
                 gridSpan: 'col-span-1 md:col-span-6 lg:col-span-4',
-                heightClass: 'h-[360px] sm:h-[440px] lg:h-[440px]',
+                heightClass: 'h-[420px] sm:h-[480px] lg:h-[420px]',
                 image: 'https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?auto=format&fit=crop&w=800&q=80',
                 client: 'NeuroTech Labs',
                 year: '2026',
@@ -425,13 +437,13 @@
                 description: 'Futuristic holographic HUD simulation with dispersion shaders and tactile glass refraction designed for next-gen wearable spatial interfaces.'
             },
             {
-                id: 'fp4',
+                id: 'p3',
                 title: 'Apex Velocity Commercial',
                 category: 'Video Editing',
                 aspectType: 'landscape',
                 aspectLabel: '16:9 Landscape',
                 gridSpan: 'col-span-1 md:col-span-6 lg:col-span-5',
-                heightClass: 'h-[250px] sm:h-[320px] lg:h-[380px]',
+                heightClass: 'h-[320px] sm:h-[380px] lg:h-[400px]',
                 image: 'https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=1000&q=80',
                 client: 'Apex Athletics',
                 year: '2026',
@@ -439,13 +451,13 @@
                 description: 'High-octane commercial pacing with dynamic match cuts, analog film texture, and bespoke cinematic sound design for social campaign launches.'
             },
             {
-                id: 'fp5',
+                id: 'p4',
                 title: 'Fluid Chromatic Vortex',
                 category: '3D Motion',
                 aspectType: 'square',
                 aspectLabel: '1:1 Square',
                 gridSpan: 'col-span-1 md:col-span-6 lg:col-span-3',
-                heightClass: 'h-[280px] sm:h-[340px] lg:h-[380px]',
+                heightClass: 'h-[320px] sm:h-[380px] lg:h-[400px]',
                 image: 'https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&w=800&q=80',
                 client: 'Solaria Media',
                 year: '2026',
@@ -453,29 +465,27 @@
                 description: 'Complex particle and fluid simulation exploring chromatic aberration, surface tension dynamics, and caustic light interactions.'
             },
             {
-                id: 'fp6',
-                title: 'Visual Branding & Packaging',
-                category: 'Graphic Design',
-                aspectType: 'landscape',
-                aspectLabel: '16:9 Landscape',
+                id: 'p5',
+                title: 'Neo-Tokyo Editorial Poster',
+                category: 'Brand Identity',
+                aspectType: 'portrait',
+                aspectLabel: '3:4 Portrait',
                 gridSpan: 'col-span-1 md:col-span-6 lg:col-span-4',
-                heightClass: 'h-[260px] sm:h-[340px] lg:h-[400px]',
-                mediaType: 'behance',
-                linkUrl: 'https://www.behance.net/mq_ads',
-                image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1000&q=80',
-                client: 'Vektor Studio',
+                heightClass: 'h-[420px] sm:h-[480px] lg:h-[400px]',
+                image: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=800&q=80',
+                client: 'Kuro Cultural Festival',
                 year: '2026',
-                tools: ['Illustrator', 'Photoshop', 'InDesign'],
-                description: 'Minimalist editorial packaging design, embossed foil identity systems, and high-impact poster marketing collateral.'
+                tools: ['Photoshop', 'Illustrator', 'Glyphs'],
+                description: 'Brutalist typographic hierarchy blending bilingual kanji-latin lettering with distressed risograph textures and vector grids.'
             },
             {
-                id: 'fp7',
+                id: 'p6',
                 title: 'Solstice Cinematic Grade',
                 category: 'Video Editing',
                 aspectType: 'square',
                 aspectLabel: '1:1 Square',
                 gridSpan: 'col-span-1 md:col-span-6 lg:col-span-4',
-                heightClass: 'h-[280px] sm:h-[340px] lg:h-[400px]',
+                heightClass: 'h-[340px] sm:h-[400px] lg:h-[420px]',
                 image: 'https://images.unsplash.com/photo-1536240478700-b869070f9279?auto=format&fit=crop&w=800&q=80',
                 client: 'Indie Motion Pictures',
                 year: '2026',
@@ -483,13 +493,13 @@
                 description: 'Moody atmospheric color grading and analog film grain mastering for a psychological drama short, tuned with custom HDR color curves.'
             },
             {
-                id: 'fp8',
+                id: 'p7',
                 title: 'Bioluminescent Synthetics',
                 category: 'AI Workflows',
                 aspectType: 'portrait',
                 aspectLabel: '3:4 Portrait',
                 gridSpan: 'col-span-1 md:col-span-6 lg:col-span-4',
-                heightClass: 'h-[360px] sm:h-[440px] lg:h-[440px]',
+                heightClass: 'h-[420px] sm:h-[480px] lg:h-[420px]',
                 image: 'https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?auto=format&fit=crop&w=800&q=80',
                 client: 'Exo Organics',
                 year: '2026',
@@ -497,13 +507,13 @@
                 description: 'Custom diffusion-driven visual synthesis guided by 3D depth control nets, refined with manual hand-painted composite textures.'
             },
             {
-                id: 'fp9',
+                id: 'p8',
                 title: 'Quantum Monolith Renders',
                 category: '3D Motion',
                 aspectType: 'landscape',
                 aspectLabel: '16:9 Landscape',
                 gridSpan: 'col-span-1 md:col-span-12 lg:col-span-4',
-                heightClass: 'h-[250px] sm:h-[340px] lg:h-[420px]',
+                heightClass: 'h-[320px] sm:h-[380px] lg:h-[420px]',
                 image: 'https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?auto=format&fit=crop&w=1200&q=80',
                 client: 'Vektor Architecture',
                 year: '2026',
@@ -598,17 +608,17 @@
             };
 
             return (
-                <section id="featured-projects" className="relative w-full bg-[#0F111A] text-white pt-16 pb-20 sm:pt-20 sm:pb-24 px-4 sm:px-6 lg:px-12 overflow-hidden">
+                <section id="featured-projects" className="relative w-full bg-[#0F111A] text-white py-20 px-4 sm:px-6 lg:px-12 overflow-hidden">
                     {/* Ambient glow spots */}
                     <div className="absolute top-1/4 -left-48 w-96 h-96 bg-[#7B8AF4]/10 rounded-full blur-[140px] pointer-events-none" />
                     <div className="absolute bottom-1/4 -right-48 w-96 h-96 bg-[#7B8AF4]/10 rounded-full blur-[140px] pointer-events-none" />
 
                     <div className="max-w-7xl mx-auto relative z-10">
                         {/* 1. SECTION HEADER */}
-                        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 sm:mb-14 gap-6">
+                        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 sm:mb-16 gap-6">
                             <div>
                                 <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#7B8AF4]/10 border border-[#7B8AF4]/25 text-[#7B8AF4] text-xs font-mono tracking-widest uppercase mb-4 shadow-[0_0_15px_rgba(123,138,244,0.15)]">
-                                    <span className="w-1.5 h-1.5 rounded-full bg-[#7B8AF4] shadow-[0_0_8px_#7B8AF4]" /> {featuredMeta.badge || 'CURATED ARCHIVE & CASE STUDIES'}
+                                    <span className="text-white/40">&#x250C;</span> {featuredMeta.badge || 'CURATED ARCHIVE & CASE STUDIES'}
                                 </div>
                                 <div className="flex items-center flex-wrap gap-3 sm:gap-4">
                                     <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white tracking-tight">
@@ -672,13 +682,13 @@
 
                                     {/* Media Type Corner Pill (YouTube / Behance) */}
                                     {(project.mediaType === 'youtube' || project.videoUrl) && (
-                                        <div className="absolute top-3 right-3 sm:top-4 sm:right-4 z-20 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full bg-red-600/95 text-white flex items-center gap-1.5 shadow-lg text-[9px] sm:text-[10px] font-bold tracking-wider pointer-events-none">
+                                        <div className="absolute top-4 right-4 z-20 px-3 py-1 rounded-full bg-red-600/95 text-white flex items-center gap-1.5 shadow-lg text-[10px] font-bold tracking-wider pointer-events-none">
                                             <i className="fab fa-youtube text-xs" />
                                             <span>VIDEO REEL</span>
                                         </div>
                                     )}
                                     {project.mediaType === 'behance' && (
-                                        <div className="absolute top-3 right-3 sm:top-4 sm:right-4 z-20 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full bg-[#0057ff]/95 text-white flex items-center gap-1.5 shadow-lg text-[9px] sm:text-[10px] font-bold tracking-wider pointer-events-none">
+                                        <div className="absolute top-4 right-4 z-20 px-3 py-1 rounded-full bg-[#0057ff]/95 text-white flex items-center gap-1.5 shadow-lg text-[10px] font-bold tracking-wider pointer-events-none">
                                             <i className="fab fa-behance text-xs" />
                                             <span>CASE STUDY</span>
                                         </div>
@@ -687,24 +697,13 @@
                                     {/* Prominent Center Play Button for Video Projects */}
                                     {(project.mediaType === 'youtube' || project.videoUrl) && (
                                         <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none group-hover:scale-110 transition-transform duration-300">
-                                            <div className="w-14 h-14 sm:w-20 sm:h-20 rounded-full bg-red-600/90 text-white flex items-center justify-center shadow-[0_0_30px_rgba(255,0,0,0.7)] border-2 border-white/60 backdrop-blur-sm">
-                                                <svg className="w-6 h-6 sm:w-9 sm:h-9 ml-1 fill-current" viewBox="0 0 24 24">
+                                            <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-red-600/90 text-white flex items-center justify-center shadow-[0_0_30px_rgba(255,0,0,0.7)] border-2 border-white/60 backdrop-blur-sm">
+                                                <svg className="w-7 h-7 sm:w-9 sm:h-9 ml-1 fill-current" viewBox="0 0 24 24">
                                                     <path d="M8 5v14l11-7z" />
                                                 </svg>
                                             </div>
                                         </div>
                                     )}
-
-                                    {/* Mobile Always-Visible Bottom Title Bar (Visible on mobile/touch screens when overlay is hidden) */}
-                                    <div className="absolute inset-x-0 bottom-0 p-3.5 bg-gradient-to-t from-[#0F111A]/95 via-[#0F111A]/75 to-transparent sm:hidden flex flex-col justify-end pointer-events-none z-10 group-hover:opacity-0 transition-opacity duration-300">
-                                        <span className="inline-flex items-center gap-1.5 text-[10px] font-semibold tracking-wider uppercase text-[#7B8AF4] mb-0.5">
-                                            <span className="w-1.5 h-1.5 rounded-full bg-[#7B8AF4] shadow-[0_0_6px_#7B8AF4]" />
-                                            {project.category}
-                                        </span>
-                                        <h4 className="text-white font-bold text-sm tracking-tight truncate">
-                                            {project.title}
-                                        </h4>
-                                    </div>
 
                                     {/* 3. Dark, semi-transparent glassmorphism overlay */}
                                     <div className="absolute inset-0 bg-[#0F111A]/80 backdrop-blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-out flex flex-col justify-between p-6 sm:p-7 z-20 pointer-events-none group-hover:pointer-events-auto">
@@ -827,8 +826,8 @@
                             const currentBehanceId = activeModalProject.behanceId || 
                                 (typeof extractBehanceId === 'function' ? extractBehanceId(activeModalProject.linkUrl || activeModalProject.image || '') : null);
 
-                            const isNumericBehanceId = currentBehanceId && /^\d+$/.test(String(currentBehanceId).trim());
-                            const validBehanceEmbed = isNumericBehanceId ? `https://www.behance.net/embed/project/${currentBehanceId}?ilo0=1` : null;
+                            const behanceEmbed = activeModalProject.behanceEmbedUrl || 
+                                (currentBehanceId ? `https://www.behance.net/embed/project/${currentBehanceId}?ilo0=1` : null);
 
                             const externalUrl = activeModalProject.linkUrl || 
                                 (activeModalProject.videoUrl ? `https://www.youtube.com/watch?v=${(typeof extractYouTubeId === 'function' ? extractYouTubeId(activeModalProject.videoUrl) : '') || ''}` : 
@@ -840,10 +839,10 @@
                             // 3) Behance case study: wide canvas with interactive Behance embed or high-res showcase
                             // 4) Standard square/portrait: balanced 2-column modal
                             const modalContainerClass = isVertical
-                                ? 'max-w-[700px] max-h-[92vh]'
+                                ? 'max-w-[760px] max-h-[90vh]'
                                 : (isLandscape && isVideo)
                                     ? 'max-w-4xl max-h-[92vh]'
-                                    : (isBehance && validBehanceEmbed)
+                                    : (isBehance && behanceEmbed)
                                         ? 'max-w-5xl max-h-[92vh]'
                                         : 'max-w-4xl max-h-[90vh]';
 
@@ -861,59 +860,51 @@
                                         exit={{ scale: 0.92, opacity: 0, y: 25 }}
                                         transition={{ type: 'spring', damping: 26, stiffness: 220 }}
                                         onClick={e => e.stopPropagation()}
-                                        className={`relative w-full ${modalContainerClass} bg-[#141724] border border-[#7B8AF4]/30 rounded-2xl overflow-y-auto max-h-[92vh] shadow-[0_20px_60px_rgba(0,0,0,0.85)] flex flex-col my-auto`}
+                                        className={`relative w-full ${modalContainerClass} bg-[#141724] border border-[#7B8AF4]/30 rounded-2xl overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.85)] flex flex-col my-auto`}
                                     >
-                                        {/* Close Button with crisp SVG icon (immune to encoding errors) */}
+                                        {/* Close Button */}
                                         <button
                                             type="button"
                                             onClick={() => setActiveModalProject(null)}
-                                            className="absolute top-3.5 right-3.5 sm:top-4 sm:right-4 z-50 w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#0F111A]/90 hover:bg-[#7B8AF4] hover:text-[#0F111A] text-white border border-white/20 flex items-center justify-center transition-all duration-200 shadow-xl cursor-pointer"
+                                            className="absolute top-4 right-4 z-30 w-10 h-10 rounded-full bg-[#0F111A]/85 border border-white/15 text-white hover:text-[#7B8AF4] hover:border-[#7B8AF4] flex items-center justify-center transition-all duration-200 shadow-lg text-lg"
                                             aria-label="Close modal"
                                         >
-                                            <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                                                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                                            </svg>
+                                            &times;
                                         </button>
 
                                         {/* LAYOUT OPTION A: 9:16 VERTICAL VIDEO / REEL */}
                                         {isVertical ? (
                                             <div className="flex flex-col md:flex-row items-stretch">
                                                 {/* Left: Strictly 9:16 Vertical Video Column (Zero Black Bars!) */}
-                                                <div className="relative w-full max-w-[280px] sm:max-w-[320px] md:max-w-none md:w-[320px] lg:w-[340px] aspect-[9/16] bg-black flex-shrink-0 flex items-center justify-center overflow-hidden mx-auto md:mx-0 rounded-2xl md:rounded-none my-3 md:my-0 shadow-2xl border border-white/10 md:border-0">
+                                                <div className="relative w-full md:w-[330px] aspect-[9/16] max-h-[75vh] md:max-h-[82vh] bg-black flex-shrink-0 flex items-center justify-center overflow-hidden">
                                                     {activeModalProject.videoUrl ? (
                                                         <iframe
                                                             src={activeModalProject.videoUrl}
                                                             title={activeModalProject.title}
-                                                            className="w-full h-full border-0 object-cover"
+                                                            className="w-full h-full border-0"
                                                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                                             allowFullScreen
                                                         />
                                                     ) : (
-                                                        <div className="relative w-full h-full">
-                                                            <div
-                                                                className="absolute inset-0 bg-cover bg-center filter blur-xl opacity-40 scale-110 pointer-events-none"
-                                                                style={{ backgroundImage: `url(${activeModalProject.image})` }}
-                                                            />
-                                                            <img
-                                                                src={activeModalProject.image}
-                                                                alt={activeModalProject.title}
-                                                                onError={(e) => {
-                                                                    e.target.onerror = null;
-                                                                    e.target.src = 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80';
-                                                                }}
-                                                                className="relative z-10 w-full h-full object-cover"
-                                                            />
-                                                        </div>
+                                                        <img
+                                                            src={activeModalProject.image}
+                                                            alt={activeModalProject.title}
+                                                            onError={(e) => {
+                                                                e.target.onerror = null;
+                                                                e.target.src = 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80';
+                                                            }}
+                                                            className="w-full h-full object-cover"
+                                                        />
                                                     )}
-                                                    <span className="absolute top-3 left-3 z-20 px-2.5 py-1 rounded-full bg-red-600/90 backdrop-blur-sm text-white text-[10px] font-mono font-bold tracking-wider shadow flex items-center gap-1.5">
-                                                        <span className="w-1.5 h-1.5 rounded-full bg-white animate-ping" /> 9:16 VERTICAL REEL
+                                                    <span className="absolute top-3 left-3 z-10 px-2.5 py-1 rounded-full bg-red-600 text-white text-[10px] font-mono font-bold tracking-wider shadow">
+                                                        9:16 VERTICAL REEL
                                                     </span>
                                                 </div>
 
                                                 {/* Right: Details Panel tailored to vertical height */}
-                                                <div className="flex-1 p-5 sm:p-7 flex flex-col justify-between overflow-y-auto max-h-[60vh] md:max-h-[82vh] bg-[#141724]">
+                                                <div className="flex-1 p-6 sm:p-7 flex flex-col justify-between overflow-y-auto max-h-[75vh] md:max-h-[82vh] bg-[#141724]">
                                                     <div>
-                                                        <div className="flex items-center gap-2 text-xs font-mono text-[#7B8AF4] uppercase tracking-widest mb-2 font-semibold">
+                                                        <div className="flex items-center gap-2 text-xs font-mono text-[#7B8AF4] uppercase tracking-widest mb-2">
                                                             <span className="w-2 h-2 rounded-full bg-[#7B8AF4] shadow-[0_0_8px_#7B8AF4]" />
                                                             {activeModalProject.category} &bull; {activeModalProject.year || '2026'}
                                                         </div>
@@ -931,7 +922,7 @@
                                                                 <span className="text-white font-medium">Client:</span> {activeModalProject.client || 'Client Project'}
                                                             </div>
                                                             <div>
-                                                                <span className="text-white font-medium">Format:</span> 9:16 Vertical
+                                                                <span className="text-white font-medium">Format:</span> 9:16 Vertical Reel
                                                             </div>
                                                             {activeModalProject.tools && (
                                                                 <div className="flex flex-wrap gap-1.5 pt-2">
@@ -951,21 +942,20 @@
                                                                     href={externalUrl}
                                                                     target="_blank"
                                                                     rel="noopener noreferrer"
-                                                                    className="inline-flex items-center gap-2 px-5 py-3 rounded-xl text-xs font-bold tracking-wider uppercase transition-all duration-300 hover:scale-[1.03] shadow-[0_0_20px_rgba(239,68,68,0.4)] bg-gradient-to-r from-red-600 to-red-700 text-white w-full justify-center"
+                                                                    className="inline-flex items-center gap-2 px-5 py-3 rounded-xl text-xs font-bold tracking-wider uppercase transition-all duration-300 hover:scale-[1.03] shadow-[0_0_20px_rgba(255,0,0,0.45)] bg-red-600 hover:bg-red-700 text-white"
                                                                 >
-                                                                    <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-                                                                    WATCH DIRECTLY ON YOUTUBE &#x2197;
+                                                                    <i className="fab fa-youtube text-base" /> Watch directly on YouTube &#x2197;
                                                                 </a>
                                                             </div>
                                                         )}
                                                     </div>
 
                                                     <div className="pt-4 border-t border-white/10 flex items-center justify-between">
-                                                        <span className="text-xs font-mono text-[#7B8AF4]">MUHAMMED QASIM &mdash; MQ</span>
+                                                        <span className="text-xs font-mono text-[#7B8AF4]">MUHAMMED QASIM &#x2014; MQ</span>
                                                         <button
                                                             type="button"
                                                             onClick={() => setActiveModalProject(null)}
-                                                            className="px-5 py-2 rounded-full bg-[#7B8AF4] hover:bg-[#6c7de8] text-[#0F111A] font-semibold text-xs tracking-wider uppercase hover:shadow-[0_0_15px_rgba(123,138,244,0.6)] transition-all cursor-pointer"
+                                                            className="px-5 py-2 rounded-full bg-[#7B8AF4] text-[#0F111A] font-semibold text-xs tracking-wider uppercase hover:shadow-[0_0_15px_rgba(123,138,244,0.6)] transition-all"
                                                         >
                                                             Close Preview
                                                         </button>
@@ -976,7 +966,7 @@
                                             /* LAYOUT OPTION B: 16:9 LANDSCAPE VIDEO (Theater Mode - Zero Black Bars!) */
                                             <div className="flex flex-col">
                                                 {/* Full-width 16:9 Video Player */}
-                                                <div className="relative w-full aspect-video max-h-[58vh] bg-black flex items-center justify-center overflow-hidden">
+                                                <div className="relative w-full aspect-video bg-black flex items-center justify-center overflow-hidden">
                                                     <iframe
                                                         src={activeModalProject.videoUrl}
                                                         title={activeModalProject.title}
@@ -987,7 +977,7 @@
                                                 </div>
 
                                                 {/* Bottom Details Panel */}
-                                                <div className="p-5 sm:p-7 bg-[#141724] border-t border-white/10 flex flex-col md:flex-row md:items-center md:justify-between gap-5">
+                                                <div className="p-6 sm:p-7 bg-[#141724] border-t border-white/10 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
                                                     <div>
                                                         <div className="flex items-center gap-2 text-xs font-mono text-[#7B8AF4] uppercase tracking-widest mb-1.5">
                                                             <span className="w-2 h-2 rounded-full bg-[#7B8AF4] shadow-[0_0_8px_#7B8AF4]" />
@@ -1020,20 +1010,20 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        ) : (isBehance && validBehanceEmbed) ? (
-                                            /* LAYOUT OPTION C1: INTERACTIVE BEHANCE EMBED (NUMERIC ID ONLY) */
+                                        ) : (isBehance && behanceEmbed) ? (
+                                            /* LAYOUT OPTION C: INTERACTIVE BEHANCE EMBED */
                                             <div className="grid grid-cols-1 lg:grid-cols-12">
-                                                <div className="lg:col-span-7 bg-black min-h-[300px] sm:min-h-[420px] lg:min-h-[520px] relative overflow-hidden flex items-center justify-center">
+                                                <div className="lg:col-span-7 bg-black min-h-[460px] md:min-h-[520px] relative overflow-hidden flex items-center justify-center">
                                                     <iframe
-                                                        src={validBehanceEmbed}
+                                                        src={behanceEmbed}
                                                         title={activeModalProject.title}
-                                                        className="w-full h-full min-h-[300px] sm:min-h-[420px] lg:min-h-[520px] border-0"
+                                                        className="w-full h-full min-h-[460px] md:min-h-[520px] border-0"
                                                         allow="clipboard-write; fullscreen"
                                                         allowFullScreen
                                                     />
                                                 </div>
 
-                                                <div className="lg:col-span-5 p-5 sm:p-8 flex flex-col justify-between overflow-y-auto max-h-[82vh] bg-[#141724] border-t lg:border-t-0 lg:border-l border-white/10">
+                                                <div className="lg:col-span-5 p-6 sm:p-8 flex flex-col justify-between overflow-y-auto max-h-[82vh] bg-[#141724] border-t lg:border-t-0 lg:border-l border-white/10">
                                                     <div>
                                                         <div className="flex items-center gap-2 text-xs font-mono text-[#0057ff] uppercase tracking-widest mb-2 font-bold">
                                                             <i className="fab fa-behance text-sm" /> BEHANCE CASE STUDY &bull; {activeModalProject.category}
@@ -1070,93 +1060,19 @@
                                                                 href={externalUrl}
                                                                 target="_blank"
                                                                 rel="noopener noreferrer"
-                                                                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl text-xs font-bold tracking-wider uppercase transition-all duration-300 hover:scale-[1.03] shadow-[0_0_25px_rgba(0,87,255,0.5)] bg-[#0057ff] hover:bg-[#0047d4] text-white w-full"
+                                                                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl text-xs font-bold tracking-wider uppercase transition-all duration-300 hover:scale-[1.03] shadow-[0_0_25px_rgba(0,87,255,0.5)] bg-[#0057ff] hover:bg-[#0047d4] text-white"
                                                             >
-                                                                <i className="fab fa-behance text-base" /> Read Full Case Study on Behance &#x2197;
+                                                                <i className="fab fa-behance text-base" /> View Case Study on Behance &#x2197;
                                                             </a>
                                                         </div>
                                                     </div>
 
                                                     <div className="pt-4 border-t border-white/10 flex items-center justify-between">
-                                                        <span className="text-xs font-mono text-[#0057ff] font-semibold">BEHANCE VERIFIED CASE STUDY</span>
+                                                        <span className="text-xs font-mono text-[#7B8AF4]">MUHAMMED QASIM &#x2014; MQ</span>
                                                         <button
                                                             type="button"
                                                             onClick={() => setActiveModalProject(null)}
-                                                            className="px-5 py-2 rounded-full bg-white/10 hover:bg-white/20 text-white font-semibold text-xs tracking-wider uppercase transition-all cursor-pointer"
-                                                        >
-                                                            Close
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        ) : isBehance ? (
-                                            /* LAYOUT OPTION C2: BEHANCE HIGH-RES SHOWCASE WITH DIRECT PROJECT LINK (NEVER 404s!) */
-                                            <div className="grid grid-cols-1 md:grid-cols-2">
-                                                <div className="relative h-64 sm:h-80 md:h-[480px] bg-black flex items-center justify-center overflow-hidden group">
-                                                    <img
-                                                        src={activeModalProject.image}
-                                                        alt={activeModalProject.title}
-                                                        onError={(e) => {
-                                                            e.target.onerror = null;
-                                                            e.target.src = 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1000&q=80';
-                                                        }}
-                                                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                                                    />
-                                                    <span className="absolute top-4 left-4 px-3 py-1.5 rounded-full bg-[#0057ff] text-white text-[11px] font-mono font-bold tracking-wider shadow-lg flex items-center gap-1.5">
-                                                        <i className="fab fa-behance" /> BEHANCE CASE STUDY
-                                                    </span>
-                                                </div>
-
-                                                <div className="p-5 sm:p-8 flex flex-col justify-between overflow-y-auto bg-[#141724]">
-                                                    <div>
-                                                        <div className="flex items-center gap-2 text-xs font-mono text-[#0057ff] uppercase tracking-widest mb-2 font-bold">
-                                                            <i className="fab fa-behance text-sm" /> BEHANCE CASE STUDY &bull; {activeModalProject.category}
-                                                        </div>
-
-                                                        <h3 className="text-2xl sm:text-3xl font-bold text-white mb-3">
-                                                            {activeModalProject.title}
-                                                        </h3>
-
-                                                        <p className="text-gray-300 text-sm leading-relaxed mb-5">
-                                                            {activeModalProject.description}
-                                                        </p>
-
-                                                        <div className="space-y-2.5 mb-6 text-xs font-mono text-gray-400">
-                                                            <div>
-                                                                <span className="text-white font-medium">Client:</span> {activeModalProject.client || 'Client Project'}
-                                                            </div>
-                                                            <div>
-                                                                <span className="text-white font-medium">Format:</span> {activeModalProject.aspectLabel || 'Design Case Study'}
-                                                            </div>
-                                                            {activeModalProject.tools && (
-                                                                <div className="flex flex-wrap gap-1.5 pt-2">
-                                                                    {(Array.isArray(activeModalProject.tools) ? activeModalProject.tools : [activeModalProject.tools]).map(tool => (
-                                                                        <span key={tool} className="text-[11px] font-mono px-2.5 py-1 rounded bg-white/5 border border-white/10 text-gray-300">
-                                                                            {tool}
-                                                                        </span>
-                                                                    ))}
-                                                                </div>
-                                                            )}
-                                                        </div>
-
-                                                        <div className="mb-4">
-                                                            <a
-                                                                href={externalUrl}
-                                                                target="_blank"
-                                                                rel="noopener noreferrer"
-                                                                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl text-xs font-bold tracking-wider uppercase transition-all duration-300 hover:scale-[1.03] shadow-[0_0_25px_rgba(0,87,255,0.5)] bg-[#0057ff] hover:bg-[#0047d4] text-white w-full"
-                                                            >
-                                                                <i className="fab fa-behance text-base" /> Open Full Case Study on Behance &#x2197;
-                                                            </a>
-                                                        </div>
-                                                    </div>
-
-                                                    <div className="pt-4 border-t border-white/10 flex items-center justify-between">
-                                                        <span className="text-xs font-mono text-[#0057ff] font-semibold">BEHANCE PROJECT</span>
-                                                        <button
-                                                            type="button"
-                                                            onClick={() => setActiveModalProject(null)}
-                                                            className="px-5 py-2 rounded-full bg-white/10 hover:bg-white/20 text-white font-semibold text-xs tracking-wider uppercase transition-all cursor-pointer"
+                                                            className="px-5 py-2 rounded-full bg-[#7B8AF4] text-[#0F111A] font-semibold text-xs tracking-wider uppercase hover:shadow-[0_0_15px_rgba(123,138,244,0.6)] transition-all"
                                                         >
                                                             Close Preview
                                                         </button>
@@ -1166,7 +1082,7 @@
                                         ) : (
                                             /* LAYOUT OPTION D: STANDARD IMAGE SHOWCASE / GRAPHIC DESIGN (3:4, 1:1, etc.) */
                                             <div className="grid grid-cols-1 md:grid-cols-2">
-                                                <div className="relative h-60 sm:h-80 md:h-[480px] max-h-[48vh] md:max-h-none bg-black flex items-center justify-center overflow-hidden">
+                                                <div className="relative h-64 sm:h-80 md:h-[480px] bg-black flex items-center justify-center overflow-hidden">
                                                     <img
                                                         src={activeModalProject.image}
                                                         alt={activeModalProject.title}
@@ -1183,7 +1099,7 @@
                                                     )}
                                                 </div>
 
-                                                <div className="p-5 sm:p-8 flex flex-col justify-between overflow-y-auto">
+                                                <div className="p-6 sm:p-8 flex flex-col justify-between">
                                                     <div>
                                                         <div className="flex items-center gap-2 text-xs font-mono text-[#7B8AF4] uppercase tracking-widest mb-2">
                                                             <span className="w-2 h-2 rounded-full bg-[#7B8AF4] shadow-[0_0_8px_#7B8AF4]" />
@@ -1247,11 +1163,11 @@
                                                     </div>
 
                                                     <div className="pt-4 border-t border-white/10 flex items-center justify-between">
-                                                        <span className="text-xs font-mono text-[#7B8AF4]">MUHAMMED QASIM &mdash; MQ</span>
+                                                        <span className="text-xs font-mono text-[#7B8AF4]">MUHAMMED QASIM &#x2014; MQ</span>
                                                         <button
                                                             type="button"
                                                             onClick={() => setActiveModalProject(null)}
-                                                            className="px-5 py-2 rounded-full bg-[#7B8AF4] hover:bg-[#6c7de8] text-[#0F111A] font-semibold text-xs tracking-wider uppercase hover:shadow-[0_0_15px_rgba(123,138,244,0.6)] transition-all cursor-pointer"
+                                                            className="px-5 py-2 rounded-full bg-[#7B8AF4] text-[#0F111A] font-semibold text-xs tracking-wider uppercase hover:shadow-[0_0_15px_rgba(123,138,244,0.6)] transition-all"
                                                         >
                                                             Close Preview
                                                         </button>

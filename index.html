@@ -1,9 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Muhammed Qasim | Multidisciplinary Designer</title>
+
+    <script>
+        (function() {
+            var theme = localStorage.getItem('theme') || 'dark';
+            if (theme === 'dark') {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            } else {
+                document.documentElement.removeAttribute('data-theme');
+            }
+        })();
+    </script>
 
     <!-- Mobile Web App & Theme Color (Matches dark & light mode seamlessly) -->
     <meta name="theme-color" content="#0b0c10" media="(prefers-color-scheme: dark)">
@@ -185,7 +196,7 @@
         </div>
         <div class="tools-vector-grid fade-up" style="transition-delay: 150ms;">
             <div class="tool-vector-box">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/blender/blender-original.svg" alt="Blender">
+                <img src="assets/icons/blender.svg" alt="Blender">
                 <div class="tool-meta">
                     <h4>Blender 3D</h4>
                     <span>Modeling & Cycles Render</span>
@@ -193,7 +204,7 @@
                 <span class="tool-arrow">&#x2197;</span>
             </div>
             <div class="tool-vector-box">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/photoshop/photoshop-original.svg" alt="Photoshop">
+                <img src="assets/icons/photoshop.svg" alt="Photoshop">
                 <div class="tool-meta">
                     <h4>Photoshop</h4>
                     <span>Raster & Compositing</span>
@@ -201,7 +212,7 @@
                 <span class="tool-arrow">&#x2197;</span>
             </div>
             <div class="tool-vector-box">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/illustrator/illustrator-plain.svg" alt="Illustrator">
+                <img src="assets/icons/illustrator.svg" alt="Illustrator">
                 <div class="tool-meta">
                     <h4>Illustrator</h4>
                     <span>Vector & Typography</span>
@@ -209,7 +220,7 @@
                 <span class="tool-arrow">&#x2197;</span>
             </div>
             <div class="tool-vector-box">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/premierepro/premierepro-original.svg" alt="Premiere Pro">
+                <img src="assets/icons/premiere.svg" alt="Premiere Pro">
                 <div class="tool-meta">
                     <h4>Premiere Pro</h4>
                     <span>Video Editing & Sound</span>
@@ -217,7 +228,7 @@
                 <span class="tool-arrow">&#x2197;</span>
             </div>
             <div class="tool-vector-box">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/aftereffects/aftereffects-original.svg" alt="After Effects">
+                <img src="assets/icons/aftereffects.svg" alt="After Effects">
                 <div class="tool-meta">
                     <h4>After Effects</h4>
                     <span>Motion Graphics & VFX</span>
@@ -328,7 +339,7 @@
         </div>
 
         <div class="fade-up">
-            <a href="works.html" class="editorial-pill" style="padding: 16px 38px; font-size: 1.05rem; background: #7B8AF4; color: #0F111A; border-color: #7B8AF4; box-shadow: 0 0 20px rgba(123, 138, 244, 0.45); font-weight: 700;">
+            <a href="works.html" class="editorial-pill btn-featured-explore" style="padding: 16px 38px; font-size: 1.05rem; background: #7B8AF4; color: #0F111A; border-color: #7B8AF4; box-shadow: 0 0 20px rgba(123, 138, 244, 0.45); font-weight: 700;">
                 <i class="fas fa-layer-group"></i> Explore Full Interactive Masonry Grid (8+ Projects) <span>&#x2197;</span>
             </a>
         </div>

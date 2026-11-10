@@ -64,22 +64,26 @@ document.querySelectorAll('.fade-up').forEach((el) => {
 
 // --- Dark Mode Toggle ---
 const themeToggles = document.querySelectorAll('.theme-toggle');
-const currentTheme = localStorage.getItem('theme') || 'light';
+const savedTheme = localStorage.getItem('theme') || 'dark';
 
-if (currentTheme === 'dark') {
-    document.documentElement.setAttribute('data-theme', 'dark');
+function applyTheme(theme) {
+    if (theme === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        localStorage.setItem('theme', 'dark');
+    } else {
+        document.documentElement.removeAttribute('data-theme');
+        localStorage.setItem('theme', 'light');
+    }
 }
 
+// Ensure theme is set consistently on initialization
+applyTheme(savedTheme);
+
 themeToggles.forEach(toggle => {
-    toggle.addEventListener('click', () => {
-        let theme = document.documentElement.getAttribute('data-theme');
-        if (theme === 'dark') {
-            document.documentElement.removeAttribute('data-theme');
-            localStorage.setItem('theme', 'light');
-        } else {
-            document.documentElement.setAttribute('data-theme', 'dark');
-            localStorage.setItem('theme', 'dark');
-        }
+    toggle.addEventListener('click', (e) => {
+        e.preventDefault();
+        const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+        applyTheme(isDark ? 'light' : 'dark');
     });
 });
 // --- Contact Form & Google Form Logic ---
