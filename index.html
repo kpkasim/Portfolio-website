@@ -8,11 +8,7 @@
     <script>
         (function() {
             var theme = localStorage.getItem('theme') || 'dark';
-            if (theme === 'dark') {
-                document.documentElement.setAttribute('data-theme', 'dark');
-            } else {
-                document.documentElement.removeAttribute('data-theme');
-            }
+            document.documentElement.setAttribute('data-theme', theme === 'light' ? 'light' : 'dark');
         })();
     </script>
 
@@ -42,7 +38,7 @@
     <meta name="twitter:description" content="Data-driven strategies and visually stunning designs that grow brands, boost visibility, and maximize ROI.">
     <meta name="twitter:image" content="image_f35504.png">
 
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=5.0">
     <!-- Modern Editorial Fonts: Plus Jakarta Sans & Space Mono -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -196,7 +192,7 @@
         </div>
         <div class="tools-vector-grid fade-up" style="transition-delay: 150ms;">
             <div class="tool-vector-box">
-                <img src="assets/icons/blender.svg" alt="Blender">
+                <img src="assets/icons/blender.svg?v=5.0" alt="Blender">
                 <div class="tool-meta">
                     <h4>Blender 3D</h4>
                     <span>Modeling & Cycles Render</span>
@@ -204,7 +200,7 @@
                 <span class="tool-arrow">&#x2197;</span>
             </div>
             <div class="tool-vector-box">
-                <img src="assets/icons/photoshop.svg" alt="Photoshop">
+                <img src="assets/icons/photoshop.svg?v=5.0" alt="Photoshop">
                 <div class="tool-meta">
                     <h4>Photoshop</h4>
                     <span>Raster & Compositing</span>
@@ -212,7 +208,7 @@
                 <span class="tool-arrow">&#x2197;</span>
             </div>
             <div class="tool-vector-box">
-                <img src="assets/icons/illustrator.svg" alt="Illustrator">
+                <img src="assets/icons/illustrator.svg?v=5.0" alt="Illustrator">
                 <div class="tool-meta">
                     <h4>Illustrator</h4>
                     <span>Vector & Typography</span>
@@ -220,7 +216,7 @@
                 <span class="tool-arrow">&#x2197;</span>
             </div>
             <div class="tool-vector-box">
-                <img src="assets/icons/premiere.svg" alt="Premiere Pro">
+                <img src="assets/icons/premiere.svg?v=5.0" alt="Premiere Pro">
                 <div class="tool-meta">
                     <h4>Premiere Pro</h4>
                     <span>Video Editing & Sound</span>
@@ -228,7 +224,7 @@
                 <span class="tool-arrow">&#x2197;</span>
             </div>
             <div class="tool-vector-box">
-                <img src="assets/icons/aftereffects.svg" alt="After Effects">
+                <img src="assets/icons/aftereffects.svg?v=5.0" alt="After Effects">
                 <div class="tool-meta">
                     <h4>After Effects</h4>
                     <span>Motion Graphics & VFX</span>
@@ -427,7 +423,7 @@
         <p>&copy; 2026 Muhammed Qasim. All rights reserved. <a href="admin.html" class="admin-quick-link" style="opacity: 0.15; font-size: 0.75rem; margin-left: 8px; color: inherit; text-decoration: none;" title="Admin Dashboard"><i class="fas fa-lock"></i></a></p>
     </footer>
 
-    <script src="data.js?v=4.0"></script>
-    <script src="script.js"></script>
+    <script src="data.js?v=5.0"></script>
+    <script src="script.js?v=5.0"></script>
 </body>
 </html>

@@ -8,11 +8,7 @@
     <script>
         (function() {
             var theme = localStorage.getItem('theme') || 'dark';
-            if (theme === 'dark') {
-                document.documentElement.setAttribute('data-theme', 'dark');
-            } else {
-                document.documentElement.removeAttribute('data-theme');
-            }
+            document.documentElement.setAttribute('data-theme', theme === 'light' ? 'light' : 'dark');
         })();
     </script>
 
@@ -34,7 +30,7 @@
     <meta property="og:description" content="Explore featured design, 3D animation, and video editing portfolio projects by creative agency designer Muhammed Qasim (MQ).">
     <meta property="og:image" content="image_f35504.png">
 
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=5.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
@@ -1281,8 +1277,8 @@
     </footer>
 
     <!-- Site Scripts -->
-    <script src="data.js?v=4.0"></script>
-    <script src="script.js"></script>
+    <script src="data.js?v=5.0"></script>
+    <script src="script.js?v=5.0"></script>
     <script>
         // Collapsible Social Archive toggle
         const toggleArchiveBtn = document.getElementById('toggleArchiveBtn');

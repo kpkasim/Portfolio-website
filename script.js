@@ -62,18 +62,14 @@ document.querySelectorAll('.fade-up').forEach((el) => {
     observer.observe(el);
 });
 
-// --- Dark Mode Toggle ---
+// --- Dark Mode / Light Mode System ---
 const themeToggles = document.querySelectorAll('.theme-toggle');
 const savedTheme = localStorage.getItem('theme') || 'dark';
 
 function applyTheme(theme) {
-    if (theme === 'dark') {
-        document.documentElement.setAttribute('data-theme', 'dark');
-        localStorage.setItem('theme', 'dark');
-    } else {
-        document.documentElement.removeAttribute('data-theme');
-        localStorage.setItem('theme', 'light');
-    }
+    const nextTheme = theme === 'light' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', nextTheme);
+    localStorage.setItem('theme', nextTheme);
 }
 
 // Ensure theme is set consistently on initialization
@@ -82,8 +78,10 @@ applyTheme(savedTheme);
 themeToggles.forEach(toggle => {
     toggle.addEventListener('click', (e) => {
         e.preventDefault();
-        const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-        applyTheme(isDark ? 'light' : 'dark');
+        e.stopPropagation();
+        const currentTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        applyTheme(newTheme);
     });
 });
 // --- Contact Form & Google Form Logic ---
